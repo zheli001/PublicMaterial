@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 0 Lesson 1: 课程导览</title>
+  <link rel="stylesheet" href="../../shared/ppt_style.css">
+  <link rel="stylesheet" href="../../shared/ppt_theme.css">
+  <style>
+    /* Minimal presenter notes panel styling (kept small to avoid touching shared css) */
+    .presenter-panel { position: fixed; right: 12px; bottom: 12px; width: 320px; max-height: 60vh; overflow:auto; background: rgba(255,255,255,0.95); border:1px solid #ddd; padding:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1); font-size:14px; display:none; z-index:9999; }
+    .presenter-panel h4 { margin:0 0 8px 0; font-size:15px; }
+    .presenter-controls { position: fixed; left: 12px; bottom: 12px; z-index:9999; }
+    .presenter-controls button { margin-right:8px; }
+    .slide[aria-hidden="true"] { display:none; }
+    .callout { padding:10px; border-left:4px solid #f5a623; margin:8px 0; }
+    .download-note { font-size:13px; color:#444; margin-top:8px; }
+    /* Hide per-slide notes from main slide canvas; presenter panel will show them */
+    .slide > .notes { display: none !important; }
+  </style>
+<link rel="stylesheet" href="../../shared/presenter_controls.css">
+</head>
+<body class="theme-default">
+  <!-- Embedded JSON configuration for this lesson -->
+  <script id="lesson-config" type="application/json" style="display:none;">
+    {
+      "title": "课程导览",
+      "subtitle": "投资从入门到大师系列课程",
+      "background": "../../shared/background.svg",
+      "brand": "../../shared/xiaoyuan.jpg",
+      "headingFont": "'Montserrat', 'Segoe UI', Arial, sans-serif",
+      "footerText": "Ruban Investment Vlog © 2025 | Jeff Li | zheli001@gmail.com"
+    }
+  </script>
+
+  <!-- Controls for presenters -->
+  <div id="presenter-controls" class="presenter-controls" aria-hidden="true" style="display:none;">
+    <button id="toggle-notes">Show Notes (N)</button>
+    <button id="toggle-fullscreen">Fullscreen</button>
+  </div>
+
+  <!-- Presenter notes panel (hidden by default) -->
+  <aside id="presenter-panel" class="presenter-panel" role="region" aria-label="Presenter Notes">
+    <h4>Presenter Notes</h4>
+    <div id="presenter-notes-content">(Press 'N' to show notes for the current slide)</div>
+  </aside>
+
+  <!-- Download / Solutions quick link for offline learners -->
+  <div style="position:fixed; top:12px; right:12px; padding:8px 12px; border:1px solid #ddd; font-size:13px; z-index:9998;">
+    Exercise: <a href="./exercise.md">exercise.md</a> · Solutions: <a href="./solutions/solution.md">solutions/solution.md</a><br>
+    (Download the package from the course page)
+  </div>
+
+  <!-- Slides: each slide has data-slide-index and a concise data-notes attribute (speaker hints) -->
+  <!-- Slide 1: 开场介绍 -->
+  <div class="slide active" role="group" aria-label="Slide 1: 开场介绍" data-slide-index="1" data-notes="欢迎词与课程目标；自我介绍（Jeff Li）；课程重要性与学习流程；提示：练习位于 exercise/goals.md，可参考 solutions 文件夹中的示例答案。">
+    <h1>投资从入门到大师系列课程</h1>
+    <p class="subtitle">课程导览</p>
+    <ul>
+      <li>欢迎与课程愿景：为什么系统化学习投资很重要</li>
+      <li>主讲人简介：Jeff Li（多年投资实战与教学经验）</li>
+      <li>本节目标：了解课程结构、学习路径与资源使用方法</li>
+    </ul>
+    <div class="callout"><strong>Exercise:</strong> See <code>exercise.md</code> at lesson root for tasks; reference answers are in <code>solutions/solution.md</code>.</div>
+    <div class="author">主讲人：Jeff Li</div>
+    <div class="slide-number">1 / 6</div>
+  </div>
+
+  <!-- Slide 2: 课程结构总览 -->
+  <div class="slide" role="group" aria-label="Slide 2: 课程结构总览" data-slide-index="2" data-notes="介绍7个阶段、36节课、每节约15分钟；说明每阶段主题范围与学习顺序建议；提示查看课程结构图">
+    <h2>课程结构总览</h2>
+    <p><strong>7 个阶段 · 36 节 · 每节约 15 分钟</strong></p>
+    <ul>
+      <li>Phase 1 — 投资基础（理念、复利、工具导论）</li>
+      <li>Phase 2 — 资产配置与组合基础</li>
+      <li>Phase 3 — 各类工具（股票、基金、债券）</li>
+      <li>Phase 4 — 风险管理与心态</li>
+      <li>Phase 5 — 市场分析与估值</li>
+      <li>Phase 6 — 策略实现与成本控制</li>
+      <li>Phase 7 — 案例研讨与复盘</li>
+    </ul>
+    <p class="download-note">Tip: see the full phase & lesson list in the downloadable course package (see <code>exercise.md</code> and <code>solutions/solution.md</code>).</p>
+    <div class="slide-number">2 / 6</div>
+  </div>
+
+  <!-- Slide 3: 学习路径建议 -->
+  <div class="slide" role="group" aria-label="Slide 3: 学习路径建议" data-slide-index="3" data-notes="按顺序学习并完成配套练习；每阶段结束后复习并完成练习；可根据兴趣选择深入主题；提示使用学习路径模板">
+    <h2>学习路径建议</h2>
+    <ol>
+      <li>按顺序学习：先夯实基础，再进阶（每节 15 分钟）</li>
+      <li>实践优先：看完视频 → 暂停 → 完成练习 → 对照答案 → 复盘</li>
+      <li>个性化：根据兴趣和目标，选择重点模块并设定小目标</li>
+    </ol>
+    <div class="callout"><strong>Tip:</strong> Download the learning-path template and save it as <code>study_plan.md</code> to plan your next 6 weeks.</div>
+    <div class="slide-number">3 / 6</div>
+  </div>
+
+  <!-- Slide 4: 如何使用课程资源 -->
+  <div class="slide" role="group" aria-label="Slide 4: 如何使用课程资源" data-slide-index="4" data-notes="资源包位置与下载说明；练习文件与样例答案位置；示范如何下载与打开exercise包">
+    <h2>如何使用课程资源</h2>
+    <ol>
+      <li>下载资源包：链接在课程页面，解压后查看</li>
+      <li>练习文件：每节课后附有练习，完成后对照样例答案</li>
+      <li>课程笔记：每节课的要点总结，建议打印或下载</li>
+    </ol>
+    <div class="callout"><strong>注意：</strong> 资源包内如有疑问，欢迎在讨论区提问或联系我。</div>
+    <div class="slide-number">4 / 6</div>
+  </div>
+
+  <!-- Slide 5: 常见问题解答 -->
+  <div class="slide" role="group" aria-label="Slide 5: 常见问题解答" data-slide-index="5" data-notes="收集整理学员常见问题；逐一解答并提供链接；鼓励学员积极提问与互动">
+    <h2>常见问题解答</h2>
+    <ul>
+      <li><strong>Q:</strong> 课程的适用人群是？</li>
+      <li><strong>A:</strong> 对投资感兴趣，想系统学习的所有人。</li>
+      <li><strong>Q:</strong> 学习这门课程我需要具备什么基础？</li>
+      <li><strong>A:</strong> 无需基础，课程从最基本的概念讲起。</li>
+      <li><strong>Q:</strong> 课程结束后我能获得什么？</li>
+      <li><strong>A:</strong> 掌握投资基本知识，具备独立分析和决策能力。</li>
+    </ul>
+    <div class="callout"><strong>更多问题？</strong> 请查看课程页面的常见问题部分或直接联系我。</div>
+    <div class="slide-number">5 / 6</div>
+  </div>
+
+  <!-- Slide 6: 结束语与期待 -->
+  <div class="slide" role="group" aria-label="Slide 6: 结束语与期待" data-slide-index="6" data-notes="感谢参与与学习；鼓励反馈与提问；预告下一节内容与学习重点">
+    <h2>结束语与期待</h2>
+    <p>感谢大家的参与与学习！希望本节课对您有所帮助。</p>
+    <p>欢迎随时通过邮件或讨论区提问，反馈您的学习体验。</p>
+    <p>下一节我们将深入探讨投资的基本理念与复利的魔力，敬请期待！</p>
+    <div class="slide-number">6 / 6</div>
+  </div>
+
+  <!-- Shared footer across slides -->
+  <footer style="text-align:center; font-size:12px; color:#777; padding:12px 0;">
+    <div>感谢您的参与！</div>
+    <div>如需帮助，请联系 Jeff Li (zheli001@gmail.com)</div>
+  </footer>
+
+  <!-- Scripts for interactivity and presenter features -->
+  <script src="../../shared/ppt_slide.js"></script>
+  <script>
+    // Presenter mode toggle
+    document.getElementById('toggle-notes').addEventListener('click', function() {
+      const panel = document.getElementById('presenter-panel');
+      const isVisible = panel.style.display === 'block';
+      panel.style.display = isVisible ? 'none' : 'block';
+      this.textContent = isVisible ? 'Show Notes (N)' : 'Hide Notes';
+    });
+    document.getElementById('toggle-fullscreen').addEventListener('click', function() {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) { // Firefox
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { // IE/Edge
+        elem.msRequestFullscreen();
+      }
+    });
+
+    // Initialize slides and presenter panel
+    document.addEventListener('DOMContentLoaded', function() {
+      const slides = document.querySelectorAll('.slide');
+      let currentSlide = 0;
+
+      function showSlide(index) {
+        slides[currentSlide].classList.remove('active');
+        slides[index].classList.add('active');
+        currentSlide = index;
+        // Prefer notes element content if present, otherwise fall back to data-notes
+        var notesContent = '';
+        var notesDiv = slides[index].querySelector('.notes');
+        if(notesDiv && notesDiv.innerHTML.trim()){
+          notesContent = notesDiv.innerHTML.trim();
+        } else {
+          notesContent = slides[index].getAttribute('data-notes') || '';
+        }
+        var pnContent = document.getElementById('presenter-notes-content');
+        if(pnContent) pnContent.innerHTML = notesContent;
+        document.getElementById('presenter-controls').setAttribute('aria-hidden', 'false');
+      }
+
+      // Keyboard navigation
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowRight' || event.key === 'n') {
+          showSlide((currentSlide + 1) % slides.length);
+        } else if (event.key === 'ArrowLeft' || event.key === 'p') {
+          showSlide((currentSlide - 1 + slides.length) % slides.length);
+        } else if (event.key === 'Escape') {
+          document.getElementById('presenter-panel').style.display = 'none';
+          document.getElementById('presenter-controls').setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      showSlide(currentSlide);
+
+      // Keyboard shortcuts: 'N' -> toggle presenter notes; Ctrl+Shift+N -> toggle presenter controls
+      document.addEventListener('keydown', function(e){
+        var tag = (document.activeElement && document.activeElement.tagName) || '';
+        if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+        if(e.key === 'n' || e.key === 'N'){
+          var pn = document.getElementById('presenter-panel');
+          if(!pn) return;
+          var isHidden = (pn.style.display === 'none' || pn.style.visibility === 'hidden');
+          pn.style.display = isHidden ? 'block' : 'none';
+          pn.style.visibility = isHidden ? 'visible' : 'hidden';
+          pn.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
+        }
+        if(e.key === 'N' && e.ctrlKey && e.shiftKey){
+          var pc = document.getElementById('presenter-controls');
+          if(!pc) return;
+          var pcHidden = (pc.style.display === 'none' || pc.style.visibility === 'hidden');
+          pc.style.display = pcHidden ? 'block' : 'none';
+          pc.style.visibility = pcHidden ? 'visible' : 'hidden';
+          pc.setAttribute('aria-hidden', pcHidden ? 'false' : 'true');
+          var buttons = pc.querySelectorAll('button');
+          buttons.forEach(function(b){ b.tabIndex = pcHidden ? 0 : -1; });
+        }
+      });
+    });
+  </script>
+<script src="../../shared/presenter_controls.js"></script>
+</body>
+</html>

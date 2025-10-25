@@ -1,0 +1,214 @@
+<!-- filepath: c:\jli\projects\RubanAgents\jeffli\vlogger\investmentFromBeginnerToMaster\artifacts\Phase1\Lesson1\lesson_ppt.html -->
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>什么是股票 — 幻灯片</title>
+  <link rel="stylesheet" href="../../shared/ppt_style.css">
+  <link rel="stylesheet" href="../../shared/ppt_theme.css">
+</head>
+<body>
+  <script type="application/json" id="lesson-config">
+  {
+    "title": "什么是股票",
+    "subtitle": "阶段 1 — 基础概念",
+    "background": "light",
+    "brand": "InvestmentFromBeginnerToMaster",
+    "headingFont": "Inter",
+    "footerText": "第1课 — 什么是股票"
+  }
+  </script>
+
+  <div class="slides">
+    <div class="slide active" role="group" data-slide-index="1" aria-label="标题与学习目标" data-notes="欢迎；目标：用一句话定义股票并举出一个股东权利。">
+      <h1>什么是股票</h1>
+      <ul>
+        <li>用一句话定义股票</li>
+        <li>举出一个股东权利</li>
+      </ul>
+    </div>
+
+    <div class="slide" role="group" data-slide-index="2" aria-label="股票定义" data-notes="解释：股票是公司所有权的一部分；给出简短示例。">
+      <h2>定义</h2>
+      <p>股票 = 公司所有权的一部分。</p>
+      <p class="example">示例：一股苹果公司的股票代表你对 Apple Inc. 的一小部分所有权。</p>
+    </div>
+
+    <div class="slide" role="group" data-slide-index="3" aria-label="公司为何发行股份" data-notes="融资、流动性、员工激励。">
+      <h2>公司为何发行股份</h2>
+      <ul>
+        <li>融资（例如 IPO）</li>
+        <li>为创始人/员工提供流动性</li>
+        <li>员工激励（RSU/期权）</li>
+      </ul>
+    </div>
+
+    <div class="slide" role="group" data-slide-index="4" aria-label="股份类型与股东权利" data-notes="普通股 vs 优先股；投票权与股息优先级。">
+      <h2>股份类型与股东权利</h2>
+      <table>
+        <thead><tr><th></th><th>普通股</th><th>优先股</th></tr></thead>
+        <tbody>
+          <tr><td>投票权</td><td>通常有</td><td>通常有限</td></tr>
+          <tr><td>股息</td><td>可变</td><td>优先</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="slide" role="group" data-slide-index="5" aria-label="公司概览示例" data-notes="展示：市值 = 股价 × 在外流通股数；数据来源：Yahoo Finance 或公司 IR。">
+      <h2>公司概览</h2>
+      <img src="./assets/company_snapshot_placeholder.svg" alt="公司概览占位符" style="max-width:80%;height:auto;" />
+      <p>市值 = 股价 × 在外流通股数</p>
+    </div>
+
+    <div class="slide" role="group" data-slide-index="6" aria-label="练习说明" data-notes="课堂微任务：写一句话定义并确认示例公司是否派息。">
+      <h2>练习</h2>
+      <p>视频内微任务：写一句话定义“股票”，并核查示例公司是否派息（记录来源）。</p>
+      <p>作业：提交不超过 150 字的短文，包含定义 + 两项股东权利。</p>
+    </div>
+
+    <div class="slide" role="group" data-slide-index="7" aria-label="总结与下一步" data-notes="三条关键要点；作业提醒；下一课预告。">
+      <h2>总结</h2>
+      <ol>
+        <li>股票 = 所有权份额</li>
+        <li>查看公司是否派息</li>
+        <li>持股规模决定影响力</li>
+      </ol>
+      <p>下一课：市场概览与交易机制（Phase1/Lesson2）</p>
+    </div>
+  </div>
+
+  <script>/* presenter controls wired by shared ppt_slide.js */</script>
+  <!-- Presenter controls and notes panel (added) -->
+  <div id="presenter-controls" aria-hidden="true" style="position:fixed;right:12px;bottom:12px;z-index:1200;">
+    <button id="pc-toggle-notes" title="Toggle notes (N)" aria-pressed="false">📝 Notes (N)</button>
+    <button id="pc-prev" title="Previous slide">◀</button>
+    <button id="pc-next" title="Next slide">▶</button>
+    <button id="pc-toggle-presenter" title="Toggle presenter panel (Ctrl+Shift+N)">🎛 Presenter</button>
+  </div>
+
+  <div id="presenter-panel" hidden aria-hidden="true" style="position:fixed;left:12px;top:12px;z-index:1199;background:rgba(255,255,255,0.98);border:1px solid #ddd;padding:12px;width:360px;max-height:80vh;overflow:auto;box-shadow:0 6px 18px rgba(0,0,0,0.12);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <strong>Presenter Notes</strong>
+      <span id="presenter-slide-index" style="font-size:0.9em;color:#666">1/1</span>
+    </div>
+    <div id="presenter-notes" style="white-space:pre-wrap;color:#222;line-height:1.4;font-size:14px">（无备注）</div>
+    <div style="margin-top:8px;text-align:right;"><button id="pc-close-panel">Close</button></div>
+  </div>
+
+  <style>
+    /* Minimal styles for presenter controls (override in shared CSS if needed) */
+    #presenter-controls button { margin: 2px; padding:6px 8px; font-size:13px; }
+    #presenter-panel[hidden] { display:none; }
+  </style>
+
+  <script>
+    // Inline presenter controls & slide navigation fallback
+    (function () {
+      function safeQuery(sel, ctx) { return (ctx||document).querySelector(sel); }
+      function safeQueryAll(sel, ctx) { return Array.from((ctx||document).querySelectorAll(sel)); }
+
+      const slides = safeQueryAll('.slide');
+      if (!slides || slides.length === 0) {
+        // Nothing to do if no slides
+        return;
+      }
+
+      let current = slides.findIndex(s => s.classList.contains('active'));
+      if (current < 0) current = 0;
+
+      const notesPanel = safeQuery('#presenter-panel');
+      const notesContent = safeQuery('#presenter-notes');
+      const slideIndexEl = safeQuery('#presenter-slide-index');
+      const btnNotes = safeQuery('#pc-toggle-notes');
+      const btnPrev = safeQuery('#pc-prev');
+      const btnNext = safeQuery('#pc-next');
+      const btnPresenter = safeQuery('#pc-toggle-presenter');
+      const btnClose = safeQuery('#pc-close-panel');
+
+      function showSlide(idx) {
+        if (idx < 0 || idx >= slides.length) return;
+        slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+        current = idx;
+        updateNotes();
+      }
+
+      function updateNotes() {
+        const s = slides[current];
+        const notes = (s && s.getAttribute('data-notes')) ? s.getAttribute('data-notes') : '';
+        if (notesContent) notesContent.textContent = notes || '（无备注）';
+        if (slideIndexEl) slideIndexEl.textContent = (current + 1) + '/' + slides.length;
+      }
+
+      function toggleNotes() {
+        if (!notesPanel) return;
+        const hidden = notesPanel.hasAttribute('hidden');
+        if (hidden) {
+          notesPanel.removeAttribute('hidden');
+          notesPanel.setAttribute('aria-hidden','false');
+          if (btnNotes) btnNotes.setAttribute('aria-pressed','true');
+        } else {
+          notesPanel.setAttribute('hidden','');
+          notesPanel.setAttribute('aria-hidden','true');
+          if (btnNotes) btnNotes.setAttribute('aria-pressed','false');
+        }
+      }
+
+      function togglePresenterControlsVisibility() {
+        const pc = safeQuery('#presenter-controls');
+        if (!pc) return;
+        const isHidden = pc.getAttribute('data-visible') !== 'true';
+        if (isHidden) {
+          pc.setAttribute('data-visible','true');
+          pc.setAttribute('aria-hidden','false');
+          pc.style.opacity = 1;
+        } else {
+          pc.setAttribute('data-visible','false');
+          pc.setAttribute('aria-hidden','true');
+          pc.style.opacity = 0.9;
+        }
+      }
+
+      // Wire buttons
+      if (btnPrev) btnPrev.addEventListener('click', () => showSlide(current - 1));
+      if (btnNext) btnNext.addEventListener('click', () => showSlide(current + 1));
+      if (btnNotes) btnNotes.addEventListener('click', () => toggleNotes());
+      if (btnPresenter) btnPresenter.addEventListener('click', () => togglePresenterControlsVisibility());
+      if (btnClose) btnClose.addEventListener('click', () => { notesPanel.setAttribute('hidden',''); notesPanel.setAttribute('aria-hidden','true'); if (btnNotes) btnNotes.setAttribute('aria-pressed','false'); });
+
+      // Keyboard: N toggles notes (when not focus in input), Ctrl+Shift+N toggles presenter panel
+      document.addEventListener('keydown', function (ev) {
+        const activeTag = document.activeElement && document.activeElement.tagName;
+        if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return; // don't intercept typing
+
+        // 'n' or 'N' without modifiers toggles notes
+        if (!ev.ctrlKey && !ev.metaKey && !ev.altKey && ev.key.toLowerCase() === 'n') {
+          ev.preventDefault();
+          toggleNotes();
+          return;
+        }
+        // Ctrl+Shift+N toggles presenter controls
+        if ((ev.ctrlKey || ev.metaKey) && ev.shiftKey && ev.key.toLowerCase() === 'n') {
+          ev.preventDefault();
+          togglePresenterControlsVisibility();
+          return;
+        }
+        // Arrow keys for navigation
+        if (ev.key === 'ArrowRight') { ev.preventDefault(); showSlide(current + 1); }
+        if (ev.key === 'ArrowLeft') { ev.preventDefault(); showSlide(current - 1); }
+      }, { passive: false });
+
+      // Click on slide to advance
+      slides.forEach((s, i) => s.addEventListener('click', (e) => {
+        // only advance if clicking on main slide area
+        if (e.target.closest('.slide')) {
+          showSlide(i + 1);
+        }
+      }));
+
+      // Initialize
+      updateNotes();
+
+    })();
+  </script>
+</html>

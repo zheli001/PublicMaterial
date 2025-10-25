@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="640" y="40" text-anchor="middle" font-size="22" fill="#333">SPY — 5y (synthetic)</text>
+  <polyline fill="none" stroke="#2ECC40" stroke-width="3"
+    points="40,600 160,580 280,560 400,540 520,520 640,500 760,480 880,460 1000,420 1120,400" />
+  <text x="40" y="700" font-size="12" fill="#666">Placeholder synthetic chart — replace with data-accurate SVG before publish</text>
+</svg>
+

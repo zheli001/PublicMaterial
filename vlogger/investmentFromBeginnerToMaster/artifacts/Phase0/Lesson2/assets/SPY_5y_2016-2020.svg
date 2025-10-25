@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title>SPY 5-Year (2016–2020) — Long-term trend with 2020 dip</title>
+  <desc>Illustrative 5-year SPY price chart from 2016 to 2020 showing an overall uptrend with the March 2020 drawdown highlighted.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <!-- Grid -->
+  <g stroke="#eee" stroke-width="1">
+    <line x1="80" x2="1200" y1="80" y2="80" />
+    <line x1="80" x2="1200" y1="180" y2="180" />
+    <line x1="80" x2="1200" y1="280" y2="280" />
+    <line x1="80" x2="1200" y1="380" y2="380" />
+    <line x1="80" x2="1200" y1="480" y2="480" />
+    <line x1="80" x2="1200" y1="580" y2="580" />
+  </g>
+
+  <!-- Axes -->
+  <line x1="80" y1="80" x2="80" y2="580" stroke="#333" stroke-width="2"/>
+  <line x1="80" y1="580" x2="1200" y2="580" stroke="#333" stroke-width="2"/>
+
+  <!-- Y labels -->
+  <g font-family="Arial" font-size="14" fill="#333">
+    <text x="40" y="90">360</text>
+    <text x="40" y="190">300</text>
+    <text x="40" y="290">240</text>
+    <text x="40" y="390">200</text>
+    <text x="40" y="490">160</text>
+    <text x="40" y="590">120</text>
+  </g>
+
+  <!-- X labels (years) -->
+  <g font-family="Arial" font-size="13" fill="#333">
+    <text x="150" y="610">2016</text>
+    <text x="330" y="610">2017</text>
+    <text x="510" y="610">2018</text>
+    <text x="690" y="610">2019</text>
+    <text x="870" y="610">2020</text>
+    <text x="1040" y="610">2020 (post-dip)</text>
+  </g>
+
+  <!-- Price line (illustrative long-term trend) -->
+  <polyline fill="none" stroke="#1f77b4" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+    points="
+      120,520
+      220,460
+      320,420
+      420,380
+      520,360
+      620,340
+      700,330
+      780,320
+      860,420
+      920,520
+      980,440
+      1040,380
+      1120,340
+    "/>
+
+  <!-- Highlight March 2020 area -->
+  <line x1="920" x2="920" y1="80" y2="580" stroke="#d62728" stroke-dasharray="4 4" stroke-width="2"/>
+  <g>
+    <rect x="930" y="90" width="220" height="70" fill="#fff3f3" stroke="#d62728" stroke-width="1" rx="6"/>
+    <text x="940" y="120" font-family="Arial" font-size="14" fill="#d62728">Mar 2020 — Sharp drawdown during COVID</text>
+  </g>
+
+  <!-- Trend annotation -->
+  <path d="M140 520 Q360 360 700 320 Q980 260 1120 340" fill="none" stroke="#2ca02c" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="720" y="260" font-family="Arial" font-size="14" fill="#2ca02c">Overall 5-year uptrend</text>
+
+  <!-- Title and caption -->
+  <text x="80" y="40" font-family="Arial" font-size="20" fill="#111">SPY — 5 Years (2016–2020)</text>
+  <text x="80" y="600" font-family="Arial" font-size="12" fill="#666">Source: illustrative example (use Yahoo Finance / TradingView for exact charts)</text>
+
+</svg>

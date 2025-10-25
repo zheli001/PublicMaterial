@@ -1,0 +1,16 @@
+/* filepath: artifacts/shared/presenter_controls.css */
+/* Minimal presenter controls styles. Override in shared/ppt_style.css if desired. */
+#presenter-controls { position: fixed; right: 12px; bottom: 12px; z-index: 1200; }
+#presenter-controls button { margin: 2px; padding: 6px 8px; font-size: 13px; cursor: pointer; }
+#presenter-panel { position: fixed; left: 12px; top: 12px; z-index: 1199; background: rgba(255,255,255,0.98); border: 1px solid #ddd; padding: 12px; width: 360px; max-height: 80vh; overflow: auto; box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
+#presenter-panel[hidden] { display: none; }
+#presenter-notes { white-space: pre-wrap; color: #222; line-height: 1.4; font-size: 14px; }
+#presenter-slide-index { font-size: 0.9em; color: #666; }
+#presenter-controls .pc-btn { background: #fff; border: 1px solid #ddd; border-radius: 4px; }
+#presenter-controls .pc-btn:active { transform: translateY(1px); }
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  #presenter-panel { width: 90%; left: 5%; top: 5%; }
+  #presenter-controls { right: 8px; bottom: 8px; }
+}
+

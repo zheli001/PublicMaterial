@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title>SPY 1-Year (2020) — COVID Crash &amp; Rebound</title>
+  <desc>Illustrative 1-year SPY price chart for 2020 showing a sharp drop in March and subsequent rebound through the year.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <!-- Grid -->
+  <g stroke="#eee" stroke-width="1">
+    <line x1="80" x2="1200" y1="80" y2="80" />
+    <line x1="80" x2="1200" y1="200" y2="200" />
+    <line x1="80" x2="1200" y1="320" y2="320" />
+    <line x1="80" x2="1200" y1="440" y2="440" />
+    <line x1="80" x2="1200" y1="560" y2="560" />
+  </g>
+
+  <!-- Axes -->
+  <line x1="80" y1="80" x2="80" y2="560" stroke="#333" stroke-width="2"/>
+  <line x1="80" y1="560" x2="1200" y2="560" stroke="#333" stroke-width="2"/>
+
+  <!-- Y labels -->
+  <g font-family="Arial" font-size="14" fill="#333">
+    <text x="40" y="90">360</text>
+    <text x="40" y="210">320</text>
+    <text x="40" y="330">280</text>
+    <text x="40" y="450">240</text>
+    <text x="40" y="570">200</text>
+  </g>
+
+  <!-- X labels (months) -->
+  <g font-family="Arial" font-size="13" fill="#333">
+    <text x="110" y="590">Jan</text>
+    <text x="230" y="590">Feb</text>
+    <text x="350" y="590">Mar</text>
+    <text x="470" y="590">Apr</text>
+    <text x="590" y="590">May</text>
+    <text x="710" y="590">Jun</text>
+    <text x="830" y="590">Jul</text>
+    <text x="950" y="590">Aug</text>
+    <text x="1070" y="590">Sep</text>
+    <text x="1190" y="590">Oct</text>
+  </g>
+
+  <!-- Price line (illustrative) -->
+  <polyline fill="none" stroke="#1f77b4" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+    points="
+      110,140
+      200,120
+      280,110
+      350,420
+      420,520
+      500,470
+      580,360
+      660,300
+      740,260
+      820,230
+      900,210
+      980,200
+      1060,190
+      1140,170
+    "/>
+
+  <!-- Emphasize March crash area -->
+  <line x1="350" x2="350" y1="100" y2="560" stroke="#d62728" stroke-dasharray="4 4" stroke-width="2"/>
+  <g>
+    <rect x="360" y="90" width="320" height="70" fill="#fff3f3" stroke="#d62728" stroke-width="1" rx="6"/>
+    <text x="370" y="120" font-family="Arial" font-size="14" fill="#d62728">Mar 2020 — COVID crash (sharp drawdown)</text>
+  </g>
+
+  <!-- Annotation: buy & rebound -->
+  <circle cx="740" cy="260" r="6" fill="#2ca02c"/>
+  <text x="760" y="255" font-family="Arial" font-size="13" fill="#2ca02c">Rebound begins</text>
+
+  <!-- Title and caption -->
+  <text x="80" y="40" font-family="Arial" font-size="20" fill="#111">SPY — 1 Year (2020)</text>
+  <text x="80" y="680" font-family="Arial" font-size="12" fill="#666">Source: illustrative example (use Yahoo Finance / TradingView for exact charts)</text>
+
+</svg>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title>Sample Allocation — 70% VTI / 15% AAPL / 10% TSLA / 5% Emerging</title>
+  <desc>Simple illustrative pie chart showing sample allocation for the lesson.</desc>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <g transform="translate(320,180)">
+    <!-- Pie slices drawn as arcs approximated using paths -->
+    <!-- 70% slice -->
+    <path d="M0 0 L210 0 A210 210 0 1 1 -63.6 202.4 Z" fill="#4daf4a" stroke="#fff" stroke-width="2"/>
+    <!-- 15% slice -->
+    <path d="M0 0 L-63.6 202.4 A210 210 0 0 1 -184.4 63.6 Z" fill="#377eb8" stroke="#fff" stroke-width="2"/>
+    <!-- 10% slice -->
+    <path d="M0 0 L-184.4 63.6 A210 210 0 0 1 -147.6 -106.8 Z" fill="#e41a1c" stroke="#fff" stroke-width="2"/>
+    <!-- 5% slice -->
+    <path d="M0 0 L-147.6 -106.8 A210 210 0 0 1 210 0 Z" fill="#ff7f00" stroke="#fff" stroke-width="2"/>
+  </g>
+
+  <!-- Legend -->
+  <g font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#222" transform="translate(680,140)">
+    <rect x="0" y="-10" width="220" height="140" rx="8" ry="8" fill="#fbfbfb" stroke="#eee"/>
+    <g>
+      <rect x="12" y="6" width="16" height="16" fill="#4daf4a"/>
+      <text x="36" y="18">70% VTI — Core (宽基 ETF)</text>
+    </g>
+    <g transform="translate(0,28)">
+      <rect x="12" y="6" width="16" height="16" fill="#377eb8"/>
+      <text x="36" y="18">15% AAPL — Satellite (成熟大盘)</text>
+    </g>
+    <g transform="translate(0,56)">
+      <rect x="12" y="6" width="16" height="16" fill="#e41a1c"/>
+      <text x="36" y="18">10% TSLA — Satellite (高波动)</text>
+    </g>
+    <g transform="translate(0,84)">
+      <rect x="12" y="6" width="16" height="16" fill="#ff7f00"/>
+      <text x="36" y="18">5% 新兴市场 ETF — 地域分散</text>
+    </g>
+  </g>
+
+  <text x="80" y="680" font-family="Arial" font-size="12" fill="#666">Illustrative chart — replace with data-accurate chart as needed (Source: lesson asset)</text>
+</svg>

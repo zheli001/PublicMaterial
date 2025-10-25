@@ -1,0 +1,13 @@
+<!-- filepath: c:\jli\projects\RubanAgents\jeffli\vlogger\investmentFromBeginnerToMaster\artifacts\Phase1\Lesson1\assets\company_snapshot_placeholder.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="100%" height="100%" fill="#f7f9fc" />
+  <g font-family="Arial, Helvetica, sans-serif" fill="#222">
+    <text x="60" y="80" font-size="36" font-weight="700">Company Snapshot (Placeholder)</text>
+    <text x="60" y="140" font-size="20">Ticker: AAPL</text>
+    <text x="60" y="180" font-size="20">Price: $___</text>
+    <text x="60" y="220" font-size="20">Shares outstanding: ___</text>
+    <text x="60" y="260" font-size="20">Market cap = Price × Shares outstanding</text>
+  </g>
+  <rect x="60" y="300" width="1160" height="320" rx="8" fill="#ffffff" stroke="#e1e7ef"/>
+  <text x="80" y="340" font-size="18" fill="#666">Placeholder chart area — replace with data-accurate SVG before publishing.</text>
+</svg>

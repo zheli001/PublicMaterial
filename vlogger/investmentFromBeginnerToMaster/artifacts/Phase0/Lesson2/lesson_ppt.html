@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Lesson 2 — Investment Mindset & Risk Awareness</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Reuse shared styles to keep visual theme consistent across lessons -->
+  <link rel="stylesheet" href="../../shared/ppt_style.css">
+  <link rel="stylesheet" href="../../shared/ppt_theme.css">
+  <style>
+    /* Use shared styles from ppt_style.css and ppt_theme.css. Keep local overrides minimal. */
+    /* (Removed body/slide background and sizing so theme-default controls layout) */
+    .notes { white-space: pre-wrap; }
+    .two-col { display:flex; gap:24px }
+    .col { flex:1 }
+    /* Hide presenter notes in the slide canvas (visible only via presenter panel) */
+    .slide > .notes { display: none !important; }
+  </style>
+<link rel="stylesheet" href="../../shared/presenter_controls.css">
+</head>
+<body class="theme-default">
+
+<!-- Lesson config (hidden) - used by shared ppt_slide.js to apply theme/metadata -->
+<script id="lesson-config" type="application/json" style="display:none;">{
+  "title":"Investment Mindset & Risk Awareness",
+  "subtitle":"How to think about risk, avoid emotional traps, and set simple rules",
+  "background":"../../shared/background.svg",
+  "brand":"../../shared/xiaoyuan.jpg",
+  "headingFont":"'Montserrat', 'Segoe UI', Arial, sans-serif",
+  "footerText":"Ruban Investment Vlog © 2025 | Jeff Li | zheli001@gmail.com"
+}</script>
+
+<!-- Presenter controls & notes (hidden by default). The shared `ppt_slide.js` may toggle visibility and wire keyboard shortcuts. -->
+<div id="presenter-controls" class="presenter-controls" aria-hidden="true" style="display:none !important; visibility:hidden; position:fixed; right:16px; top:16px; z-index:2000;">
+  <button id="prev-slide" aria-label="上一页" tabindex="-1">◀</button>
+  <button id="next-slide" aria-label="下一页" tabindex="-1">▶</button>
+  <button id="toggle-notes" aria-label="切换笔记" tabindex="-1">笔记</button>
+</div>
+<div id="presenter-notes" class="presenter-notes" aria-hidden="true" style="display:none; visibility:hidden; position:fixed; right:16px; top:64px; width:320px; max-height:70vh; overflow:auto; background:#fff; border:1px solid #ddd; padding:12px; box-shadow:0 4px 12px rgba(0,0,0,0.12); z-index:2000;">
+  <!-- Presenter notes will be populated by shared script when slides change -->
+</div>
+
+<!-- Slide 1: Title & Objectives -->
+<div class="slide active" role="group" aria-label="第1页：标题与目标" data-slide-index="1" data-notes="欢迎词；课程目标：掌握3个偏差，写出1条风险规则">
+  <h1>投资心态与风险认识</h1>
+  <p class="subtitle">如何看待风险、避免情绪陷阱并制定简单规则</p>
+  <ul>
+    <li>目标：能说出 3 个常见认知偏差</li>
+    <li>目标：写下一条适用于自己的个人风险规则</li>
+  </ul>
+  <div class="notes">
+大家好，欢迎来到本课程的第二节——投资心态与风险认识。今天我们有两个可量化的目标：第一，你能说出三种常见的认知偏差；第二，你能写下一条适用于自己的风险规则。心态是一种可训练的技能，借助简单的规则和习惯，我们可以把情绪的波动转换为有纪律的行动。接下来会通过案例、实操演示和一个短练习，把这些概念变成可执行的步骤。
+  </div>
+</div>
+
+<!-- Slide 2: Hook (anecdote) -->
+<div class="slide" role="group" aria-label="第2页：引入案例" data-slide-index="2" data-notes="案例：恐慌性卖出；引出损失厌恶">
+  <h1>为什么心态重要</h1>
+  <div class="two-col">
+    <div class="col">
+      <p><strong>简短案例：</strong>散户在市场下跌时恐慌性卖出，错过随后回升。</p>
+      <p>提示：损失厌恶（前景理论）会放大情绪反应。</p>
+    </div>
+    <div class="col">
+      <img src="../../../assets/panic_sell_demo.svg" alt="恐慌性卖出示例图" style="max-width:100%"/>
+    </div>
+  </div>
+  <div class="notes">
+先设想一个场景：你买入一只股票，几周后它下跌了三成，媒体标题刷屏、讨论区热议，你心里慌了，最后在低点附近卖出。几个月后市场回升，你发现自己把亏损锁定了。这类情况非常普遍，背后通常不是理性判断，而是对亏损的强烈厌恶和被信息流牵动的情绪反应。理解这些驱动，有助于我们设计反制策略，避免把短期波动变成永久损失。
+  </div>
+</div>
+
+<!-- Slide 3: Risk vs Volatility & Biases -->
+<div class="slide" role="group" aria-label="第3页：风险与波动" data-slide-index="3" data-notes="时间/风险/回报框架；识别噪音与永久风险">
+  <h1>投资 = 时间 + 风险 + 回报</h1>
+  <div class="two-col">
+    <div class="col">
+      <h2>时间：你的投资期限</h2>
+      <h2>风险：可能导致本金永久性损失的概率</h2>
+    </div>
+    <div class="col">
+      <ul>
+        <li>常见偏差：损失厌恶</li>
+        <li>常见偏差：从众效应</li>
+        <li>常见偏差：过度自信</li>
+      </ul>
+    </div>
+  </div>
+  <div class="notes">
+给大家一个便于决策的框架：投资可以看作是时间、风险和回报的组合。时间是你的投资期限；风险是可能导致本金永久性损失的概率；回报是你为承担这些风险所期望获得的补偿。通常，时间越长，你越能消化短期波动，从而争取长期回报。关键在于识别：什么是短期噪音，什么是真正威胁本金的风险。同时，我们要留心几种常见的认知偏差：损失厌恶会放大下跌带来的情绪，从众会让你在高点追入，过度自信会促使你过度交易。知道这些，有助于在关键时刻多一秒冷静、少一个冲动。
+  </div>
+</div>
+
+<!-- Slide 4: Risk management basics -->
+<div class="slide" role="group" aria-label="第4页：风险管理基础" data-slide-index="4" data-notes="护栏与规则：仓位、分散、现金、止损">
+  <h1>风险管理基础</h1>
+  <ul>
+    <li>仓位控制（建议 3–5% 的初始仓位）</li>
+    <li>分散配置（以宽基 ETF 为核心）</li>
+    <li>现金缓冲（应对流动性需求）</li>
+    <li>止损：有失效条件再执行，避免盲目止损</li>
+  </ul>
+  <div class="notes">
+风险本身不是敌人，而是需要管理的工具。给自己设立几条简单可执行的护栏：第一，仓位控制。对新想法初始仓位建议 3–5%；对小盘或高波动资产更保守。第二，分散配置：把核心资产放在宽基 ETF，再用少量个股表达观点。第三，保持现金缓冲，以免遭遇流动性需求被迫卖出。关于止损：如果没有明确的投资失效点，盲目设置止损可能被市场噪音触发，反而造成不必要的损失。更稳妥的做法是事先写好你的投资假设与失效条件，并在规则触发时执行。
+  </div>
+</div>
+
+<!-- Slide 5: Demo and Exercise -->
+<div class="slide" role="group" aria-label="第5页：演示（1年 vs 5年）" data-slide-index="5" data-notes="演示：比较时间尺度；标注回撤与新闻">
+  <h1>演示：1 年 vs 5 年走势</h1>
+  <div class="two-col">
+    <div class="col"><img src="./assets/SPY_1y_2020.svg" alt="SPY 1-year (2020) chart" style="max-width:100%"/></div>
+    <div class="col"><img src="./assets/SPY_5y_2016-2020.svg" alt="SPY 5-year (2016–2020) chart" style="max-width:100%"/></div>
+  </div>
+  <div class="notes">
+下面做一个时间尺度对比：在同一标的上分别看 1 年和 5 年走势。1 年图通常波动明显，容易让人情绪化；5 年图则能展现更宽的趋势结构。看到 1 年图下跌时，优先问两个问题：一、公司的基本面有没有发生根本性变化？二、你的投資假設是否被推翻？如果答案都是否定，那么下跌更大概率是情緒或宏觀事件造成的噪音，而不是永久性風險。示範時會先定位一次近期回撤並標注相关新闻，然后切換到 5 年圖說明長期走向。
+  </div>
+</div>
+
+<!-- Slide 5b: Sample Allocation (inserted) -->
+<div class="slide" role="group" aria-label="第5页：示例配置 — 样本资产分配" data-slide-index="6" data-notes="示例资产分配：70% VTI / 15% AAPL / 10% TSLA / 5% 新兴市场 ETF">
+  <h1>示例配置：样本资产分配</h1>
+  <div class="two-col">
+    <div class="col">
+      <img src="./assets/allocation_pie.svg" alt="Sample allocation pie chart" style="max-width:100%"/>
+    </div>
+    <div class="col">
+      <ul>
+        <li><strong>70% VTI</strong> — 宽基 ETF（核心，低费率，高度分散）</li>
+        <li><strong>15% AAPL</strong> — 卫星：成熟大盘科技公司</li>
+        <li><strong>10% TSLA</strong> — 卫星：高波动/高成长个股（小比例）</li>
+        <li><strong>5% 新兴市场 ETF</strong> — 地域多样化</li>
+      </ul>
+      <p>建议同时保留至少 <strong>5% 现金缓冲</strong> 以应对突发流动性需求。</p>
+    </div>
+  </div>
+  <div class="notes">
+示例配置展示了一个 Core/Satellite（核心/卫星）策略：以宽基 ETF 做核心，少量个股表达观点，并辅以新兴市场作地域扩展。讲师可引用风险规则："初始仓位 ≤5%；若下跌 >30% 且假设被证伪，则复核基本面并考虑退出。" 在屏幕上展示饼图并给出心理舒适度讨论问题。
+  </div>
+</div>
+
+<!-- Slide 6: Summary & Assignment (previously Slide 6, renumbered to 7) -->
+<div class="slide" role="group" aria-label="第6页：要点回顾与作业" data-slide-index="7" data-notes="回顾三要点；说明作业：填写 watchlist">
+  <h1>重点回顾与作业</h1>
+  <ol>
+    <li>时间尺度对比：波动 ≠ 永久性损失</li>
+    <li>设立简单护栏：仓位、分散</li>
+    <li>写下并时间戳你的个人风险规则</li>
+  </ol>
+  <p>作业：将两只标的加入 <code>watchlist.md</code>，并完成两次带时间戳的五点评估；每次评估包含一条个人风险规则。</p>
+  <p>资源与自测：下载练习与参考答案 → <a href="./exercise.md">exercise.md</a> · <a href="./solutions/solution.md">solutions/solution.md (model answers)</a></p>
+  <div class="notes">
+总结一下：请用时间、风险、回报的框架来思考你的每个仓位；给自己设立简单可执行的护栏，比如仓位上限与多元化；在波动时先比较不同时间尺度并判断基本面是否改变。工具方面，推荐用 Yahoo Finance 或 TradingView 获取图表与数据；在行为方面，推荐阅读 Morgan Housel 的《The Psychology of Money》来更好理解投资心理学。作业是把两只标的加入你的 watchlist 并完成两次带时间戳的五点评估（参考本节的模板），并把示例上传到课程论坛以便互评。谢谢大家，下节课见。
+  </div>
+</div>
+
+<!-- Slide 7: Exercise (previously Slide 7, renumbered to 8) -->
+<div class="slide" role="group" aria-label="第7页：练习 - 我的风险规则" data-slide-index="8" data-notes="练习：写个人风险规则；参考模板并时间戳">
+  <h1>练习：我的风险规则</h1>
+  <div class="two-col">
+    <div class="col">
+      <p><strong>模板：</strong>规则：我不会在单个仓位上承担超过 X% 的风险；行动：卖出前我会检查 A、B、C。</p>
+      <p>请把你的规则与缓解计划加入 <code>watchlist.md</code> 并带上时间戳。</p>
+    </div>
+    <div class="col">
+      <!-- optional example area -->
+      <p style="color:#666">示例：担心失业 → 现金缓冲 3 个月</p>
+    </div>
+  </div>
+  <div class="notes">
+现在请花两分钟，把你的一条个人风险规则写下来，参考屏幕上的模板。接着写出你最担心的那种投资风险，并用“信息”和“计划”给出一条缓解行动。例如：担心失业导致资产被迫变现——缓解方法是建立 3 个月生活费的现金缓冲并把股票仓位限制在较低比例；担心单股永久性损失——缓解方法是把个股仓位控制在组合的较小比例，并用 ETF 作为核心持仓。请把你的规则与缓解计划加入 `watchlist.md` 并带上时间戳，随后我们会抽样讨论几个示例。
+  </div>
+</div>
+
+<!-- Slide 8: Closing (previously Slide 8, renumbered to 9) -->
+<div class="slide" role="group" aria-label="第8页：结束与下一步" data-slide-index="9" data-notes="回顾要点与作业提醒">
+  <h1>总结与下一步</h1>
+  <ul>
+    <li>投资 = 时间 + 风险 + 回报</li>
+    <li>设立简单护栏并严格执行</li>
+    <li>在反应前比较不同时间尺度并核查基本面</li>
+  </ul>
+  <div class="notes">
+总结：用时间、风险、回报的框架思考每个仓位；设立并执行简单有效的护栏；遇到波动先判断基本面是否改变。推荐工具：Yahoo Finance、TradingView；推荐阅读：Morgan Housel《The Psychology of Money》。作业：把两只标的加入 `watchlist.md`，完成两次带时间戳的五点评估，并为每次评估写出一条风险规则与缓解行动。把示例上传到课程论坛“Lesson2 Evaluations”。谢谢大家，下节课见。
+  </div>
+</div>
+
+<!-- Shared slide script to enable presenter controls and notes behavior -->
+<script src="../../shared/ppt_slide.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    try{
+      var cfgEl = document.getElementById('lesson-config');
+      if(window.applyPresentationConfig && cfgEl){
+        var cfg = JSON.parse(cfgEl.textContent);
+        applyPresentationConfig(cfg);
+      }
+
+      // Wire simple buttons in case shared script needs them
+      var next = document.getElementById('next-slide');
+      var prev = document.getElementById('prev-slide');
+      var notesToggle = document.getElementById('toggle-notes');
+      if(next){ next.addEventListener('click', function(){ if(window.nextSlide) nextSlide(); }); }
+      if(prev){ prev.addEventListener('click', function(){ if(window.prevSlide) prevSlide(); }); }
+      if(notesToggle){ notesToggle.addEventListener('click', function(){ if(window.toggleNotes) toggleNotes(); else { var pn = document.getElementById('presenter-notes'); pn.style.display = (pn.style.display==='none'?'block':'none'); } }); }
+    }catch(e){ console.warn('Presentation init error', e); }
+  });
+</script>
+
+<!-- Copy hidden slide notes into presenter panel when active slide changes -->
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    function updatePresenterNotes(){
+      var active = document.querySelector('.slide.active');
+      var pn = document.getElementById('presenter-notes');
+      if(!pn) return;
+      var contentEl = pn.querySelector('#presenter-notes-content');
+      if(!contentEl){
+        contentEl = document.createElement('div');
+        contentEl.id = 'presenter-notes-content';
+        pn.appendChild(contentEl);
+      }
+      var notesHtml = '';
+      if(active){
+        var notesDiv = active.querySelector('.notes');
+        if(notesDiv) notesHtml = notesDiv.innerHTML.trim();
+        if(!notesHtml) notesHtml = active.getAttribute('data-notes') || '';
+      }
+      contentEl.innerHTML = notesHtml;
+    }
+
+    // Observe class changes on slides (active class toggles) and update notes
+    var slides = document.querySelectorAll('.slide');
+    slides.forEach(function(slide){
+      var obs = new MutationObserver(function(mutations){
+        mutations.forEach(function(m){
+          if(m.attributeName === 'class'){
+            updatePresenterNotes();
+          }
+        });
+      });
+      obs.observe(slide, { attributes: true, attributeFilter: ['class'] });
+    });
+
+    // Initial population
+    updatePresenterNotes();
+
+    // Keyboard shortcuts: 'N' -> toggle presenter notes; Ctrl+Shift+N -> toggle presenter controls
+    document.addEventListener('keydown', function(e){
+      // Ignore when typing in inputs
+      var tag = (document.activeElement && document.activeElement.tagName) || '';
+      if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+      // 'N' or 'n' toggles presenter notes
+      if(e.key === 'n' || e.key === 'N'){
+        var pn = document.getElementById('presenter-notes');
+        if(!pn) return;
+        var isHidden = (pn.style.display === 'none' || pn.style.visibility === 'hidden');
+        pn.style.display = isHidden ? 'block' : 'none';
+        pn.style.visibility = isHidden ? 'visible' : 'hidden';
+        pn.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
+      }
+
+      // Ctrl+Shift+N toggles presenter controls (kept hidden by default)
+      if(e.key === 'N' && e.ctrlKey && e.shiftKey){
+        var pc = document.getElementById('presenter-controls');
+        if(!pc) return;
+        var pcHidden = (pc.style.display === 'none' || pc.style.visibility === 'hidden');
+        pc.style.display = pcHidden ? 'block' : 'none';
+        pc.style.visibility = pcHidden ? 'visible' : 'hidden';
+        pc.setAttribute('aria-hidden', pcHidden ? 'false' : 'true');
+        // Make inner buttons focusable only when visible
+        var buttons = pc.querySelectorAll('button');
+        buttons.forEach(function(b){ b.tabIndex = pcHidden ? 0 : -1; });
+      }
+    });
+  });
+</script>
+
+<script src="../../shared/presenter_controls.js"></script>
+</body>
+</html>
