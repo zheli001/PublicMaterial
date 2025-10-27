@@ -31,14 +31,7 @@
 }</script>
 
 <!-- Presenter controls & notes (hidden by default). The shared `ppt_slide.js` may toggle visibility and wire keyboard shortcuts. -->
-<div id="presenter-controls" class="presenter-controls" aria-hidden="true" style="display:none !important; visibility:hidden; position:fixed; right:16px; top:16px; z-index:2000;">
-  <button id="prev-slide" aria-label="上一页" tabindex="-1">◀</button>
-  <button id="next-slide" aria-label="下一页" tabindex="-1">▶</button>
-  <button id="toggle-notes" aria-label="切换笔记" tabindex="-1">笔记</button>
-</div>
-<div id="presenter-notes" class="presenter-notes" aria-hidden="true" style="display:none; visibility:hidden; position:fixed; right:16px; top:64px; width:320px; max-height:70vh; overflow:auto; background:#fff; border:1px solid #ddd; padding:12px; box-shadow:0 4px 12px rgba(0,0,0,0.12); z-index:2000;">
-  <!-- Presenter notes will be populated by shared script when slides change -->
-</div>
+<!-- Presenter controls and notes are injected by shared/presenter_controls.js at runtime -->
 
 <!-- Slide 1: Title & Objectives -->
 <div class="slide active" role="group" aria-label="第1页：标题与目标" data-slide-index="1" data-notes="欢迎词；课程目标：掌握3个偏差，写出1条风险规则">

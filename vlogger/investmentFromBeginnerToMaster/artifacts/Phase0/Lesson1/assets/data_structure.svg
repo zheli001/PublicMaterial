@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t2 d2">
+  <title id="t2">数据结构示意图</title>
+  <desc id="d2">展示原始价格、处理后净值和结果汇总三类文件，以及字段示例。</desc>
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <g transform="translate(80,60)" font-family="Noto Sans SC, sans-serif">
+    <text x="0" y="0" font-size="28" fill="#0f4c81">数据结构（示意）</text>
+    <g transform="translate(0,40)">
+      <rect x="0" y="0" width="360" height="160" rx="8" fill="#f7fafc" stroke="#d1e8ff" />
+      <text x="16" y="30" font-size="16" fill="#0a2740">raw_prices.csv</text>
+      <text x="16" y="56" font-size="14" fill="#333">示例字段: Date, Open, High, Low, Close, AdjClose, Volume</text>
+      <text x="16" y="80" font-size="13" fill="#666">示例行: 2020-01-31,100,105,98,102,100,150000</text>
+    </g>
+
+    <g transform="translate(420,40)">
+      <rect x="0" y="0" width="360" height="160" rx="8" fill="#f7fff6" stroke="#bfe9d9" />
+      <text x="16" y="30" font-size="16" fill="#155724">processed_netvalue.csv</text>
+      <text x="16" y="56" font-size="14" fill="#333">示例字段: Date, net_60_40, net_70_30</text>
+      <text x="16" y="80" font-size="13" fill="#666">示例行: 2020-01,1.000,1.000</text>
+    </g>
+
+    <g transform="translate(840,40)">
+      <rect x="0" y="0" width="360" height="160" rx="8" fill="#fff7f0" stroke="#ffd8b8" />
+      <text x="16" y="30" font-size="16" fill="#7a3f00">results_summary.csv</text>
+      <text x="16" y="56" font-size="14" fill="#333">示例字段: Strategy, CAGR, Volatility, MaxDrawdown, Fee</text>
+      <text x="16" y="80" font-size="13" fill="#666">示例行: 60/40,0.28,0.22,-0.15,0.001</text>
+    </g>
+
+    <g transform="translate(60,240)">
+      <line x1="200" y1="160" x2="420" y2="40" stroke="#999" stroke-width="2" stroke-dasharray="4 4" />
+      <text x="220" y="220" font-size="12" fill="#666">流程：原始数据 → 处理（对齐/填充/权重）→ 指标计算</text>
+    </g>
+  </g>
+</svg>

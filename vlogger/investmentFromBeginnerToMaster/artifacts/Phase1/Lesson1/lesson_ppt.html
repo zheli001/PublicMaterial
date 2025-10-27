@@ -79,28 +79,7 @@
   </div>
 
   <script>/* presenter controls wired by shared ppt_slide.js */</script>
-  <!-- Presenter controls and notes panel (added) -->
-  <div id="presenter-controls" aria-hidden="true" style="position:fixed;right:12px;bottom:12px;z-index:1200;">
-    <button id="pc-toggle-notes" title="Toggle notes (N)" aria-pressed="false">📝 Notes (N)</button>
-    <button id="pc-prev" title="Previous slide">◀</button>
-    <button id="pc-next" title="Next slide">▶</button>
-    <button id="pc-toggle-presenter" title="Toggle presenter panel (Ctrl+Shift+N)">🎛 Presenter</button>
-  </div>
-
-  <div id="presenter-panel" hidden aria-hidden="true" style="position:fixed;left:12px;top:12px;z-index:1199;background:rgba(255,255,255,0.98);border:1px solid #ddd;padding:12px;width:360px;max-height:80vh;overflow:auto;box-shadow:0 6px 18px rgba(0,0,0,0.12);">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <strong>Presenter Notes</strong>
-      <span id="presenter-slide-index" style="font-size:0.9em;color:#666">1/1</span>
-    </div>
-    <div id="presenter-notes" style="white-space:pre-wrap;color:#222;line-height:1.4;font-size:14px">（无备注）</div>
-    <div style="margin-top:8px;text-align:right;"><button id="pc-close-panel">Close</button></div>
-  </div>
-
-  <style>
-    /* Minimal styles for presenter controls (override in shared CSS if needed) */
-    #presenter-controls button { margin: 2px; padding:6px 8px; font-size:13px; }
-    #presenter-panel[hidden] { display:none; }
-  </style>
+  <!-- Presenter controls are provided by shared/presenter_controls.js (injected at runtime) -->
 
   <script>
     // Inline presenter controls & slide navigation fallback
@@ -211,4 +190,5 @@
 
     })();
   </script>
+</body>
 </html>

@@ -1,226 +1,381 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phase 0 Lesson 1: 课程导览</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>课程导览：投资从入门到大师</title>
   <link rel="stylesheet" href="../../shared/ppt_style.css">
-  <link rel="stylesheet" href="../../shared/ppt_theme.css">
+  <link rel="stylesheet" href="../../shared/presenter_controls.css">
+  <!-- step1 scoping removed: use shared styles only -->
   <style>
-    /* Minimal presenter notes panel styling (kept small to avoid touching shared css) */
-    .presenter-panel { position: fixed; right: 12px; bottom: 12px; width: 320px; max-height: 60vh; overflow:auto; background: rgba(255,255,255,0.95); border:1px solid #ddd; padding:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1); font-size:14px; display:none; z-index:9999; }
-    .presenter-panel h4 { margin:0 0 8px 0; font-size:15px; }
-    .presenter-controls { position: fixed; left: 12px; bottom: 12px; z-index:9999; }
-    .presenter-controls button { margin-right:8px; }
-    .slide[aria-hidden="true"] { display:none; }
-    .callout { padding:10px; border-left:4px solid #f5a623; margin:8px 0; }
-    .download-note { font-size:13px; color:#444; margin-top:8px; }
-    /* Hide per-slide notes from main slide canvas; presenter panel will show them */
-    .slide > .notes { display: none !important; }
-  </style>
-<link rel="stylesheet" href="../../shared/presenter_controls.css">
-</head>
-<body class="theme-default">
-  <!-- Embedded JSON configuration for this lesson -->
-  <script id="lesson-config" type="application/json" style="display:none;">
-    {
-      "title": "课程导览",
-      "subtitle": "投资从入门到大师系列课程",
-      "background": "../../shared/background.svg",
-      "brand": "../../shared/xiaoyuan.jpg",
-      "headingFont": "'Montserrat', 'Segoe UI', Arial, sans-serif",
-      "footerText": "Ruban Investment Vlog © 2025 | Jeff Li | zheli001@gmail.com"
+    /* Scoped to this lesson only to avoid conflicts */
+    .phase0-lesson1 .slide .content-row { display: flex; gap: 28px; align-items: flex-start; margin-top: 12px; }
+    .phase0-lesson1 .slide .content-row .bullets { flex: 1 1 56%; margin-top: 0; }
+    .phase0-lesson1 .slide .content-row figure { flex: 0 0 36%; margin: 0; cursor: pointer; }
+    .phase0-lesson1 .slide .content-row figure img { width: 100%; height: auto; display: block; }
+    @media (max-width: 880px) {
+      .phase0-lesson1 .slide .content-row { flex-direction: column; }
+      .phase0-lesson1 .slide .content-row .bullets, .phase0-lesson1 .slide .content-row figure { flex: auto; width: 100%; }
     }
+
+    /* Maximized figure overlay */
+    .phase0-lesson1 .figure--maximized {
+      position: fixed !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      width: 88vw !important;
+      height: 84vh !important;
+      max-width: 1400px !important;
+      max-height: 90vh !important;
+      z-index: 120500 !important; /* above presenter controls */
+      background: rgba(0,0,0,0.92);
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      padding: 18px !important;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      border-radius: 8px;
+    }
+    .phase0-lesson1 .figure--maximized img { width: 100%; height: 100%; object-fit: contain; }
+    .phase0-lesson1 .figure--maximized figcaption { display: none; }
+    .phase0-lesson1 .content-row figure:focus { outline: 2px solid rgba(255,255,255,0.12); }
+  </style>
+
+</head>
+<body class="phase0-lesson1">
+  <!-- lesson-config (English keys required) -->
+  <script type="application/json" id="lesson-config">
+  {
+    "title": "课程导览：投资从入门到大师",
+    "subtitle": "课程导览",
+    "background": "../../shared/background.svg",
+    "brand": "../../shared/xiaoyuan.jpg",
+    "headingFont": "'Montserrat', 'Segoe UI', Arial, sans-serif",
+    "footerText": "Ruban Investment Vlog © 2025 | Jeff Li | zheli001@gmail.com"
+  }
   </script>
 
-  <!-- Controls for presenters -->
-  <div id="presenter-controls" class="presenter-controls" aria-hidden="true" style="display:none;">
-    <button id="toggle-notes">Show Notes (N)</button>
-    <button id="toggle-fullscreen">Fullscreen</button>
-  </div>
+  <main id="slides">
 
-  <!-- Presenter notes panel (hidden by default) -->
-  <aside id="presenter-panel" class="presenter-panel" role="region" aria-label="Presenter Notes">
-    <h4>Presenter Notes</h4>
-    <div id="presenter-notes-content">(Press 'N' to show notes for the current slide)</div>
-  </aside>
+    <!-- Slide 1 -->
+    <div class="slide active" role="group" data-slide-index="1" aria-label="欢迎与课程目标" data-notes="这是课程封面，快速告诉你：课程的主题、主讲与七个阶段的总体结构。">
+      <h1>课程导览：投资从入门到大师</h1>
+      <div class="content-row">
+        <ul class="bullets" aria-hidden="false">
+          <li>课程目标与期望</li>
+          <li>学习节奏：15 分钟微课</li>
+          <li>实操与复盘闭环</li>
+        </ul>
+        <figure tabindex="0">
+          <img src="./assets/cover.svg" alt="课程封面" />
+          <figcaption>课程导览封面</figcaption>
+        </figure>
+      </div>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>这是课程封面，快速告诉你：课程的主题、主讲与七个阶段的总体结构。</p></div>
+        <div class="notes-axes"><strong>Axes / Units:</strong><p>无数值轴；为视觉/引导使用。</p></div>
+        <div class="notes-talking-points">
+          <h4>Talking points</h4>
+          <ul>
+            <li>本课程按七个阶段组织，目标是把投资研究变成可复现的流程。</li>
+            <li>每节课约 15 分钟，包含关键概念、实例与短练习，方便碎片化学习。</li>
+            <li>学习重点是理解方法与写复盘，而不是记住操作命令。</li>
+          </ul>
+        </div>
+        <div class="notes-deeper"><h4>More</h4><p>把封面当作课程地图：记下你最感兴趣的阶段并按节推进。</p></div>
+      </div>
+    </div>
 
-  <!-- Download / Solutions quick link for offline learners -->
-  <div style="position:fixed; top:12px; right:12px; padding:8px 12px; border:1px solid #ddd; font-size:13px; z-index:9998;">
-    Exercise: <a href="./exercise.md">exercise.md</a> · Solutions: <a href="./solutions/solution.md">solutions/solution.md</a><br>
-    (Download the package from the course page)
-  </div>
+    <!-- Slide 2 -->
+    <div class="slide" role="group" data-slide-index="2" aria-label="为什么要系统学习" data-notes="学习闭环：看-做-评；把假设量化为可检验结果。">
+      <h2>为什么要系统学习</h2>
+      <ul class="bullets">
+        <li>方法优先于直觉</li>
+        <li>闭环：看—做—评</li>
+        <li>把假设量化为可检验结果</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>这一页说明为什么要把学习做成闭环：把观察变成能检验的结论并不断改进。</p></div>
+        <div class="notes-talking-points"><h4>Talking points</h4><ul><li>把直觉转为方法，便于验证与复盘。</li><li>记录参数与结论，能把经验转成可复现的流程。</li></ul></div>
+        <div class="notes-deeper"><p>示例（练习）：写出一个你当前的投资想法并把它拆成可检验假设（1 行）与 2 个可测量指标。</p></div>
+      </div>
+    </div>
 
-  <!-- Slides: each slide has data-slide-index and a concise data-notes attribute (speaker hints) -->
-  <!-- Slide 1: 开场介绍 -->
-  <div class="slide active" role="group" aria-label="Slide 1: 开场介绍" data-slide-index="1" data-notes="欢迎词与课程目标；自我介绍（Jeff Li）；课程重要性与学习流程；提示：练习位于 exercise/goals.md，可参考 solutions 文件夹中的示例答案。">
-    <h1>投资从入门到大师系列课程</h1>
-    <p class="subtitle">课程导览</p>
-    <ul>
-      <li>欢迎与课程愿景：为什么系统化学习投资很重要</li>
-      <li>主讲人简介：Jeff Li（多年投资实战与教学经验）</li>
-      <li>本节目标：了解课程结构、学习路径与资源使用方法</li>
-    </ul>
-    <div class="callout"><strong>Exercise:</strong> See <code>exercise.md</code> at lesson root for tasks; reference answers are in <code>solutions/solution.md</code>.</div>
-    <div class="author">主讲人：Jeff Li</div>
-    <div class="slide-number">1 / 6</div>
-  </div>
+    <!-- Slide 3 -->
+    <div class="slide" role="group" data-slide-index="3" aria-label="课程结构总览" data-notes="7 个阶段地图与建议节奏。">
+      <h2>课程结构（7 个阶段）</h2>
+      <ul class="bullets">
+        <li>7 个阶段总览</li>
+        <li>每阶段含理论与实操</li>
+        <li>建议节奏：每周 2–3 节</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>课程分为七个阶段：基础与心态、资产配置、工具详解、估值与风险、策略与组合管理、进阶分析、案例复盘。</p></div>
+        <div class="notes-deeper"><p>示例数据：在你的 `watchlist.md` 中选 10 个标的并记录 8 周的每周小结作为阶段性练习。</p></div>
+      </div>
+    </div>
 
-  <!-- Slide 2: 课程结构总览 -->
-  <div class="slide" role="group" aria-label="Slide 2: 课程结构总览" data-slide-index="2" data-notes="介绍7个阶段、36节课、每节约15分钟；说明每阶段主题范围与学习顺序建议；提示查看课程结构图">
-    <h2>课程结构总览</h2>
-    <p><strong>7 个阶段 · 36 节 · 每节约 15 分钟</strong></p>
-    <ul>
-      <li>Phase 1 — 投资基础（理念、复利、工具导论）</li>
-      <li>Phase 2 — 资产配置与组合基础</li>
-      <li>Phase 3 — 各类工具（股票、基金、债券）</li>
-      <li>Phase 4 — 风险管理与心态</li>
-      <li>Phase 5 — 市场分析与估值</li>
-      <li>Phase 6 — 策略实现与成本控制</li>
-      <li>Phase 7 — 案例研讨与复盘</li>
-    </ul>
-    <p class="download-note">Tip: see the full phase & lesson list in the downloadable course package (see <code>exercise.md</code> and <code>solutions/solution.md</code>).</p>
-    <div class="slide-number">2 / 6</div>
-  </div>
+    <!-- Slide 4 -->
+    <div class="slide" role="group" data-slide-index="4" aria-label="学习方法与交付物" data-notes="看-做-评；交付物需可复现。">
+      <h2>学习方法</h2>
+      <ul class="bullets">
+        <li>看—做—评 学习闭环</li>
+        <li>交付物应可复现</li>
+        <li>短复盘促进改进</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>交付物应包含：简短说明、主要参数、关键图表与结论，便于复现与审阅。</p></div>
+        <div class="notes-deeper"><p>示例交付物结构： `results_summary.csv`（CAGR, Volatility, MaxDrawdown） + `readme.md`（运行环境与参数）。</p></div>
+      </div>
+    </div>
 
-  <!-- Slide 3: 学习路径建议 -->
-  <div class="slide" role="group" aria-label="Slide 3: 学习路径建议" data-slide-index="3" data-notes="按顺序学习并完成配套练习；每阶段结束后复习并完成练习；可根据兴趣选择深入主题；提示使用学习路径模板">
-    <h2>学习路径建议</h2>
-    <ol>
-      <li>按顺序学习：先夯实基础，再进阶（每节 15 分钟）</li>
-      <li>实践优先：看完视频 → 暂停 → 完成练习 → 对照答案 → 复盘</li>
-      <li>个性化：根据兴趣和目标，选择重点模块并设定小目标</li>
-    </ol>
-    <div class="callout"><strong>Tip:</strong> Download the learning-path template and save it as <code>study_plan.md</code> to plan your next 6 weeks.</div>
-    <div class="slide-number">3 / 6</div>
-  </div>
+    <!-- Slide 5 -->
+    <div class="slide" role="group" data-slide-index="5" aria-label="关键概念速览" data-notes="净值、年化收益、波动率、最大回撤。">
+      <h2>核心概念</h2>
+      <ul class="bullets">
+        <li>净值（netvalue）</li>
+        <li>年化收益 vs 波动率</li>
+        <li>最大回撤与再平衡</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>定义与简单计算示例：CAGR、年化波动率、最大回撤。</p></div>
+        <div class="notes-deeper"><p>数据示例（CSV 摘要）：</p><pre class="notes-table">Date, netvalue
+2020-01,1.000
+2020-12,1.280</pre><p>用于口播示例：CAGR = (1.280/1.000) - 1 = 28.0%</p></div>
+      </div>
+    </div>
 
-  <!-- Slide 4: 如何使用课程资源 -->
-  <div class="slide" role="group" aria-label="Slide 4: 如何使用课程资源" data-slide-index="4" data-notes="资源包位置与下载说明；练习文件与样例答案位置；示范如何下载与打开exercise包">
-    <h2>如何使用课程资源</h2>
-    <ol>
-      <li>下载资源包：链接在课程页面，解压后查看</li>
-      <li>练习文件：每节课后附有练习，完成后对照样例答案</li>
-      <li>课程笔记：每节课的要点总结，建议打印或下载</li>
-    </ol>
-    <div class="callout"><strong>注意：</strong> 资源包内如有疑问，欢迎在讨论区提问或联系我。</div>
-    <div class="slide-number">4 / 6</div>
-  </div>
+    <!-- Slide 6 -->
+    <div class="slide" role="group" data-slide-index="6" aria-label="数据与工具" data-notes="数据检查：日期、空值、异常值；工具示例：Python + pandas。">
+      <h2>数据与工具</h2>
+      <div class="content-row">
+        <ul class="bullets">
+          <li>示例数据检查要点</li>
+          <li>常用工具：Python + pandas</li>
+          <li>生成净值曲线的基本步骤</li>
+        </ul>
+        <figure tabindex="0">
+          <img src="./assets/data_structure.svg" alt="数据结构示意图"/>
+          <figcaption>数据结构示意</figcaption>
+        </figure>
+      </div>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>示例文件：raw_prices.csv、processed_netvalue.csv、results_summary.csv。</p></div>
+        <div class="notes-deeper"><p>示例表头：Date, Open, High, Low, Close, AdjClose, Volume</p></div>
+      </div>
+    </div>
 
-  <!-- Slide 5: 常见问题解答 -->
-  <div class="slide" role="group" aria-label="Slide 5: 常见问题解答" data-slide-index="5" data-notes="收集整理学员常见问题；逐一解答并提供链接；鼓励学员积极提问与互动">
-    <h2>常见问题解答</h2>
-    <ul>
-      <li><strong>Q:</strong> 课程的适用人群是？</li>
-      <li><strong>A:</strong> 对投资感兴趣，想系统学习的所有人。</li>
-      <li><strong>Q:</strong> 学习这门课程我需要具备什么基础？</li>
-      <li><strong>A:</strong> 无需基础，课程从最基本的概念讲起。</li>
-      <li><strong>Q:</strong> 课程结束后我能获得什么？</li>
-      <li><strong>A:</strong> 掌握投资基本知识，具备独立分析和决策能力。</li>
-    </ul>
-    <div class="callout"><strong>更多问题？</strong> 请查看课程页面的常见问题部分或直接联系我。</div>
-    <div class="slide-number">5 / 6</div>
-  </div>
+    <!-- Slide 7 -->
+    <div class="slide" role="group" data-slide-index="7" aria-label="示例：60/40 回测简介" data-notes="比较 60/40 与 70/30 配置；关注年化与回撤。">
+      <h2>示例：配置比较</h2>
+      <div class="content-row">
+        <ul class="bullets">
+          <li>比较两种配置的长期表現</li>
+          <li>关注年化收益、波动与回撤</li>
+          <li>考虑手续费与再平衡影响</li>
+        </ul>
+        <figure tabindex="0">
+          <img src="./assets/compare_60_40.svg" alt="配置比较图"/>
+          <figcaption>60/40 与 70/30 配置比较</figcaption>
+        </figure>
+      </div>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>对比图用 SPY/AGG 生成净值曲线并计算关键指标。</p></div>
+        <div class="notes-deeper">
+          <h4>示例数据</h4>
+          <pre class="notes-table">Date, net_60_40, net_70_30
+2020-01,1.000,1.000
+2020-03,0.850,0.830
+2020-12,1.280,1.380</pre>
+          <p>示例口播：70/30 提升了年化回报但回撤也更大（本示例：38% vs 28%）。</p>
+        </div>
+      </div>
+    </div>
 
-  <!-- Slide 6: 结束语与期待 -->
-  <div class="slide" role="group" aria-label="Slide 6: 结束语与期待" data-slide-index="6" data-notes="感谢参与与学习；鼓励反馈与提问；预告下一节内容与学习重点">
-    <h2>结束语与期待</h2>
-    <p>感谢大家的参与与学习！希望本节课对您有所帮助。</p>
-    <p>欢迎随时通过邮件或讨论区提问，反馈您的学习体验。</p>
-    <p>下一节我们将深入探讨投资的基本理念与复利的魔力，敬请期待！</p>
-    <div class="slide-number">6 / 6</div>
-  </div>
+    <!-- Slide 8 -->
+    <div class="slide" role="group" data-slide-index="8" aria-label="示例表格" data-notes="回测样表的前几行用于核对格式与数值。">
+      <h2>示例：回测样表</h2>
+      <div class="content-row">
+        <div class="bullets">
+          <pre class="example-table">日期, netvalue_60_40, netvalue_70_30
+2020-01, 1.020, 1.025
+2020-02, 1.010, 1.022
+2020-03, 1.050, 1.040</pre>
+          <ul>
+            <li>前几行数据用于核对</li>
+            <li>观察净值走势差异</li>
+            <li>核对数值保证可复现</li>
+          </ul>
+        </div>
+        <figure tabindex="0">
+          <img src="./assets/table_sample.svg" alt="回测样表示例"/>
+          <figcaption>回测样表（前几行示例）</figcaption>
+        </figure>
+      </div>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>示例表用于核对图表与原始数据一致性。</p></div>
+      </div>
+    </div>
 
-  <!-- Shared footer across slides -->
-  <footer style="text-align:center; font-size:12px; color:#777; padding:12px 0;">
-    <div>感谢您的参与！</div>
-    <div>如需帮助，请联系 Jeff Li (zheli001@gmail.com)</div>
-  </footer>
+    <!-- Slide 9 -->
+    <div class="slide" role="group" data-slide-index="9" aria-label="结果解读技巧" data-notes="年化收益、波动率、最大回撤结合解读。">
+      <h2>如何解读回测结果</h2>
+      <ul class="bullets">
+        <li>年化收益：长期趋势</li>
+        <li>波动率：风险度量</li>
+        <li>最大回撤：压力测试</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>要点：把结论限制在 2–3 条可执行建议，并给出衡量标准。</p></div>
+      </div>
+    </div>
 
-  <!-- Scripts for interactivity and presenter features -->
+    <!-- Slide 10 -->
+    <div class="slide" role="group" data-slide-index="10" aria-label="常见错误与调试" data-notes="调试优先级：日期/频率 -> 空值 -> 异常值。">
+      <h2>常见错误与调试</h2>
+      <ul class="bullets">
+        <li>检查数据频率与空值</li>
+        <li>核对编码与分隔符</li>
+        <li>使用日志与断言定位问题</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>示例调试流程：抽样运行、打印前几行、检查列头与日期连续性。</p></div>
+      </div>
+    </div>
+
+    <!-- Slide 11 -->
+    <div class="slide" role="group" data-slide-index="11" aria-label="复盘与改进模板" data-notes="复盘应包含：目标、方法、结果、问题与改进计划。">
+      <h2>复盘模板</h2>
+      <ul class="bullets">
+        <li>目标、方法、结果摘要</li>
+        <li>列出问题与改进计划</li>
+        <li>量化改进效果</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>示例复盘行：本月回测年化 5.4%，最大回撤 8.3%；改进：改为季度再平衡。</p></div>
+      </div>
+    </div>
+
+    <!-- Slide 12 -->
+    <div class="slide" role="group" data-slide-index="12" aria-label="KPI 与长期评估" data-notes="跟踪 KPI：完成节数、练习通过率、回测年化与回撤。">
+      <h2>KPI 与长期评估</h2>
+      <ul class="bullets">
+        <li>完成节数与练习通过率</li>
+        <li>回测年化与最大回撤</li>
+        <li>每月汇总并绘趋势图</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>示例 KPI 表格：Month, LessonsDone, ExercisesPassed, CAGR, MaxDD</p></div>
+      </div>
+    </div>
+
+    <!-- Slide 13 -->
+    <div class="slide" role="group" data-slide-index="13" aria-label="作业与提交要求" data-notes="交付物格式：可复现脚本、结果表、短复盘。">
+      <h2>交付物格式（参考）</h2>
+      <ul class="bullets">
+        <li>可复现的脚本与结果表（建议保留样例）</li>
+        <li>清晰的图表与简短复盘</li>
+        <li>记录运行环境与主要参数</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>示例提交包： `portfolio.md`, `results_summary.csv`, `readme.md`（参数与环境）。</p></div>
+      </div>
+    </div>
+
+    <!-- Slide 14 -->
+    <div class="slide" role="group" data-slide-index="14" aria-label="学习建议与资源" data-notes="建议：即学即做、定期复盘与三个月深度回顾。">
+      <h2>学习建议与扩展资源</h2>
+      <ul class="bullets">
+        <li>即学即做与定期复盘</li>
+        <li>推荐阅读與 notebook 示例</li>
+        <li>三个月为一周期的深度回顾</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>示例资源：推荐书单与两份 notebook 示例（链接在仓库）。</p></div>
+      </div>
+    </div>
+
+    <!-- Slide 15 -->
+    <div class="slide" role="group" data-slide-index="15" aria-label="总结与下一步" data-notes="总结：方法优先于工具，保持复盘。">
+      <h2>总结与下一步</h2>
+      <ul class="bullets">
+        <li>方法优先于工具</li>
+        <li>坚持复盘与量化评估</li>
+        <li>准备好周期性复习与优化</li>
+      </ul>
+      <div data-notes style="display:none">
+        <div class="notes-figure-summary"><p>结束练习：写一条 2 分钟速记，包含要点、疑问与下一步行动。</p></div>
+      </div>
+    </div>
+
+  </main>
+
   <script src="../../shared/ppt_slide.js"></script>
   <script>
-    // Presenter mode toggle
-    document.getElementById('toggle-notes').addEventListener('click', function() {
-      const panel = document.getElementById('presenter-panel');
-      const isVisible = panel.style.display === 'block';
-      panel.style.display = isVisible ? 'none' : 'block';
-      this.textContent = isVisible ? 'Show Notes (N)' : 'Hide Notes';
-    });
-    document.getElementById('toggle-fullscreen').addEventListener('click', function() {
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.mozRequestFullScreen) { // Firefox
-        elem.mozRequestFullScreen();
-      } else if (elem.webkitRequestFullscreen) { // Chrome, Safari and Opera
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { // IE/Edge
-        elem.msRequestFullscreen();
-      }
-    });
-
-    // Initialize slides and presenter panel
-    document.addEventListener('DOMContentLoaded', function() {
-      const slides = document.querySelectorAll('.slide');
-      let currentSlide = 0;
-
-      function showSlide(index) {
-        slides[currentSlide].classList.remove('active');
-        slides[index].classList.add('active');
-        currentSlide = index;
-        // Prefer notes element content if present, otherwise fall back to data-notes
-        var notesContent = '';
-        var notesDiv = slides[index].querySelector('.notes');
-        if(notesDiv && notesDiv.innerHTML.trim()){
-          notesContent = notesDiv.innerHTML.trim();
+    // Page-scoped script to toggle maximize on figure click
+    (function () {
+      const root = document.querySelector('.phase0-lesson1');
+      if (!root) return;
+      // Delegate clicks on figures within content-row
+      root.addEventListener('click', function (ev) {
+        const fig = ev.target.closest('figure');
+        if (!fig) return;
+        // Only act on figures inside .content-row
+        if (!fig.closest('.content-row')) return;
+        ev.preventDefault();
+        // Prevent slide-level click handlers or other listeners from seeing this event
+        try { ev.stopImmediatePropagation(); } catch (e) { /* ignore */ }
+        try { ev.stopPropagation(); } catch (e) { /* ignore */ }
+        // Toggle class
+        if (fig.classList.contains('figure--maximized')) {
+          fig.classList.remove('figure--maximized');
+          document.body.style.overflow = '';
         } else {
-          notesContent = slides[index].getAttribute('data-notes') || '';
+          // remove any other maximized figures first
+          const other = root.querySelector('.figure--maximized');
+          if (other) other.classList.remove('figure--maximized');
+          fig.classList.add('figure--maximized');
+          // prevent background scroll while maximized
+          document.body.style.overflow = 'hidden';
         }
-        var pnContent = document.getElementById('presenter-notes-content');
-        if(pnContent) pnContent.innerHTML = notesContent;
-        document.getElementById('presenter-controls').setAttribute('aria-hidden', 'false');
-      }
+      }, false);
 
-      // Keyboard navigation
-      document.addEventListener('keydown', function(event) {
-        if (event.key === 'ArrowRight' || event.key === 'n') {
-          showSlide((currentSlide + 1) % slides.length);
-        } else if (event.key === 'ArrowLeft' || event.key === 'p') {
-          showSlide((currentSlide - 1 + slides.length) % slides.length);
-        } else if (event.key === 'Escape') {
-          document.getElementById('presenter-panel').style.display = 'none';
-          document.getElementById('presenter-controls').setAttribute('aria-hidden', 'true');
+      // ESC to close
+      document.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape' || ev.key === 'Esc') {
+          const m = document.querySelector('.phase0-lesson1 .figure--maximized');
+          if (m) { m.classList.remove('figure--maximized'); document.body.style.overflow = ''; }
         }
-      });
+      }, false);
 
-      showSlide(currentSlide);
-
-      // Keyboard shortcuts: 'N' -> toggle presenter notes; Ctrl+Shift+N -> toggle presenter controls
-      document.addEventListener('keydown', function(e){
-        var tag = (document.activeElement && document.activeElement.tagName) || '';
-        if(tag === 'INPUT' || tag === 'TEXTAREA') return;
-        if(e.key === 'n' || e.key === 'N'){
-          var pn = document.getElementById('presenter-panel');
-          if(!pn) return;
-          var isHidden = (pn.style.display === 'none' || pn.style.visibility === 'hidden');
-          pn.style.display = isHidden ? 'block' : 'none';
-          pn.style.visibility = isHidden ? 'visible' : 'hidden';
-          pn.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
+      // Key handler for figure toggle (Enter/Space)
+      document.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          const fig = ev.target.closest('figure');
+          if (!fig) return;
+          // Only act on figures inside .content-row
+          if (!fig.closest('.content-row')) return;
+          ev.preventDefault();
+          // Prevent slide-level key handlers from reacting
+          try { ev.stopImmediatePropagation(); } catch (e) { /* ignore */ }
+          try { ev.stopPropagation(); } catch (e) { /* ignore */ }
+          // Toggle class
+          if (fig.classList.contains('figure--maximized')) {
+            fig.classList.remove('figure--maximized');
+            document.body.style.overflow = '';
+          } else {
+            // remove any other maximized figures first
+            const other = root.querySelector('.figure--maximized');
+            if (other) other.classList.remove('figure--maximized');
+            fig.classList.add('figure--maximized');
+            // prevent background scroll while maximized
+            document.body.style.overflow = 'hidden';
+          }
         }
-        if(e.key === 'N' && e.ctrlKey && e.shiftKey){
-          var pc = document.getElementById('presenter-controls');
-          if(!pc) return;
-          var pcHidden = (pc.style.display === 'none' || pc.style.visibility === 'hidden');
-          pc.style.display = pcHidden ? 'block' : 'none';
-          pc.style.visibility = pcHidden ? 'visible' : 'hidden';
-          pc.setAttribute('aria-hidden', pcHidden ? 'false' : 'true');
-          var buttons = pc.querySelectorAll('button');
-          buttons.forEach(function(b){ b.tabIndex = pcHidden ? 0 : -1; });
-        }
-      });
-    });
+      }, false);
+    })();
   </script>
-<script src="../../shared/presenter_controls.js"></script>
+  <script src="../../shared/presenter_controls.js"></script>
 </body>
 </html>

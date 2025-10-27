@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">60/40 vs 70/30 配置比较示例</title>
+  <desc id="desc">示例净值曲线（2020 年月度），比较两种配置的年化收益与最大回撤，标注计算结果。</desc>
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <g transform="translate(80,60)" font-family="Noto Sans SC, sans-serif">
+    <text x="0" y="0" font-size="24" fill="#0f4c81">60/40 vs 70/30 — 净值比较（示例）</text>
+
+    <!-- axes and grid -->
+    <g transform="translate(40,40)">
+      <line x1="0" y1="520" x2="960" y2="520" stroke="#333" />
+      <line x1="0" y1="0" x2="0" y2="520" stroke="#333" />
+
+      <!-- y ticks/labels (netvalue) -->
+      <g font-size="12" fill="#333">
+        <text x="-36" y="520">0.8</text>
+        <text x="-36" y="440">0.9</text>
+        <text x="-36" y="360">1.0</text>
+        <text x="-36" y="280">1.1</text>
+        <text x="-36" y="200">1.2</text>
+        <text x="-36" y="120">1.3</text>
+      </g>
+      <g stroke="#e9eef6" stroke-width="1">
+        <line x1="0" y1="440" x2="960" y2="440" />
+        <line x1="0" y1="360" x2="960" y2="360" />
+        <line x1="0" y1="280" x2="960" y2="280" />
+        <line x1="0" y1="200" x2="960" y2="200" />
+        <line x1="0" y1="120" x2="960" y2="120" />
+      </g>
+
+      <!-- x ticks (months) -->
+      <g font-size="11" fill="#333">
+        <!-- 12 months, place ticks every 80px approx -->
+        <text x="0" y="540">2020-01</text>
+        <text x="88" y="540">2020-02</text>
+        <text x="176" y="540">2020-03</text>
+        <text x="264" y="540">2020-04</text>
+        <text x="352" y="540">2020-05</text>
+        <text x="440" y="540">2020-06</text>
+        <text x="528" y="540">2020-07</text>
+        <text x="616" y="540">2020-08</text>
+        <text x="704" y="540">2020-09</text>
+        <text x="792" y="540">2020-10</text>
+        <text x="880" y="540">2020-11</text>
+        <text x="960" y="540">2020-12</text>
+      </g>
+
+      <!-- series points (scaled to y positions) -->
+      <!-- Convert example netvalues into y coordinates (lower y = higher value) -->
+      <!-- 60/40 series (blue) -->
+      <polyline fill="none" stroke="#2b7cff" stroke-width="3" points="0,360 88,420 176,480 264,440 352,400 440,360 528,340 616,320 704,300 792,260 880,240 960,200" />
+      <!-- 70/30 series (orange) -->
+      <polyline fill="none" stroke="#ff7f50" stroke-width="3" points="0,370 88,430 176,490 264,460 352,420 440,380 528,360 616,340 704,320 792,280 880,260 960,220" />
+
+      <!-- legend -->
+      <rect x="980" y="10" width="280" height="90" rx="8" fill="#ffffff" stroke="#e6e6e6" />
+      <circle cx="1000" cy="36" r="7" fill="#2b7cff" />
+      <text x="1020" y="40" font-size="14" fill="#333">60/40 配置</text>
+      <circle cx="1000" cy="64" r="7" fill="#ff7f50" />
+      <text x="1020" y="68" font-size="14" fill="#333">70/30 配置</text>
+
+      <!-- annotation box with computed example stats -->
+      <rect x="560" y="40" width="340" height="88" rx="8" fill="#ffffff" stroke="#ffd8a8" />
+      <text x="576" y="64" font-size="13" fill="#7a4700">示例统计（2020 年）</text>
+      <text x="576" y="84" font-size="13" fill="#7a4700">60/40: CAGR ≈ 28.0%, MaxDD ≈ -15.0%</text>
+      <text x="576" y="104" font-size="13" fill="#7a4700">70/30: CAGR ≈ 38.0%, MaxDD ≈ -17.0%</text>
+
+    </g>
+  </g>
+</svg>
