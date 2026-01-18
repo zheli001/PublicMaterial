@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_7.md) | [Next](chapter_9.md)
+
 # 第八章 矿工三人组
 
 次日深夜。

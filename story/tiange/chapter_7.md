@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_6.md) | [Next](chapter_8.md)
+
 # 第七章 老王的生存课
 
 陈云昊从通风井顶端跃下时，整个人如同一块被煞气浸透的破布，瘫软地落在矿道的阴影里。

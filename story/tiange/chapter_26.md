@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_25.md) | [Next](chapter_27.md)
+
 # 第二十六章 步步生莲影，言言透骨寒
 
 晨曦微露，寒鸦巷的湿气重得几乎能拧出水来。

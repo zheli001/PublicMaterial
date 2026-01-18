@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_22.md) | [Next](chapter_24.md)
+
 # 第二十三章 炉火映孤影，铁笔判死生
 
 寒鸦巷的黎明，是被一股沉重而闷热的火气敲醒的。

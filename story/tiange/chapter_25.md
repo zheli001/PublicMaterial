@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_24.md) | [Next](chapter_26.md)
+
 # 第二十五章 锦衣巡夜半，暗火烧深庭
 
 碧落郡城的子时，并非完全的寂静。

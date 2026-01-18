@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_20.md) | [Next](chapter_22.md)
+
 # 第二十一章 众生皆苦趣，谁是渡人舟
 
 碧落郡城的城门外，是一片被暮色和绝望浸透的灰色海洋。

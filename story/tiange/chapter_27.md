@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_26.md) | [Next](chapter_28.md)
+
 # 第二十七章 惊雷破晓梦，微雨润心田
 
 黎明前的黑暗，往往最是压抑。

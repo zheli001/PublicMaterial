@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_21.md) | [Next](chapter_23.md)
+
 # 第二十二章 闹市隐神算，寒巷见真章
 
 碧落郡城的城门，像是一道横亘在云端与泥淖之间的铁闸。

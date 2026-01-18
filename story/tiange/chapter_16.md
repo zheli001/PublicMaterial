@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_15.md) | [Next](chapter_17.md)
+
 # 第十六章 道阻且跻，草木皆兵
 
 黑鸦岭的雾，是不流动的。

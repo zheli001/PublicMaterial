@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_8.md) | [Next](chapter_10.md)
+
 # 第九章 第一次验证
 
 刘石头做了一个梦。

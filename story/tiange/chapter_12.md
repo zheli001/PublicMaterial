@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_11.md) | [Next](chapter_13.md)
+
 # 第十二章 触发死结
 
 巽四宫，东南角。

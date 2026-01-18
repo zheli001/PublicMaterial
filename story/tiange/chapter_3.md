@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_2.md) | [Next](chapter_4.md)
+
 # 第三章 燃血之炼
 
 夜色如墨，矿工营的寂静中透着一种死气沉沉的压抑。

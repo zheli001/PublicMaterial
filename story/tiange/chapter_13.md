@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_12.md) | [Next](chapter_14.md)
+
 # 第十三章 废墟死斗
 
 由于“死结”的崩坏，整座七号矿坑已经变成了一个巨大的、正在自行合拢的石棺。

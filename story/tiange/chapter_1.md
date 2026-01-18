@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](prologue.md) | [Next](chapter_2.md)
+
 # 第一章 矿卒的象数发现
 
 ![Oppressive Deep](../media/ch1_1_oppressive_deep.png)

@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_1.md) | [Next](chapter_3.md)
+
 # 第二章 变爻之功
 
 矿工的收工时间，是一天中最浑浊也最险恶的时刻。

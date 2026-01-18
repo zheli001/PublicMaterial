@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_16.md) | [Next](chapter_18.md)
+
 # 第十七章 万籁此俱寂，唯闻心跳音
 
 入夜后的黑鸦岭，不再是一片灰白，而是变成了一口巨大的、深不见底的枯井。

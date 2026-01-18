@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_18.md) | [Next](chapter_20.md)
+
 # 第十九章 枯荣自有时，谁辨昔人骨
 
 遗迹中的风，似乎比密林里要轻柔些许。

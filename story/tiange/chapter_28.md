@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_27.md) | [Next](chapter_29.md)
+
 # 第二十八章 谁家燕子去，何处剑鸣嘶
 
 大阵汲取后的碧落郡南城，像是被生生剥去了一层皮，露出了血淋淋且苍白的底子。

@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_13.md) | [Next](chapter_15.md)
+
 # 第十四章 碧落门前
 
 光。

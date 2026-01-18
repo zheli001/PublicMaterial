@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_9.md) | [Next](chapter_11.md)
+
 # 第十章 杀鸡儆猴
 
 马剥皮最近的心情很差，非常差。

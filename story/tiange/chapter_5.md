@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_4.md) | [Next](chapter_6.md)
+
 # 第五章 带伤的伪装
 
 清晨的钟声比往常听起来更加刺耳，像是直接凿在陈云昊胀痛的大脑里。

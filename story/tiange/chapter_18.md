@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_17.md) | [Next](chapter_19.md)
+
 # 第十八章 忽逢桃花林，豁然开朗时
 
 清晨的黑鸦岭，雾气并没有散去，反而被映照出一种诡异的淡紫色。

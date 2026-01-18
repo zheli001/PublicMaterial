@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_19.md) | [Next](chapter_21.md)
+
 # 第二十章 暮色遮望眼，惊风动地来
 
 当陈云昊踏出暗道的最后一级石阶时，一阵略带咸腥味的晚风扑面而来。

@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_28.md) | [Next](chapter_30.md)
+
 # 第二十九章 雷鸣九天外，符起寸心中
 
 李铁匠铺子里的阴影，似乎比巷子里更沉重些。

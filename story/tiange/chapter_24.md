@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_23.md) | [Next](chapter_25.md)
+
 # 第二十四章 细雨入平林，风波渐起时
 
 碧落郡城的雨，下起来总是没完没了。

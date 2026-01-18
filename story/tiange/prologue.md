@@ -1,3 +1,5 @@
+[Start](index.md) | [Next](chapter_1.md)
+
 # 楔子：岁时
 
 碧落郡的冬至，总是始于那声极轻、极冷的落雪。

@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_3.md) | [Next](chapter_5.md)
+
 # 第四章 困兽博弈
 
 碧落郡的清晨没有阳光，只有从地穴深处涌上来的、带着霉味的冷雾。

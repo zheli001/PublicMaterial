@@ -1,3 +1,5 @@
+[Start](index.md) | [Previous](chapter_5.md) | [Next](chapter_7.md)
+
 # 第六章 “人矿”死结
 
 在碧落郡七号矿坑的最高处，有一处常年被阴云笼罩的废弃通风井。
