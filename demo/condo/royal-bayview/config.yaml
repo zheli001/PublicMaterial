@@ -1,0 +1,79 @@
+# Royal Bayview Pipeline Configuration
+
+# Pipeline execution settings
+pipeline:
+  name: "royal-bayview-application-package"
+  version: "1.0.0"
+  working_directory: "demo/realtor/condo/royal-bayview"
+  output_directory: "demo/realtor/condo/royal-bayview/output"
+  log_level: "INFO"
+
+# Project-specific settings
+project:
+  name: "Royal Bayview Residences"
+  developer: "Tridel"
+  location: "Thornhill, ON"
+  status: "move-in-ready"
+  website_url: "https://www.tridel.com/royalbayview/"
+  contact_phone: "416.661.7699"
+  contact_email: "ask@tridel.com"
+  booking_url: "https://outlook.office365.com/owa/calendar/RoyalBayview1@tridel.com/bookings/"
+
+# Content processing settings
+content:
+  primary_source: "website"
+  include_market_research: true
+  include_location_analysis: true
+  target_audience: "real_estate_professionals"
+  output_formats: ["pdf", "markdown", "json"]
+
+# Quality assurance settings
+validation:
+  enable_strict_checking: true
+  require_source_verification: true
+  check_contact_accuracy: true
+  validate_professional_standards: true
+
+# Distribution settings
+distribution:
+  primary_format: "pdf"
+  include_agent_instructions: true
+  include_client_questions: true
+  enable_digital_sharing: true
+  track_usage_metrics: true
+
+# Language settings for multi-language package generation
+languages:
+  enabled: true
+  default_languages: ["en", "zh"]
+  primary_language: "en"
+  language_settings:
+    en:
+      name: "English"
+      code: "en"
+      display_name: "English"
+      output_suffix: "_EN"
+    zh:
+      name: "Chinese"
+      code: "zh"
+      display_name: "中文"
+      output_suffix: "_ZH"
+  translation_mode: "parallel"  # parallel, sequential, or on-demand
+  fallback_language: "en"  # fallback when translation fails
+
+# Agent Information
+agent:
+  name: "Sarah Gu"
+  contact: "sarah_gu@hotmail.com"
+  phone: "(647) 233-2202"
+  brokerage: "Sarah Gu Real Estate Inc."
+  branding_requirements: "Include logo on all documents, custom color scheme #2E86AB"
+  icon: "agent_photo.jpg"
+
+# prompts for pakage customization
+prompts: 
+  - Buidler information should not be in final package. Client should contact agent directly for inquiries or showing appointments.
+  - Ensure all marketing materials reflect the agent's branding and contact details.
+  - PDF or other forms should have agent contact info hard codded.
+  - Checklist to verify all required documents are included in the final package and in correct formats and contents.
+

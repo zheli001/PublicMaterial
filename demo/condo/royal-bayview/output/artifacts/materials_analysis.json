@@ -1,0 +1,53 @@
+{
+  "project_info": {
+    "name": "Royal Bayview Residences",
+    "developer": "Tridel",
+    "location": "Thornhill, ON",
+    "status": "Move-in ready",
+    "contact": "416-661-7699",
+    "tagline": "The Fairway at Your Front Door"
+  },
+  "location_benefits": [
+    "Overlooking Ladies' Golf Club of Toronto",
+    "Premium Thornhill location",
+    "Access to urban amenities",
+    "Nature and city lifestyle balance",
+    "Proximity to business districts",
+    "Excellent transportation access"
+  ],
+  "amenities": [
+    "Concierge Service",
+    "Elevators",
+    "Security System",
+    "Underground Parking",
+    "Fitness Center",
+    "Elegant Lobby"
+  ],
+  "pricing_structure": {
+    "structure": "Contact for current pricing",
+    "move_in_ready": true,
+    "financing_options": "Available through preferred lenders"
+  },
+  "media_assets": {
+    "images": 14,
+    "videos": 1,
+    "documents": 1,
+    "html_pages": 7,
+    "total_files": 304,
+    "image_categories": {
+      "amenities": 4,
+      "interior": 6,
+      "location": 4
+    }
+  },
+  "content_sections": [
+    "Project Overview",
+    "Location & Neighborhood",
+    "Lifestyle Benefits",
+    "Suite Types & Pricing",
+    "Amenities & Features",
+    "Developer Reputation",
+    "Market Context",
+    "Contact & Next Steps"
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "download_date": "2025-11-16T13:53:38.470685",
+  "total_files": 304,
+  "images": [
+    {
+      "filename": "rb_amenities_04_Royal-Bayview_Amenities_LobbyQ2s",
+      "path": "output\\media\\images\\rb_amenities_04_Royal-Bayview_Amenities_LobbyQ2s",
+      "size": 28999
+    },
+    {
+      "filename": "rb_amenities_04_Royal-Bayview_Amenities_LobbyQ2s.jpg",
+      "path": "output\\media\\images\\rb_amenities_04_Royal-Bayview_Amenities_LobbyQ2s.jpg",
+      "size": 28999
+    },
+    {
+      "filename": "rb_amenities_07_Royal-Bayview_Amenities_LobbyQ2s",
+      "path": "output\\media\\images\\rb_amenities_07_Royal-Bayview_Amenities_LobbyQ2s",
+      "size": 58141
+    },
+    {
+      "filename": "rb_amenities_07_Royal-Bayview_Amenities_LobbyQ2s.jpg",
+      "path": "output\\media\\images\\rb_amenities_07_Royal-Bayview_Amenities_LobbyQ2s.jpg",
+      "size": 58141
+    },
+    {
+      "filename": "rb_interior_03_Royal-Bayview_105_01",
+      "path": "output\\media\\images\\rb_interior_03_Royal-Bayview_105_01",
+      "size": 39132
+    },
+    {
+      "filename": "rb_interior_03_Royal-Bayview_105_01.jpg",
+      "path": "output\\media\\images\\rb_interior_03_Royal-Bayview_105_01.jpg",
+      "size": 39132
+    },
+    {
+      "filename": "rb_interior_06_Royal_Bayview_GL20-07",
+      "path": "output\\media\\images\\rb_interior_06_Royal_Bayview_GL20-07",
+      "size": 20788
+    },
+    {
+      "filename": "rb_interior_06_Royal_Bayview_GL20-07.jpg",
+      "path": "output\\media\\images\\rb_interior_06_Royal_Bayview_GL20-07.jpg",
+      "size": 20788
+    },
+    {
+      "filename": "rb_interior_09_Royal_Bayview_GL20-07",
+      "path": "output\\media\\images\\rb_interior_09_Royal_Bayview_GL20-07",
+      "size": 37912
+    },
+    {
+      "filename": "rb_interior_09_Royal_Bayview_GL20-07.jpg",
+      "path": "output\\media\\images\\rb_interior_09_Royal_Bayview_GL20-07.jpg",
+      "size": 37912
+    },
+    {
+      "filename": "rb_location_05_Royal-Bayview_Aerial-Golf-Course",
+      "path": "output\\media\\images\\rb_location_05_Royal-Bayview_Aerial-Golf-Course",
+      "size": 27191
+    },
+    {
+      "filename": "rb_location_05_Royal-Bayview_Aerial-Golf-Course.jpg",
+      "path": "output\\media\\images\\rb_location_05_Royal-Bayview_Aerial-Golf-Course.jpg",
+      "size": 27191
+    },
+    {
+      "filename": "rb_location_08_Royal-Bayview_Aerial-Golf-Course",
+      "path": "output\\media\\images\\rb_location_08_Royal-Bayview_Aerial-Golf-Course",
+      "size": 57607
+    },
+    {
+      "filename": "rb_location_08_Royal-Bayview_Aerial-Golf-Course.jpg",
+      "path": "output\\media\\images\\rb_location_08_Royal-Bayview_Aerial-Golf-Course.jpg",
+      "size": 57607
+    }
+  ],
+  "videos": [
+    {
+      "filename": "rb_vimeo_video_1117795485_embed.html",
+      "path": "output\\media\\videos\\rb_vimeo_video_1117795485_embed.html",
+      "size": 706
+    }
+  ],
+  "documents": [
+    {
+      "filename": "rb_doc_01_royalbayview.pdf",
+      "path": "output\\media\\documents\\rb_doc_01_royalbayview.pdf",
+      "size": 162020
+    }
+  ],
+  "pages": [
+    {
+      "filename": "rb_amenities.html",
+      "path": "output\\media\\pages\\rb_amenities.html",
+      "size": 85057
+    },
+    {
+      "filename": "rb_gallery.html",
+      "path": "output\\media\\pages\\rb_gallery.html",
+      "size": 248537
+    },
+    {
+      "filename": "rb_neighbourhood.html",
+      "path": "output\\media\\pages\\rb_neighbourhood.html",
+      "size": 59905
+    },
+    {
+      "filename": "rb_news.html",
+      "path": "output\\media\\pages\\rb_news.html",
+      "size": 85482
+    },
+    {
+      "filename": "rb_overview.html",
+      "path": "output\\media\\pages\\rb_overview.html",
+      "size": 80771
+    },
+    {
+      "filename": "rb_presentation-centre.html",
+      "path": "output\\media\\pages\\rb_presentation-centre.html",
+      "size": 53279
+    },
+    {
+      "filename": "rb_prices-floorplans.html",
+      "path": "output\\media\\pages\\rb_prices-floorplans.html",
+      "size": 83936
+    }
+  ]
+}

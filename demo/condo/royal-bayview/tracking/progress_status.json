@@ -1,0 +1,155 @@
+{
+  "pipeline_metadata": {
+    "name": "royal-bayview-application-package",
+    "version": "1.0.0",
+    "description": "Pipeline for preparing condo application package for Tridel Royal Bayview project",
+    "created_date": "2025-11-16",
+    "last_updated": "2025-11-16",
+    "total_phases": 5,
+    "completed_phases": 0.5,
+    "overall_progress": "15%"
+  },
+  "phase_status": {
+    "infrastructure_setup": {
+      "name": "Infrastructure Setup",
+      "status": "IN_PROGRESS",
+      "progress": "33%",
+      "completed_units": 1,
+      "total_units": 3,
+      "units": {
+        "setup_directory_structure": {
+          "status": "COMPLETED",
+          "completed_at": "2025-11-16T21:01:00Z",
+          "output": [".checksum/", "tracking/", "planning/"]
+        },
+        "initialize_config_tracking": {
+          "status": "PENDING",
+          "depends_on": ["setup_directory_structure"]
+        },
+        "setup_progress_tracking": {
+          "status": "PENDING",
+          "depends_on": ["initialize_config_tracking"]
+        }
+      }
+    },
+    "material_collection": {
+      "name": "Material Collection & Analysis",
+      "status": "IN_PROGRESS",
+      "progress": "33%",
+      "completed_units": 1,
+      "total_units": 3,
+      "units": {
+        "gather_website_content": {
+          "status": "COMPLETED",
+          "completed_at": "2025-11-16T20:00:00Z",
+          "output": ["website_content_extracted.json", "media_assets_catalog.json"]
+        },
+        "analyze_location_benefits": {
+          "status": "PENDING",
+          "depends_on": ["gather_website_content"]
+        },
+        "research_market_context": {
+          "status": "PENDING",
+          "depends_on": ["gather_website_content"]
+        }
+      }
+    },
+    "content_processing": {
+      "name": "Content Processing & Customization",
+      "status": "PENDING",
+      "progress": "0%",
+      "completed_units": 0,
+      "total_units": 8,
+      "units": {
+        "analyze_materials_and_propose_artifacts": {
+          "status": "PENDING",
+          "depends_on": ["gather_website_content", "analyze_location_benefits", "research_market_context"]
+        },
+        "create_project_summary": {
+          "status": "PENDING",
+          "depends_on": ["analyze_materials_and_propose_artifacts"]
+        },
+        "generate_feature_highlights": {
+          "status": "PENDING",
+          "depends_on": ["analyze_materials_and_propose_artifacts"]
+        },
+        "prepare_client_questions": {
+          "status": "PENDING",
+          "depends_on": ["analyze_materials_and_propose_artifacts"]
+        },
+        "convert_md_to_html_pdf": {
+          "status": "PENDING",
+          "depends_on": ["create_project_summary", "generate_feature_highlights", "prepare_client_questions"]
+        },
+        "organize_agent_presentation_materials": {
+          "status": "PENDING",
+          "depends_on": ["analyze_materials_and_propose_artifacts"]
+        },
+        "create_agent_instructions": {
+          "status": "PENDING",
+          "depends_on": ["organize_agent_presentation_materials"]
+        },
+        "generate_agent_website": {
+          "status": "PENDING",
+          "depends_on": ["create_agent_instructions"]
+        }
+      }
+    },
+    "language_processing": {
+      "name": "Language Processing & Translation",
+      "status": "PENDING",
+      "progress": "0%",
+      "completed_units": 0,
+      "total_units": 1,
+      "units": {
+        "create_language_versions": {
+          "status": "PENDING",
+          "depends_on": ["create_agent_instructions"]
+        }
+      }
+    },
+    "package_assembly": {
+      "name": "Package Assembly & Validation",
+      "status": "PENDING",
+      "progress": "0%",
+      "completed_units": 0,
+      "total_units": 3,
+      "units": {
+        "assemble_application_package": {
+          "status": "PENDING",
+          "depends_on": ["create_language_versions"]
+        },
+        "validate_package_completeness": {
+          "status": "PENDING",
+          "depends_on": ["assemble_application_package"]
+        },
+        "prepare_client_distribution": {
+          "status": "PENDING",
+          "depends_on": ["validate_package_completeness"]
+        }
+      }
+    }
+  },
+  "configuration": {
+    "languages": ["en", "zh"],
+    "primary_language": "en",
+    "agent_info": {
+      "name": "Sarah Gu",
+      "brokerage": "Real Estate Brokerage",
+      "contact": "sarah.gu@email.com",
+      "phone": "416.661.7699"
+    },
+    "project_info": {
+      "developer": "Tridel",
+      "project_name": "Royal Bayview Residences",
+      "location": "Thornhill, ON",
+      "status": "move-in-ready"
+    }
+  },
+  "system_health": {
+    "directories_created": true,
+    "config_valid": true,
+    "pipeline_valid": true,
+    "last_health_check": "2025-11-16T21:02:00Z"
+  }
+}

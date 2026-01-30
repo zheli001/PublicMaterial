@@ -1,0 +1,708 @@
+pipeline:
+  metadata:
+    name: "royal-bayview-application-package"
+    version: "1.0.0"
+    description: "Pipeline for preparing condo application package for Tridel Royal Bayview project using website information only"
+    created_date: "2025-11-16"
+    project_type: "condo-application"
+    source_type: "website-only"
+    project_details:
+      developer: "Tridel"
+      project_name: "Royal Bayview Residences"
+      location: "Thornhill, ON"
+      status: "move-in-ready"
+      contact_phone: "416.661.7699"
+      website_url: "https://www.tridel.com/royalbayview/"
+      key_features:
+        - "Overlooking Ladies' Golf Club of Toronto"
+        - "Luxury amenities with modern design"
+        - "Connection to nature and urban amenities"
+        - "Move-in ready suites"
+        - "Expansive layouts with elegant finishes"
+
+  system_context: |
+    You are an expert real estate assistant specializing in condo application package preparation.
+    Your task is to create comprehensive, professional application packages for the Tridel Royal Bayview
+    project using only publicly available information from the developer's website and general market knowledge.
+
+    Domain Knowledge:
+    - Tridel is Canada's leading luxury condo developer in the Greater Toronto Area
+    - Royal Bayview is a move-in ready project in Thornhill overlooking a golf course
+    - Focus on lifestyle benefits: golf course views, modern amenities, urban connectivity
+    - Target market: professionals seeking luxury living with recreational access
+    - Key selling points: immediate occupancy, premium finishes, exclusive location
+
+    Constraints:
+    - No direct builder materials provided - rely on website content and public information
+    - Maintain professional presentation suitable for real estate agents and clients
+    - Ensure all information is accurate and verifiable from public sources
+    - Create compelling narratives that highlight the unique value proposition
+
+  phases:
+    - name: "Infrastructure Setup"
+      description: "Set up directory structure, config tracking, and progress monitoring for pipeline execution"
+      units:
+        - name: "setup_directory_structure"
+          description: "Create required directories (.checksum, tracking, planning) for pipeline execution"
+          status: "pending"
+          dependencies: []
+        - name: "initialize_config_tracking"
+          description: "Initialize checksum tracking for config.yaml to detect configuration changes"
+          status: "pending"
+          dependencies: ["setup_directory_structure"]
+        - name: "setup_progress_tracking"
+          description: "Initialize progress tracking files and visualization infrastructure"
+          status: "pending"
+          dependencies: ["initialize_config_tracking"]
+
+    - name: "Material Collection & Analysis"
+      description: "Gather and analyze all available information about Royal Bayview from public sources"
+      units:
+        - name: "gather_website_content"
+          description: "Extract comprehensive information from Tridel's Royal Bayview website including all linked content"
+          status: "completed"
+          dependencies: []
+          prompt: |
+            Perform comprehensive content extraction from the Tridel Royal Bayview website by systematically browsing all links and downloading information about media files, features, documents, and specifications.
+
+            COMPREHENSIVE EXTRACTION INSTRUCTIONS:
+
+            1. MAIN PAGE ANALYSIS:
+               - Extract project overview, tagline, and key messaging
+               - Identify all navigation links and section references
+               - Document contact information and booking procedures
+
+            2. LINKED CONTENT DISCOVERY:
+               - Follow all internal links to explore complete website structure
+               - Visit: /amenities, /neighbourhood, /prices-floorplans, /about, and any other linked pages
+               - Extract content from each linked section systematically
+
+            3. MEDIA FILES EXTRACTION:
+               - IMAGES: Document all property images, amenity photos, location shots, and suite renderings
+               - VIDEOS: Extract video content descriptions, virtual tours, and promotional videos
+               - Identify image/video URLs and categorize by type (exterior, interior, amenities, location)
+
+            4. FEATURES & AMENITIES:
+               - Extract detailed amenity descriptions from dedicated pages
+               - Document building features, technology integration, and services
+               - Note any unique selling points or exclusive features
+
+            5. PDF DOCUMENTS & DOWNLOADS:
+               - Locate and extract information from any available PDF documents
+               - Download floor plans, specification sheets, and informational brochures
+               - Extract pricing information and availability details
+
+            6. INTRODUCTION & MARKETING CONTENT:
+               - Gather all introductory content, project narratives, and marketing copy
+               - Extract lifestyle descriptions and value propositions
+               - Document developer information and project credentials
+
+            7. PRICING & FLOOR PLANS:
+               - Extract detailed pricing information from floor plans page
+               - Document suite types, sizes, bedroom/bathroom configurations
+               - Note pricing ranges, availability status, and special features
+
+            8. CONTACT & SALES INFORMATION:
+               - Compile complete contact details and sales procedures
+               - Document booking systems, virtual tour options, and appointment processes
+               - Extract sales office information and representative details
+
+            SYSTEMATIC APPROACH:
+            - Start with main page, then systematically visit each linked section
+            - Create comprehensive catalog of all media assets and documents
+            - Ensure no linked content is missed in the extraction process
+            - Cross-reference information across different pages for completeness
+
+            Output a comprehensive structured summary covering all extracted content.
+
+          expected_output:
+            format: "json"
+            structure: "Comprehensive project information including overview, location, amenities, features, contact details, media assets, pricing, and floor plans"
+
+        - name: "analyze_location_benefits"
+          description: "Research and document the unique location benefits of Thornhill and golf course proximity"
+          status: "pending"
+          dependencies: ["gather_website_content"]
+          prompt: |
+            Research and document the location benefits of Royal Bayview in Thornhill, particularly
+            the proximity to the Ladies' Golf Club of Toronto and surrounding amenities.
+
+            Instructions:
+            1. Document golf course access and recreational opportunities
+            2. Identify nearby urban amenities and transportation
+            3. Research neighborhood reputation and lifestyle appeal
+            4. Note proximity to business districts and shopping
+            5. Highlight any unique geographical or environmental features
+
+            Create a comprehensive location analysis that emphasizes lifestyle benefits.
+
+          expected_output:
+            format: "json"
+            schema:
+              type: "object"
+              properties:
+                golf_course_access: {type: "string"}
+                urban_amenities: {type: "array", items: {type: "string"}}
+                transportation: {type: "array", items: {type: "string"}}
+                neighborhood_appeal: {type: "string"}
+                lifestyle_benefits: {type: "array", items: {type: "string"}}
+
+        - name: "research_market_context"
+          description: "Research current condo market conditions and Tridel's reputation in Thornhill"
+          status: "pending"
+          dependencies: ["gather_website_content"]
+          prompt: |
+            Research the current condo market context for Thornhill and Tridel's reputation as a developer.
+
+            Instructions:
+            1. Research Thornhill condo market trends and pricing
+            2. Document Tridel's reputation and past projects
+            3. Identify competitive advantages of Royal Bayview
+            4. Note any awards or recognitions for Tridel or the project
+            5. Research buyer demographics and preferences
+
+            Provide market intelligence that supports the project's value proposition.
+
+          expected_output:
+            format: "json"
+            schema:
+              type: "object"
+              properties:
+                market_trends: {type: "string"}
+                tridel_reputation: {type: "string"}
+                competitive_advantages: {type: "array", items: {type: "string"}}
+                target_demographics: {type: "string"}
+                market_positioning: {type: "string"}
+
+    - name: "Content Processing & Customization"
+      description: "Process collected information and create customized content for client packages"
+      units:
+        - name: "analyze_materials_and_propose_artifacts"
+          description: "Analyze all collected materials and propose agent-centric artifacts as MD file"
+          status: "pending"
+          dependencies: ["gather_website_content"]
+          prompt: |
+            Analyze all collected materials from the Royal Bayview project and create a comprehensive
+            proposed artifacts document in Markdown format that agents can review and modify.
+
+            Instructions:
+            1. Review all HTML pages, images, documents, and extracted content
+            2. Identify key selling points, features, and benefits from the materials
+            3. Propose a structured agent presentation that includes:
+               - Project overview and key highlights
+               - Location benefits and neighborhood analysis
+               - Unit types, pricing, and floor plans
+               - Amenities and lifestyle features
+               - Market positioning and competitive advantages
+               - Call-to-action and contact information
+            4. Suggest optimal media file organization for agent presentations
+            5. Create a comprehensive MD file that can be converted to HTML/PDF
+            6. Include recommendations for media cleanup and reorganization
+
+            The output should be a well-structured Markdown document that serves as a template
+            for agent presentations, with clear sections and suggested content flow.
+
+          expected_output:
+            format: "markdown"
+            schema:
+              type: "object"
+              properties:
+                proposed_md_content: {type: "string"}
+                media_organization_suggestions: {type: "array", items: {type: "string"}}
+                content_sections: {type: "array", items: {type: "string"}}
+                recommended_modifications: {type: "array", items: {type: "string"}}
+
+        - name: "create_project_summary"
+          description: "Create a compelling project summary highlighting key benefits"
+          status: "pending"
+          dependencies: ["analyze_materials_and_propose_artifacts", "analyze_location_benefits", "research_market_context"]
+          prompt: |
+            Create a compelling project summary for Royal Bayview that highlights the key benefits
+            and unique value propositions for potential buyers.
+
+            Instructions:
+            1. Synthesize information from all research sources
+            2. Craft a narrative that emphasizes lifestyle benefits
+            3. Highlight the golf course location as a premium feature
+            4. Include move-in ready status as a key advantage
+            5. Create engaging, professional copy suitable for marketing materials
+
+            The summary should be persuasive yet factual, focusing on buyer benefits.
+
+          expected_output:
+            format: "markdown"
+            sections: ["Executive Summary", "Location Excellence", "Lifestyle Benefits", "Investment Potential"]
+
+        - name: "generate_feature_highlights"
+          description: "Create detailed feature highlights for amenities and suite specifications"
+          status: "pending"
+          dependencies: ["gather_website_content"]
+          prompt: |
+            Generate detailed feature highlights for Royal Bayview's amenities and suite specifications.
+
+            Instructions:
+            1. Create engaging descriptions of key amenities
+            2. Document suite features and finishes
+            3. Highlight design elements and quality standards
+            4. Include information about building systems and technology
+            5. Format for easy inclusion in presentation materials
+
+            Focus on creating compelling, benefit-oriented descriptions.
+
+          expected_output:
+            format: "markdown"
+            sections: ["Amenity Collection", "Suite Specifications", "Design & Finishes", "Technology Features"]
+
+        - name: "prepare_client_questions"
+          description: "Prepare comprehensive list of client questions and discovery points"
+          status: "pending"
+          dependencies: ["gather_website_content", "analyze_location_benefits"]
+          prompt: |
+            Prepare a comprehensive list of questions and discovery points for client consultations
+            about Royal Bayview.
+
+            Instructions:
+            1. Create questions about lifestyle preferences and golf interest
+            2. Include questions about move-in timeline and financing
+            3. Add questions about suite preferences and customization
+            4. Include questions about neighborhood and community preferences
+            5. Structure questions by category for easy reference during consultations
+
+            Questions should help qualify clients and identify their specific needs.
+
+          expected_output:
+            format: "json"
+            schema:
+              type: "object"
+              properties:
+                lifestyle_questions: {type: "array", items: {type: "string"}}
+                financial_questions: {type: "array", items: {type: "string"}}
+                suite_preference_questions: {type: "array", items: {type: "string"}}
+                timeline_questions: {type: "array", items: {type: "string"}}
+
+        - name: "convert_md_to_html_pdf"
+          description: "Convert the reviewed MD file to HTML and PDF formats for client distribution"
+          status: "pending"
+          dependencies: ["analyze_materials_and_propose_artifacts"]
+          prompt: |
+            Convert the reviewed and approved Markdown file to professional HTML and PDF formats
+            suitable for client presentations and distribution.
+
+            Instructions:
+            1. Take the final MD file after user review and modifications
+            2. Convert to clean, professional HTML with proper styling
+            3. Generate PDF version with proper formatting and branding
+            4. Ensure all local media links work correctly in both formats
+            5. Optimize layouts for both screen viewing and print
+
+            The output should be presentation-ready materials that maintain the content
+            structure while providing professional formatting.
+
+          expected_output:
+            format: "json"
+            schema:
+              type: "object"
+              properties:
+                html_file_path: {type: "string"}
+                pdf_file_path: {type: "string"}
+                conversion_status: {type: "string"}
+                media_links_validated: {type: "boolean"}
+
+        - name: "organize_agent_presentation_materials"
+          description: "Clean up, modify and reorganize media files for agent presentation use"
+          status: "pending"
+          dependencies: ["analyze_materials_and_propose_artifacts"]
+          prompt: |
+            Clean up, modify, and reorganize all media files according to the proposed
+            organization from the artifacts analysis, optimized for agent presentations.
+
+            Instructions:
+            1. Review the media organization suggestions from the artifacts analysis
+            2. Clean up unnecessary or duplicate files
+            3. Rename files with descriptive, professional names
+            4. Reorganize into presentation-focused folder structure
+            5. Create optimized versions of images for different uses (thumbnails, full-size, etc.)
+            6. Ensure all files are properly linked in the final presentation materials
+
+            The result should be a clean, organized media library specifically structured
+            for agent use in client presentations.
+
+          expected_output:
+            format: "json"
+            schema:
+              type: "object"
+              properties:
+                organized_structure: {type: "object"}
+                files_cleaned: {type: "number"}
+                files_renamed: {type: "number"}
+                optimization_applied: {type: "array", items: {type: "string"}}
+
+        - name: "create_agent_instructions"
+          description: "Create comprehensive agent-specific instructions and talking points for Royal Bayview presentations"
+          status: "pending"
+          dependencies: ["analyze_materials_and_propose_artifacts", "analyze_location_benefits", "research_market_context"]
+          prompt: |
+            Create comprehensive agent instructions specifically tailored for Royal Bayview condo presentations.
+            This document should serve as a complete guide for real estate agents presenting this property.
+
+            Instructions:
+            1. Analyze all collected materials to identify key selling points and unique features
+            2. Create agent-specific talking points, objection handling, and presentation strategies
+            3. Include detailed information about golf course benefits and lifestyle positioning
+            4. Develop consultation frameworks and follow-up strategies
+            5. Provide market intelligence and competitive positioning
+            6. Include pricing strategies and financing approaches
+            7. Create professional presentation tips for both in-person and virtual showings
+            8. Document common client questions and recommended responses
+            9. Include emergency contacts and closing strategies
+
+            The agent instructions should be comprehensive yet practical, providing agents with
+            everything they need to successfully present Royal Bayview to potential clients.
+
+          expected_output:
+            format: "markdown"
+            schema:
+              type: "object"
+              properties:
+                executive_summary: {type: "string"}
+                key_talking_points: {type: "array", items: {type: "string"}}
+                golf_positioning: {type: "string"}
+                pricing_strategy: {type: "string"}
+                common_questions: {type: "array", items: {type: "object"}}
+                presentation_tips: {type: "array", items: {type: "string"}}
+                follow_up_strategy: {type: "string"}
+                closing_strategies: {type: "array", items: {type: "string"}}
+
+        - name: "generate_agent_website"
+          description: "Create an agent-centric local website for Royal Bayview presentations with customizable settings"
+          status: "pending"
+          dependencies: ["create_agent_instructions", "organize_agent_presentation_materials"]
+          prompt: |
+            Generate a complete agent-centric website for Royal Bayview condo presentations.
+
+            Instructions:
+            1. Create a self-contained local website starting with index.html
+            2. Focus on agent presentation needs rather than builder-centric content
+            3. Include customizable agent settings (name, contact info, branding)
+            4. Remove unnecessary builder-focused content and emphasize selling points
+            5. Make the website expandable based on agent preferences and settings
+            6. Include responsive design for mobile/tablet/desktop viewing
+            7. Add interactive features like image galleries and contact forms
+            8. Optimize for both presentation use and client handouts
+            9. Include professional styling with agent branding capabilities
+            10. Create comprehensive documentation for customization
+
+            The website should serve as a complete presentation tool that agents can customize
+            and use for client meetings, virtual tours, and follow-up communications.
+
+          expected_output:
+            format: "directory"
+            schema:
+              type: "object"
+              properties:
+                index_html: {type: "string", description: "Main website entry point"}
+                css_styles: {type: "string", description: "Custom responsive styling"}
+                javascript: {type: "string", description: "Interactive functionality"}
+                agent_settings: {type: "string", description: "Customization configuration"}
+                documentation: {type: "string", description: "Usage and setup guide"}
+                media_assets: {type: "array", description: "Organized images and videos"}
+                total_files: {type: "number", description: "Total files generated"}
+
+    - name: "Language Processing & Translation"
+      description: "Create language-specific versions of all content for multi-language package generation"
+      units:
+        - name: "create_language_versions"
+          description: "Generate content versions in configured languages (English, Chinese, etc.)"
+          status: "pending"
+          dependencies: ["create_agent_instructions"]
+          prompt: |
+            EXECUTE MULTI-LANGUAGE CONTENT GENERATION FOR ROYAL BAYVIEW:
+
+            INPUTS:
+            - All processed content from previous phases (project summaries, agent instructions, etc.)
+            - Language settings from config (English and Chinese by default)
+
+            OBJECTIVE: Create language-specific versions of all Royal Bayview content for multi-language package generation.
+
+            CONFIGURATION:
+            - Languages: English (en), Chinese (zh)
+            - Primary Language: English (en)
+            - Translation Mode: parallel processing
+
+            REQUIRED ACTIONS:
+
+            1. LANGUAGE DETECTION & SETUP:
+               - Identify primary language content (English)
+               - Set up output directories for each language: content/en/, content/zh/
+               - Configure translation parameters per language
+
+            2. CONTENT TRANSLATION FOR ROYAL BAYVIEW:
+               For each configured language:
+               - Translate project descriptions and golf course lifestyle benefits
+               - Translate amenity descriptions and luxury features
+               - Translate agent instructions and talking points
+               - Translate client questions and consultation guides
+               - Maintain professional real estate terminology and Tridel branding
+
+            3. MEDIA FILE HANDLING:
+               - Copy non-text media files to language-specific directories
+               - Generate language-specific filenames with suffixes (_en, _zh)
+               - Update file references in translated documents
+
+            4. CULTURAL & MARKET ADAPTATION:
+               - Adapt content for Chinese market preferences where appropriate
+               - Maintain golf course lifestyle positioning across languages
+               - Ensure luxury condo messaging translates effectively
+               - Preserve Thornhill location benefits in all languages
+
+            OUTPUT STRUCTURE:
+            Create language-specific directories:
+            - content/en/ (English version - primary)
+            - content/zh/ (Chinese version)
+
+            Each directory should contain complete translated versions of:
+            - project_summary.md
+            - feature_highlights.md
+            - agent_instructions.md
+            - client_questions.json
+            - All supporting documents and media
+
+            TRANSLATION GUIDELINES FOR ROYAL BAYVIEW:
+            - Maintain professional real estate terminology
+            - Preserve Tridel brand voice and messaging
+            - Ensure cultural appropriateness for luxury market
+            - Keep technical specifications accurate
+            - Translate contact information appropriately: 416.661.7699
+            - Emphasize golf course lifestyle benefits in all languages
+
+          expected_output:
+            format: "directory"
+            schema:
+              type: "object"
+              properties:
+                language_directories: {type: "array", items: {type: "string"}}
+                translated_files: {type: "object"}
+                translation_quality: {type: "string"}
+                cultural_adaptations: {type: "array", items: {type: "string"}}
+
+    - name: "Package Assembly & Validation"
+      description: "Assemble final application package and validate completeness"
+      units:
+        - name: "assemble_application_package"
+          description: "Compile all materials into comprehensive multi-language client application packages"
+          status: "pending"
+          dependencies: ["create_project_summary", "generate_feature_highlights", "prepare_client_questions", "convert_md_to_html_pdf", "organize_agent_presentation_materials", "create_agent_instructions", "create_language_versions"]
+          prompt: |
+            ASSEMBLE MULTI-LANGUAGE APPLICATION PACKAGES FOR ROYAL BAYVIEW:
+
+            INPUTS:
+            - All processed content from previous phases
+            - Multi-language content versions (English and Chinese)
+            - Agent materials and website
+
+            OBJECTIVE: Assemble comprehensive, professional application packages for Royal Bayview in both English and Chinese for international client distribution.
+
+            CONFIGURATION:
+            - Languages: English (en), Chinese (zh)
+            - Primary Language: English (en)
+            - Package Structure: Multi-language parallel assembly
+
+            REQUIRED ACTIONS:
+
+            1. MULTI-LANGUAGE PACKAGE STRUCTURE DESIGN:
+               Create language-specific directory structures:
+               - final_application_package/en/ (English package)
+               - final_application_package/zh/ (Chinese package)
+
+               Each language directory should contain:
+               - documents/ (PDFs, forms, legal docs)
+               - images/ (organized galleries)
+               - videos/ (categorized content)
+               - guides/ (instructional materials)
+               - website/ (agent presentation website)
+               - manifest_[language].json
+
+            2. LANGUAGE-SPECIFIC CONTENT ASSEMBLY:
+               For English package:
+               - Include all English content and materials
+               - Add English agent instructions and talking points
+               - Include English client consultation guides
+               - Maintain golf course lifestyle positioning
+
+               For Chinese package:
+               - Include all translated Chinese content
+               - Add Chinese agent instructions and talking points
+               - Include Chinese client consultation guides
+               - Adapt golf course lifestyle messaging for Chinese market
+
+            3. MEDIA FILE ORGANIZATION:
+               - Copy optimized images to each language directory
+               - Organize videos by language-specific categories
+               - Include agent website in both languages
+               - Ensure media files are accessible in all language versions
+
+            4. MANIFEST GENERATION:
+               Create language-specific manifests documenting:
+               - Complete content inventory for each language
+               - File sizes, descriptions, and customization details
+               - Client action items translated appropriately
+               - Royal Bayview specific features and benefits
+               - Contact information: 416.661.7699
+
+            OUTPUT STRUCTURE:
+            final_application_package/
+            ├── en/ (English package)
+            │   ├── documents/
+            │   ├── images/
+            │   ├── videos/
+            │   ├── guides/
+            │   ├── website/
+            │   └── manifest_en.json
+            ├── zh/ (Chinese package)
+            │   ├── documents/
+            │   ├── images/
+            │   ├── videos/
+            │   ├── guides/
+            │   ├── website/
+            │   └── manifest_zh.json
+            └── master_manifest.json (overview of all language packages)
+
+            SUCCESS CRITERIA:
+            - All processed materials included in each language package
+            - Professional directory structure for each language
+            - Comprehensive manifests document all language-specific contents
+            - Royal Bayview golf course lifestyle properly positioned in all languages
+            - Packages ready for international client distribution
+            - Quality validation confirms completeness for all languages
+
+          expected_output:
+            format: "directory"
+            schema:
+              type: "object"
+              properties:
+                package_structure: {type: "object"}
+                language_packages: {type: "array", items: {type: "string"}}
+                content_sections: {type: "array", items: {type: "string"}}
+                distribution_formats: {type: "array", items: {type: "string"}}
+                contact_integration: {type: "string"}
+                multilingual_support: {type: "boolean"}
+
+        - name: "validate_package_completeness"
+          description: "Validate that all language-specific application packages contain complete and accurate information"
+          status: "pending"
+          dependencies: ["assemble_application_package"]
+          prompt: |
+            VALIDATE MULTI-LANGUAGE ROYAL BAYVIEW APPLICATION PACKAGES:
+
+            INPUTS:
+            - Multi-language application packages (English and Chinese)
+            - Package manifests for each language
+            - Source content and translation materials
+
+            OBJECTIVE: Perform comprehensive validation to ensure all language-specific Royal Bayview packages are complete, accurate, and ready for international client distribution.
+
+            CONFIGURATION:
+            - Languages: English (en), Chinese (zh)
+            - Validation Scope: All language packages
+
+            REQUIRED ACTIONS:
+
+            1. MULTI-LANGUAGE CONTENT VERIFICATION:
+               For each language package:
+               - Cross-reference language-specific manifest with actual files
+               - Verify all Royal Bayview content is present and accurate
+               - Check file sizes match manifest specifications
+               - Validate file accessibility and integrity
+               - Confirm proper categorization and organization
+
+            2. LANGUAGE-SPECIFIC CUSTOMIZATION VALIDATION:
+               For English package:
+               - Verify golf course lifestyle positioning
+               - Check Tridel branding and professional presentation
+               - Validate contact information: 416.661.7699
+               - Confirm Thornhill location benefits
+
+               For Chinese package:
+               - Verify translation accuracy and cultural appropriateness
+               - Check that golf course lifestyle translates effectively
+               - Ensure luxury condo messaging is properly adapted
+               - Validate Chinese contact information formatting
+
+            3. TRANSLATION QUALITY CHECK:
+               - Verify translation accuracy and professional terminology
+               - Check that real estate vocabulary is correctly translated
+               - Ensure consistent branding across all languages
+               - Validate that all links and references are maintained
+               - Confirm professional presentation in all languages
+
+            4. CROSS-LANGUAGE CONSISTENCY:
+               - Verify that core Royal Bayview information is consistent
+               - Check that pricing and specifications are identical
+               - Ensure contact information is consistent
+               - Validate that customization elements are properly applied
+
+            5. ROYAL BAYVIEW SPECIFIC VALIDATION:
+               - Confirm golf course proximity benefits are highlighted
+               - Verify luxury amenities are properly described
+               - Check move-in ready status is clearly communicated
+               - Validate developer (Tridel) information accuracy
+               - Ensure Thornhill location benefits are emphasized
+
+            OUTPUT: Comprehensive validation report covering all language packages with detailed findings and recommendations for Royal Bayview presentations.
+
+          expected_output:
+            format: "json"
+            schema:
+              type: "object"
+              properties:
+                completeness_check: {type: "object"}
+                language_validations: {type: "array", items: {type: "object"}}
+                quality_assurance: {type: "array", items: {type: "string"}}
+                royal_bayview_specific_checks: {type: "array", items: {type: "string"}}
+                validation_status: {type: "string"}
+                recommendations: {type: "array", items: {type: "string"}}
+
+        - name: "prepare_client_distribution"
+          description: "Prepare the package for distribution to clients with usage instructions"
+          status: "pending"
+          dependencies: ["validate_package_completeness"]
+          prompt: |
+            Prepare the Royal Bayview application package for client distribution with clear usage instructions.
+
+            Instructions:
+            1. Create distribution-ready formats (digital and print)
+            2. Include instructions for real estate agents on package usage
+            3. Add client consultation guidelines
+            4. Prepare follow-up procedures and contact protocols
+            5. Create tracking mechanisms for package effectiveness
+
+            Ensure the package is professional and easy to use in client meetings.
+
+          expected_output:
+            format: "json"
+            schema:
+              type: "object"
+              properties:
+                distribution_formats: {type: "array", items: {type: "string"}}
+                agent_instructions: {type: "string"}
+                client_guidelines: {type: "string"}
+                follow_up_procedures: {type: "array", items: {type: "string"}}
+                success_metrics: {type: "array", items: {type: "string"}}
+
+  execution_config:
+    working_directory: "demo/royal-bayview"
+    output_directory: "demo/royal-bayview/output"
+    log_level: "INFO"
+    enable_validation: true
+    auto_backup: true
+
+  success_criteria:
+    - "All website information properly extracted and organized"
+    - "Compelling project narrative created highlighting golf course lifestyle"
+    - "Multi-language content generated for English and Chinese markets"
+    - "Professional application packages assembled in all configured languages"
+    - "Royal Bayview golf course lifestyle properly positioned in all languages"
+    - "Contact information and booking procedures clearly documented in all languages"
+    - "Translation quality validated for accuracy and cultural appropriateness"
+    - "Language-specific packages validated for completeness and accuracy"
+    - "Distribution-ready formats prepared for international client consultations"

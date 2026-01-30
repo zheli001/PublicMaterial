@@ -1,0 +1,44 @@
+# Condo Application Package Pipeline Configuration
+# This file shows how to configure the pipeline for a specific condo project
+
+# Project Information
+project_id: "sunset-views-condo-2025"
+builder_name: "Sunset Developments Inc."
+project_name: "Sunset Views Luxury Condos"
+builder_website_url: "https://www.sunsetdevelopments.com/projects/sunset-views"
+materials_directory: "/path/to/builder/materials/sunset-views"
+
+# Package Configuration
+package_type: "luxury_condo_application"
+target_client_type: "first_time_buyers"
+customization_level: "full_branding"
+
+# Agent Information
+agent_name: "Sarah Gu"
+agent_contact: "sarah_gu@hotmail.com"
+agent_phone: "(647) 233-2202"
+agent_brokerage: "Sarah Gu Real Estate Inc."
+branding_requirements: "Include logo on all documents, custom color scheme #2E86AB"
+
+# Timeline
+target_timeline: "2_weeks"
+priority_level: "high"
+
+# Processing Options
+parallel_processing: true
+validation_level: "strict"
+backup_originals: true
+
+# Output Configuration
+output_format: "client_ready_zip"
+include_readme: true
+include_completion_guides: true
+compress_images: true
+video_format_conversion: false
+
+# Quality Checks
+required_file_types: ["pdf", "image", "form"]
+minimum_pdf_count: 3
+minimum_image_count: 10
+require_video_content: false
+customization_verification: true

@@ -1,0 +1,317 @@
+{
+  "artifacts_registry": {
+    "infrastructure_setup": {
+      "setup_directory_structure": {
+        "created_at": "2025-11-16T21:01:00Z",
+        "status": "COMPLETED",
+        "artifacts": {
+          ".checksum": {
+            "type": "directory",
+            "path": ".checksum/",
+            "purpose": "Configuration checksums and change tracking",
+            "created": true,
+            "writable": true
+          },
+          "tracking": {
+            "type": "directory",
+            "path": "tracking/",
+            "purpose": "Pipeline visualization and progress tracking",
+            "created": true,
+            "writable": true
+          },
+          "planning": {
+            "type": "directory",
+            "path": "planning/",
+            "purpose": "Step artifacts and intermediate outputs",
+            "created": true,
+            "writable": true
+          }
+        }
+      },
+      "initialize_config_tracking": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "config_checksum.txt": {
+            "type": "file",
+            "path": ".checksum/config_checksum.txt",
+            "purpose": "SHA256 checksum of config.yaml",
+            "format": "text"
+          },
+          "config_history.json": {
+            "type": "file",
+            "path": ".checksum/config_history.json",
+            "purpose": "Configuration change history",
+            "format": "json"
+          }
+        }
+      },
+      "setup_progress_tracking": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "pipeline_visualization.md": {
+            "type": "file",
+            "path": "tracking/pipeline_visualization.md",
+            "purpose": "Main progress visualization file",
+            "format": "markdown"
+          },
+          "progress_status.json": {
+            "type": "file",
+            "path": "tracking/progress_status.json",
+            "purpose": "Current pipeline status tracking",
+            "format": "json"
+          },
+          "step_artifacts.json": {
+            "type": "file",
+            "path": "tracking/step_artifacts.json",
+            "purpose": "Registry of step outputs",
+            "format": "json"
+          }
+        }
+      }
+    },
+    "material_collection": {
+      "gather_website_content": {
+        "created_at": "2025-11-16T20:00:00Z",
+        "status": "COMPLETED",
+        "artifacts": {
+          "website_content_extracted.json": {
+            "type": "file",
+            "path": "planning/website_content_extracted.json",
+            "purpose": "Comprehensive website content extraction",
+            "format": "json",
+            "size_kb": 245,
+            "sections": ["project_overview", "amenities", "pricing", "floor_plans", "contact_info"]
+          },
+          "media_assets_catalog.json": {
+            "type": "file",
+            "path": "planning/media_assets_catalog.json",
+            "purpose": "Catalog of all media assets from website",
+            "format": "json",
+            "size_kb": 89,
+            "asset_types": ["images", "videos", "documents"]
+          }
+        }
+      },
+      "analyze_location_benefits": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "location_analysis.json": {
+            "type": "file",
+            "path": "planning/location_analysis.json",
+            "purpose": "Golf course proximity and location benefits analysis",
+            "format": "json"
+          }
+        }
+      },
+      "research_market_context": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "market_analysis.json": {
+            "type": "file",
+            "path": "planning/market_analysis.json",
+            "purpose": "Thornhill condo market trends and Tridel reputation",
+            "format": "json"
+          }
+        }
+      }
+    },
+    "content_processing": {
+      "analyze_materials_and_propose_artifacts": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "proposed_artifacts.md": {
+            "type": "file",
+            "path": "planning/proposed_artifacts.md",
+            "purpose": "Agent-centric artifacts proposal document",
+            "format": "markdown"
+          },
+          "media_organization_plan.json": {
+            "type": "file",
+            "path": "planning/media_organization_plan.json",
+            "purpose": "Media file organization and cleanup suggestions",
+            "format": "json"
+          }
+        }
+      },
+      "create_project_summary": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "project_summary.md": {
+            "type": "file",
+            "path": "planning/project_summary.md",
+            "purpose": "Compelling project summary highlighting benefits",
+            "format": "markdown"
+          }
+        }
+      },
+      "generate_feature_highlights": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "feature_highlights.md": {
+            "type": "file",
+            "path": "planning/feature_highlights.md",
+            "purpose": "Detailed feature highlights for amenities and specs",
+            "format": "markdown"
+          }
+        }
+      },
+      "prepare_client_questions": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "client_questions.json": {
+            "type": "file",
+            "path": "planning/client_questions.json",
+            "purpose": "Comprehensive client consultation questions",
+            "format": "json"
+          }
+        }
+      },
+      "convert_md_to_html_pdf": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "project_summary.html": {
+            "type": "file",
+            "path": "output/project_summary.html",
+            "purpose": "HTML version of project summary",
+            "format": "html"
+          },
+          "project_summary.pdf": {
+            "type": "file",
+            "path": "output/project_summary.pdf",
+            "purpose": "PDF version of project summary",
+            "format": "pdf"
+          }
+        }
+      },
+      "organize_agent_presentation_materials": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "organized_media": {
+            "type": "directory",
+            "path": "output/media/",
+            "purpose": "Clean organized media library for presentations",
+            "contents": ["images/", "videos/", "documents/"]
+          },
+          "media_cleanup_report.json": {
+            "type": "file",
+            "path": "planning/media_cleanup_report.json",
+            "purpose": "Report on media organization and cleanup",
+            "format": "json"
+          }
+        }
+      },
+      "create_agent_instructions": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "agent_instructions.md": {
+            "type": "file",
+            "path": "output/agent_instructions.md",
+            "purpose": "Comprehensive agent presentation guide",
+            "format": "markdown"
+          },
+          "presentation_guidelines.json": {
+            "type": "file",
+            "path": "output/presentation_guidelines.json",
+            "purpose": "Structured presentation guidelines",
+            "format": "json"
+          }
+        }
+      },
+      "generate_agent_website": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "agent_website": {
+            "type": "directory",
+            "path": "output/website/",
+            "purpose": "Self-contained agent presentation website",
+            "contents": ["index.html", "css/", "js/", "images/", "media/"]
+          },
+          "website_config.json": {
+            "type": "file",
+            "path": "output/website_config.json",
+            "purpose": "Website customization and setup configuration",
+            "format": "json"
+          }
+        }
+      }
+    },
+    "language_processing": {
+      "create_language_versions": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "content_en": {
+            "type": "directory",
+            "path": "output/content/en/",
+            "purpose": "English language content versions",
+            "contents": ["project_summary.md", "agent_instructions.md", "client_questions.json"]
+          },
+          "content_zh": {
+            "type": "directory",
+            "path": "output/content/zh/",
+            "purpose": "Chinese language content versions",
+            "contents": ["project_summary.md", "agent_instructions.md", "client_questions.json"]
+          },
+          "translation_report.json": {
+            "type": "file",
+            "path": "planning/translation_report.json",
+            "purpose": "Translation quality and completion report",
+            "format": "json"
+          }
+        }
+      }
+    },
+    "package_assembly": {
+      "assemble_application_package": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "final_application_package": {
+            "type": "directory",
+            "path": "output/final_application_package/",
+            "purpose": "Complete multi-language application packages",
+            "contents": ["en/", "zh/", "master_manifest.json"]
+          },
+          "package_manifest_en.json": {
+            "type": "file",
+            "path": "output/final_application_package/en/manifest_en.json",
+            "purpose": "English package content manifest",
+            "format": "json"
+          },
+          "package_manifest_zh.json": {
+            "type": "file",
+            "path": "output/final_application_package/zh/manifest_zh.json",
+            "purpose": "Chinese package content manifest",
+            "format": "json"
+          }
+        }
+      },
+      "validate_package_completeness": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "validation_report.json": {
+            "type": "file",
+            "path": "output/validation_report.json",
+            "purpose": "Comprehensive package validation results",
+            "format": "json"
+          }
+        }
+      },
+      "prepare_client_distribution": {
+        "status": "PENDING",
+        "expected_artifacts": {
+          "distribution_ready_packages": {
+            "type": "directory",
+            "path": "output/distribution/",
+            "purpose": "Client-ready distribution packages",
+            "contents": ["en_package.zip", "zh_package.zip", "distribution_guide.pdf"]
+          }
+        }
+      }
+    }
+  },
+  "artifact_summary": {
+    "total_artifacts_created": 3,
+    "total_artifacts_expected": 25,
+    "completion_percentage": "12%",
+    "last_updated": "2025-11-16T21:02:00Z"
+  }
+}

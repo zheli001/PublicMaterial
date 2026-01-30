@@ -1,0 +1,13 @@
+{
+  "thumbnail_specs": {
+    "size": "300x200px",
+    "format": "JPEG",
+    "quality": "85%",
+    "purpose": "Gallery views and quick loading"
+  },
+  "source_images": [
+    "output\\agent_materials\\hero_images\\rb_location_05_Royal-Bayview_Aerial-Golf-Course.jpg",
+    "output\\agent_materials\\hero_images\\rb_location_08_Royal-Bayview_Aerial-Golf-Course.jpg"
+  ],
+  "recommendation": "Use image processing library (PIL/Pillow) to create thumbnails"
+}

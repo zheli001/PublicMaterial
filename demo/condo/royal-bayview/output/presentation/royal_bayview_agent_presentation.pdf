@@ -1,0 +1,16 @@
+ROYAL BAYVIEW RESIDENCES - AGENT PRESENTATION PACKAGE
+
+Generated: 2025-11-16 14:02:56
+
+This PDF version would contain the same content as the HTML presentation,
+formatted for professional printing and distribution.
+
+HTML Source: output\presentation\royal_bayview_agent_presentation.html
+
+To generate actual PDF:
+1. Install pdfkit: pip install pdfkit
+2. Install wkhtmltopdf: https://wkhtmltopdf.org/downloads.html
+3. Use pdfkit.from_file() to convert HTML to PDF
+
+For now, please use the HTML version for presentations and manually
+export to PDF using your browser's print functionality.

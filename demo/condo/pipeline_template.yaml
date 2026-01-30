@@ -1,0 +1,2209 @@
+pipeline:
+  # Template variables for customization
+  template_variables:
+    - name: "project_name"
+      description: "Name of the condo project"
+      default_value: "Royal Bayview"
+      required: true
+    - name: "project_location"
+      description: "Location of the condo project"
+      default_value: "Thornhill"
+      required: true
+    - name: "developer_name"
+      description: "Name of the developer"
+      default_value: "Tridel"
+      required: true
+    - name: "agent_name"
+      description: "Name of the real estate agent"
+      default_value: "${agent.name}"
+      required: true
+    - name: "agent_contact"
+      description: "Agent's contact email"
+      default_value: "${agent.contact}"
+      required: true
+    - name: "agent_phone"
+      description: "Agent's phone number"
+      default_value: "${agent.phone}"
+      required: true
+    - name: "agent_brokerage"
+      description: "Agent's brokerage name"
+      default_value: "${agent.brokerage}"
+      required: true
+    - name: "agent_branding"
+      description: "Agent's branding requirements"
+      default_value: "${agent.branding_requirements}"
+      required: false
+    - name: "instance_id"
+      description: "Unique identifier for this pipeline instance"
+      default_value: "condo-app-pkg-001"
+      required: true
+    - name: "artifacts_base"
+      description: "Base directory for storing artifacts"
+      default_value: "demo/condo/artifacts"
+      required: true
+    - name: "languages_enabled"
+      description: "Whether to generate packages in multiple languages"
+      default_value: "${languages.enabled}"
+      required: false
+    - name: "default_languages"
+      description: "List of default languages for package generation"
+      default_value: "${languages.default_languages}"
+      required: false
+    - name: "primary_language"
+      description: "Primary language for the package"
+      default_value: "${languages.primary_language}"
+      required: false
+
+  # high-level identifiers
+  pipeline_id: "condo-application-package"
+  pipeline_version: "1.0.0"
+  instance_id: "${instance_id}"
+  job_id: ""
+
+  # timestamps
+  created: "2025-11-16T12:00:00Z"
+  last_updated: "2025-11-16T12:00:00Z"
+  last_checkpoint: ""
+
+  # flexible config used by the demo pipeline
+  config:
+    root: "demo/condo"
+    jobs_config_file: ""
+    artifacts_base: "${artifacts_base}"
+    job_artifacts_dir: ""
+
+  # config tracking for checksum behavior
+  config_tracking:
+    current_checksum: ""
+    config_source: ""
+    last_verified: ""
+
+  # state: Settings to track the current pipeline running status
+  state:
+    status: "PENDING"
+    current_phase: ""
+    current_phase_id: ""
+    current_unit_id: ""
+    current_step: ""
+    startedAt: ""
+    finishedAt: ""
+    progress:
+      overall_percentage: 0
+      phases_completed: 0
+      phases_total: 4
+      units_completed: 0
+      units_total: 12
+
+  # metadata: Global settings for the pipeline instance that apply to all pipeline units during execution
+  metadata:
+    prompts:
+      - role: "system"
+        text: |
+          You are an expert realtor assistant specializing in condo application package creation. You have extensive knowledge of:
+
+          REAL ESTATE DOMAIN KNOWLEDGE:
+          - Condo application processes and requirements
+          - Builder material organization and presentation
+          - Agent branding and customization best practices
+          - Client communication and package delivery
+          - Regulatory compliance (FINTRAC, privacy laws, etc.)
+
+          TECHNICAL CAPABILITIES:
+          - File system operations (read, write, organize files)
+          - Content analysis and processing
+          - Document customization and highlighting
+          - Quality validation and error checking
+          - Professional documentation creation
+
+          WORKFLOW PRINCIPLES:
+          - Always maintain professional, client-ready quality
+          - Highlight all customizations clearly for agent review
+          - Preserve original materials while creating customized versions
+          - Create comprehensive documentation for each step
+          - Validate work thoroughly before completion
+          - Use clear, actionable language in all outputs
+
+          When executing units, follow these steps:
+          1. Analyze input requirements thoroughly
+          2. Execute the specific task with detailed, step-by-step actions
+          3. Create all specified outputs in the correct format
+          4. Validate your work against success criteria
+          5. Document any issues or manual steps required
+    planning: ""
+
+  # phases: List of composite units that run as phases
+  phases:
+    - id: "phase_0_infrastructure"
+      name: "Infrastructure Setup"
+      status: "PENDING"
+      metadata:
+        parallel: false
+      units:
+        - id: "setup_directory_structure"
+          name: "Setup Directory Structure"
+          description: "Create required directories for pipeline execution (.checksum, tracking, planning)"
+          status: "PENDING"
+          input: []
+          output: ["directory_structure_created"]
+          dependencies: []
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE DIRECTORY STRUCTURE SETUP:
+
+                OBJECTIVE: Create the required directory structure for pipeline execution and tracking.
+
+                REQUIRED DIRECTORIES TO CREATE:
+                1. .checksum/ - For storing configuration checksums and change tracking
+                2. tracking/ - For pipeline visualization and progress tracking files
+                3. planning/ - For storing step artifacts and intermediate outputs
+
+                ACTIONS:
+                1. Create .checksum directory if it doesn't exist
+                2. Create tracking directory if it doesn't exist
+                3. Create planning directory if it doesn't exist
+                4. Verify all directories are writable
+                5. Create initial .gitkeep files in empty directories
+
+                OUTPUT: Confirm successful directory creation with full paths.
+          planning: ""
+          condition:
+            - to: "initialize_config_tracking"
+              on: "COMPLETED"
+          manual: false
+
+        - id: "initialize_config_tracking"
+          name: "Initialize Config Tracking"
+          description: "Set up checksum tracking for config.yaml changes to detect when pipeline needs revalidation"
+          status: "PENDING"
+          input: ["directory_structure_created"]
+          output: ["config_checksum_initialized"]
+          dependencies: ["setup_directory_structure"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE CONFIG CHECKSUM INITIALIZATION:
+
+                OBJECTIVE: Initialize checksum tracking for config.yaml to detect configuration changes.
+
+                INPUT: config.yaml file path
+
+                REQUIRED ACTIONS:
+                1. Read the current config.yaml file
+                2. Calculate SHA256 checksum of the config content
+                3. Store checksum in .checksum/config_checksum.txt
+                4. Record timestamp of checksum creation
+                5. Create initial tracking entry in .checksum/config_history.json
+
+                OUTPUT FORMAT:
+                ```json
+                {
+                  "current_checksum": "SHA256_HASH",
+                  "config_file": "config.yaml",
+                  "created_at": "ISO_TIMESTAMP",
+                  "last_verified": "ISO_TIMESTAMP",
+                  "change_detected": false
+                }
+                ```
+
+                Store output in .checksum/config_tracking.json
+          planning: ""
+          condition:
+            - to: "setup_progress_tracking"
+              on: "COMPLETED"
+          manual: false
+
+        - id: "setup_progress_tracking"
+          name: "Setup Progress Tracking"
+          description: "Initialize progress tracking files in the tracking directory"
+          status: "PENDING"
+          input: ["config_checksum_initialized"]
+          output: ["progress_tracking_initialized"]
+          dependencies: ["initialize_config_tracking"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE PROGRESS TRACKING SETUP:
+
+                OBJECTIVE: Initialize progress tracking infrastructure for pipeline visualization and monitoring.
+
+                REQUIRED FILES TO CREATE:
+                1. tracking/pipeline_visualization.md - Main progress visualization file
+                2. tracking/progress_status.json - Current pipeline status
+                3. tracking/step_artifacts.json - Registry of step outputs
+
+                ACTIONS:
+                1. Create pipeline_visualization.md template with sections for each phase
+                2. Initialize progress_status.json with current pipeline state
+                3. Create step_artifacts.json for tracking intermediate outputs
+                4. Set up basic progress indicators and completion tracking
+
+                OUTPUT: Confirmation of all tracking files created successfully.
+          planning: ""
+          condition:
+            - to: "gather_builder_materials"
+              on: "COMPLETED"
+          manual: false
+
+    - id: "phase_0_material_collection"
+      name: "Material Collection & Analysis"
+      status: "PENDING"
+      metadata:
+        parallel: false
+      units:
+        - id: "gather_builder_materials"
+          name: "Gather Builder Materials"
+          description: "Collect all materials from builder's provided directory including PDFs, videos, images, and forms"
+          status: "PENDING"
+          input: ["builder_materials_directory"]
+          output: ["collected_materials_inventory", "material_types_identified"]
+          dependencies: []
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE MATERIAL COLLECTION TASK:
+
+                INPUT: builder_materials_directory (path to directory containing all builder-provided materials)
+
+                OBJECTIVE: Create a comprehensive inventory of all builder materials for condo application package creation.
+
+                REQUIRED ACTIONS:
+
+                1. DIRECTORY SCANNING:
+                   - Recursively scan the builder_materials_directory
+                   - Identify all files and subdirectories
+                   - Note directory structure and organization
+
+                2. FILE CATEGORIZATION:
+                   - PDFs: Brochures, floor plans, specifications, legal documents
+                   - Videos: Project tours, walkthroughs, promotional content
+                   - Images: Exterior shots, interior photos, amenity photos, renderings
+                   - Forms: Application forms, disclosure documents, contracts
+                   - Other: Additional materials like spreadsheets, presentations
+
+                3. FILE ANALYSIS:
+                   For each file, record:
+                   - Full file path (relative to builder_materials_directory)
+                   - File size in bytes
+                   - File type/extension
+                   - Last modified date
+                   - Purpose/category (based on filename and content analysis)
+
+                4. QUALITY ASSESSMENT:
+                   - Check for file corruption or accessibility issues
+                   - Note any missing or incomplete files
+                   - Identify file naming conventions used
+
+                OUTPUT REQUIREMENTS:
+
+                Create "collected_materials_inventory.json":
+                ```json
+                {
+                  "scan_timestamp": "ISO_DATE_STRING",
+                  "total_files": NUMBER,
+                  "total_size_bytes": NUMBER,
+                  "directory_structure": {
+                    "root_path": "builder_materials_directory",
+                    "subdirectories": ["list", "of", "subdirs"]
+                  },
+                  "file_inventory": [
+                    {
+                      "file_path": "relative/path/to/file.pdf",
+                      "file_name": "file.pdf",
+                      "file_size_bytes": 12345,
+                      "file_type": "pdf",
+                      "category": "brochure",
+                      "last_modified": "ISO_DATE_STRING",
+                      "status": "accessible",
+                      "notes": "High-quality brochure with project overview"
+                    }
+                  ],
+                  "summary_by_type": {
+                    "pdf": COUNT,
+                    "video": COUNT,
+                    "image": COUNT,
+                    "form": COUNT,
+                    "other": COUNT
+                  }
+                }
+                ```
+
+                Create "material_types_identified.txt":
+                - List all identified material types
+                - Note any unusual or unexpected file types
+                - Flag any potential issues (corrupted files, missing content)
+
+                SUCCESS CRITERIA:
+                - All files in directory are inventoried
+                - File types are correctly categorized
+                - Output files are created in artifacts/material_collection/
+                - No files are missed or incorrectly classified
+          planning: ""
+          condition:
+            - to: "analyze_builder_website"
+              on: "COMPLETED"
+          manual: false
+
+        - id: "analyze_builder_website"
+          name: "Analyze Builder Website"
+          description: "Extract comprehensive information from builder's website by browsing all links and downloading media files, features, PDFs, introductions, pricing, and floor plans"
+          status: "PENDING"
+          input: ["builder_website_url"]
+          output: ["website_project_info", "additional_materials_urls", "media_assets_inventory"]
+          dependencies: ["gather_builder_materials"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE COMPREHENSIVE WEBSITE ANALYSIS TASK:
+
+                INPUT: builder_website_url (URL to the builder's project website)
+
+                OBJECTIVE: Perform systematic website exploration to extract all project information, browse all links, and catalog downloadable media files, documents, and content.
+
+                COMPREHENSIVE EXTRACTION PROTOCOL:
+
+                1. MAIN PAGE ANALYSIS:
+                   - Extract project overview, tagline, and key messaging
+                   - Identify all navigation links and section references
+                   - Document contact information and booking procedures
+
+                2. SYSTEMATIC LINK EXPLORATION:
+                   - Follow all internal links to explore complete website structure
+                   - Visit dedicated pages: /amenities, /neighbourhood, /prices-floorplans, /about, /gallery, /specifications
+                   - Extract content from each linked section systematically
+                   - Map website navigation structure and content hierarchy
+
+                3. MEDIA FILES CATALOGING:
+                   - IMAGES: Document all property images, amenity photos, location shots, suite renderings, and virtual tours
+                   - VIDEOS: Extract video content descriptions, project walkthroughs, promotional videos, and developer interviews
+                   - Identify and catalog all media file URLs with metadata (resolution, format, purpose)
+                   - Create comprehensive media assets inventory
+
+                4. FEATURES & AMENITIES EXTRACTION:
+                   - Extract detailed amenity descriptions from dedicated amenity pages
+                   - Document building features, technology integration, and services
+                   - Note unique selling points, exclusive features, and lifestyle benefits
+
+                5. PDF DOCUMENTS & DOWNLOADABLES:
+                   - Locate and catalog all available PDF documents (brochures, specifications, floor plans)
+                   - Extract information from downloadable forms and registration documents
+                   - Document pricing sheets, specification guides, and informational materials
+                   - Create inventory of all downloadable resources with direct links
+
+                6. INTRODUCTION & MARKETING CONTENT:
+                   - Gather all introductory content, project narratives, and marketing copy
+                   - Extract lifestyle descriptions and value propositions
+                   - Document developer information, reputation, and project credentials
+
+                7. PRICING & FLOOR PLANS:
+                   - Extract detailed pricing information from floor plans and pricing pages
+                   - Document suite types, sizes, bedroom/bathroom configurations
+                   - Note pricing ranges, availability status, deposit requirements, and special features
+                   - Catalog all floor plan images and specifications
+
+                8. CONTACT & SALES INFORMATION:
+                   - Compile complete contact details and sales procedures
+                   - Document booking systems, virtual tour options, and appointment processes
+                   - Extract sales office information and representative details
+
+                9. ADDITIONAL CONTENT DISCOVERY:
+                   - Explore news/blog sections for project updates and milestones
+                   - Check for testimonials, reviews, or resident stories
+                   - Identify social media links and community engagement content
+
+                SYSTEMATIC EXECUTION APPROACH:
+                - Start with main page, then systematically visit each linked section
+                - Create comprehensive catalog of all media assets and documents
+                - Ensure no linked content is missed in the extraction process
+                - Cross-reference information across different pages for completeness
+                - Validate all extracted URLs and ensure they are accessible
+
+                OUTPUT REQUIREMENTS:
+
+                Create "website_project_info.json":
+                ```json
+                {
+                  "website_url": "https://builder.com/project",
+                  "analysis_timestamp": "ISO_DATE_STRING",
+                  "extraction_completeness": "comprehensive_link_following",
+                  "project_overview": {
+                    "project_name": "Luxury Condos",
+                    "builder_name": "ABC Developments",
+                    "location": "Downtown Toronto",
+                    "completion_date": "2026-Q2",
+                    "total_units": 200,
+                    "price_range": "$500K - $2M"
+                  },
+                  "navigation_structure": {
+                    "main_sections": ["home", "project", "amenities", "pricing", "contact"],
+                    "explored_links": ["list of all visited URLs"],
+                    "link_depth": "comprehensive"
+                  },
+                  "media_assets": {
+                    "images": [
+                      {
+                        "url": "https://...",
+                        "type": "exterior",
+                        "resolution": "1920x1080",
+                        "description": "Building exterior view"
+                      }
+                    ],
+                    "videos": [
+                      {
+                        "url": "https://...",
+                        "type": "virtual_tour",
+                        "duration": "3:45",
+                        "description": "Suite walkthrough"
+                      }
+                    ],
+                    "total_images": 45,
+                    "total_videos": 3
+                  },
+                  "documents": [
+                    {
+                      "type": "floor_plan",
+                      "url": "https://.../floorplan.pdf",
+                      "title": "1BR Floor Plan",
+                      "file_size": "2.3MB"
+                    },
+                    {
+                      "type": "brochure",
+                      "url": "https://.../brochure.pdf",
+                      "title": "Project Brochure",
+                      "file_size": "5.1MB"
+                    }
+                  ],
+                  "unit_types": [
+                    {
+                      "type": "1BR",
+                      "size_sqft": 650,
+                      "price_range": "$500K-$700K",
+                      "floor_plans_url": "https://...",
+                      "floor_plan_images": ["url1", "url2"]
+                    }
+                  ],
+                  "amenities": [
+                    "Rooftop terrace",
+                    "Fitness center",
+                    "Concierge service"
+                  ],
+                  "specifications": {
+                    "building_standard": " LEED Gold",
+                    "parking": "Underground with EV charging",
+                    "storage": "Private lockers included"
+                  },
+                  "key_selling_points": [
+                    "Waterfront location",
+                    "Premium finishes",
+                    "City views"
+                  ]
+                }
+                ```
+
+                Create "additional_materials_urls.json":
+                ```json
+                {
+                  "downloadable_materials": [
+                    {
+                      "type": "floor_plan_pdf",
+                      "url": "https://builder.com/downloads/floor-plans.pdf",
+                      "description": "Complete floor plans for all unit types",
+                      "file_size": "2.5MB"
+                    },
+                    {
+                      "type": "virtual_tour",
+                      "url": "https://builder.com/virtual-tour",
+                      "description": "Interactive 3D tour of show unit",
+                      "format": "web_based"
+                    }
+                  ],
+                  "image_galleries": [
+                    {
+                      "section": "exterior",
+                      "image_count": 15,
+                      "high_res_available": true
+                    }
+                  ],
+                  "contact_information": {
+                    "sales_office": "123 Main St, Toronto",
+                    "phone": "(416) 555-0123",
+                    "email": "sales@builder.com"
+                  }
+                }
+                ```
+
+                SUCCESS CRITERIA:
+                - Website is comprehensively explored with all links followed
+                - All media files (images, videos) are cataloged and accessible
+                - PDF documents and downloadable materials are identified and linked
+                - Pricing and floor plan information is fully extracted
+                - Introduction and marketing content is captured
+                - Contact and sales information is complete
+                - Media assets inventory is created with metadata
+                - Output files are created in artifacts/website_analysis/
+                - Information extraction is systematic and complete
+          planning: ""
+          condition:
+            - to: "identify_customization_needs"
+              on: "COMPLETED"
+          manual: false
+
+        - id: "identify_customization_needs"
+          name: "Identify Customization Requirements"
+          description: "Analyze all materials to identify sections that need agent information customization"
+          status: "PENDING"
+          input: ["collected_materials_inventory", "website_project_info"]
+          output: ["customization_requirements", "agent_info_placeholders"]
+          dependencies: ["analyze_builder_website"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE CUSTOMIZATION ANALYSIS TASK:
+
+                INPUTS:
+                - collected_materials_inventory.json (from material collection)
+                - website_project_info.json (from website analysis)
+
+                OBJECTIVE: Identify every location in builder materials where agent-specific information needs to be inserted or customized.
+
+                REQUIRED ACTIONS:
+
+                1. AGENT INFORMATION REQUIREMENTS:
+                   Identify all locations needing:
+                   - Agent name and contact information
+                   - Brokerage name and logo
+                   - Agent license number and designations
+                   - Office address and phone numbers
+                   - Email addresses and website URLs
+                   - Professional headshots or signatures
+
+                2. MATERIAL-BY-MATERIAL ANALYSIS:
+                   For each file in collected_materials_inventory.json:
+                   - PDFs: Check for placeholder text, contact sections, signature areas
+                   - Forms: Identify agent information fields, disclosure sections
+                   - Images: Look for logo placements, contact overlays
+                   - Videos: Check for voiceovers, text overlays, contact information
+
+                3. CUSTOMIZATION CATEGORIZATION:
+                   Classify customization needs:
+                   - REQUIRED: Must be customized (legal requirements, contact info)
+                   - RECOMMENDED: Should be customized (branding, personalization)
+                   - OPTIONAL: Could be customized (additional marketing)
+
+                4. PLACEHOLDER IDENTIFICATION:
+                   Create specific placeholder mappings:
+                   - Text placeholders: [AGENT_NAME], [AGENT_PHONE], etc.
+                   - Image placeholders: [AGENT_LOGO], [AGENT_PHOTO]
+                   - Contact sections: Headers, footers, signature blocks
+
+                OUTPUT REQUIREMENTS:
+
+                Create "customization_requirements.json":
+                ```json
+                {
+                  "analysis_timestamp": "ISO_DATE_STRING",
+                  "total_files_requiring_customization": NUMBER,
+                  "customization_summary": {
+                    "required_changes": COUNT,
+                    "recommended_changes": COUNT,
+                    "optional_changes": COUNT
+                  },
+                  "file_customization_details": [
+                    {
+                      "file_path": "brochure.pdf",
+                      "file_type": "pdf",
+                      "customization_priority": "required",
+                      "required_changes": [
+                        {
+                          "section": "Contact Information Page 5",
+                          "change_type": "text_replacement",
+                          "current_content": "Builder Contact Information",
+                          "required_content": "AGENT_NAME at BROKERAGE_NAME",
+                          "field_mapping": {
+                            "AGENT_NAME": "agent_name",
+                            "BROKERAGE_NAME": "brokerage_name"
+                          }
+                        }
+                      ],
+                      "recommended_changes": [
+                        {
+                          "section": "Cover Page",
+                          "change_type": "logo_insertion",
+                          "location": "bottom_right_corner",
+                          "requirements": "High-resolution PNG, max 200px width"
+                        }
+                      ]
+                    }
+                  ],
+                  "global_placeholders": {
+                    "AGENT_NAME": "Required in all contact sections",
+                    "AGENT_PHONE": "Required in headers and footers",
+                    "AGENT_EMAIL": "Required in digital forms",
+                    "BROKERAGE_LOGO": "Recommended for professional branding"
+                  }
+                }
+                ```
+
+                Create "agent_info_placeholders.txt":
+                ```
+                AGENT INFORMATION PLACEHOLDER MAPPING
+                ====================================
+
+                Required Placeholders (must be customized):
+                - [AGENT_NAME]: Full legal name of the agent
+                - [AGENT_PHONE]: Primary contact phone number
+                - [AGENT_EMAIL]: Professional email address
+                - [AGENT_LICENSE]: Real estate license number
+                - [BROKERAGE_NAME]: Full brokerage company name
+                - [BROKERAGE_ADDRESS]: Complete office address
+                - [BROKERAGE_PHONE]: Office phone number
+
+                Recommended Placeholders (should be customized):
+                - [AGENT_TITLE]: Professional designations (e.g., "Realtor®, Broker")
+                - [AGENT_WEBSITE]: Personal or brokerage website
+                - [BROKERAGE_LOGO]: Company logo file path
+                - [AGENT_SIGNATURE]: Digital signature image
+
+                Optional Placeholders (could be customized):
+                - [AGENT_PHOTO]: Professional headshot
+                - [AGENT_BIO]: Brief professional biography
+                - [TEAM_NAME]: Team or group affiliation
+                ```
+
+                SUCCESS CRITERIA:
+                - All materials are analyzed for customization needs
+                - Required changes are clearly identified
+                - Placeholder system is comprehensive and usable
+                - Output files are created in artifacts/customization_analysis/
+                - Agent can easily understand what needs to be customized
+          planning: ""
+          condition:
+            - to: "process_pdf_documents"
+              on: "COMPLETED"
+          manual: false
+
+    - id: "phase_1_material_processing"
+      name: "Material Processing & Customization"
+      status: "PENDING"
+      metadata:
+        parallel: true
+      units:
+        - id: "process_pdf_documents"
+          name: "Process PDF Documents"
+          description: "Process and customize PDF documents with agent information and highlighting"
+          status: "PENDING"
+          input: ["collected_materials_inventory", "customization_requirements"]
+          output: ["processed_pdfs", "pdf_customization_highlights"]
+          dependencies: ["identify_customization_needs"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE PDF PROCESSING TASK:
+
+                INPUTS:
+                - collected_materials_inventory.json (list of all PDF files)
+                - customization_requirements.json (specific changes needed)
+
+                OBJECTIVE: Process all PDF documents, apply agent customizations, and create highlighted versions showing all changes.
+
+                REQUIRED ACTIONS:
+
+                1. PDF ANALYSIS:
+                   For each PDF in collected_materials_inventory.json:
+                   - Extract text content to identify customization locations
+                   - Analyze document structure (pages, sections, headers/footers)
+                   - Identify areas with placeholder text or contact information
+
+                2. CUSTOMIZATION APPLICATION:
+                   For each required customization from customization_requirements.json:
+                   - Locate the exact text/location to modify
+                   - Replace placeholders with actual agent information
+                   - Insert logos, signatures, or other visual elements
+                   - Maintain document formatting and layout
+
+                3. HIGHLIGHTING & ANNOTATION:
+                   Create a highlighted version of each customized PDF:
+                   - Use yellow highlighting for all modified sections
+                   - Add annotation notes explaining what was changed
+                   - Include page numbers and section references
+                   - Create a summary of all changes made
+
+                4. QUALITY VALIDATION:
+                   - Verify all customizations are applied correctly
+                   - Check that document formatting is preserved
+                   - Ensure contact information is accurate and professional
+                   - Validate that no original content was accidentally modified
+
+                OUTPUT REQUIREMENTS:
+
+                Create "processed_pdfs/" directory containing:
+                - Original PDFs (preserved as backups)
+                - Customized PDFs (ready for client use)
+                - Highlighted PDFs (showing all changes)
+
+                Create "pdf_customization_highlights.json":
+                ```json
+                {
+                  "processing_timestamp": "ISO_DATE_STRING",
+                  "total_pdfs_processed": NUMBER,
+                  "total_customizations_applied": NUMBER,
+                  "pdf_processing_details": [
+                    {
+                      "original_file": "brochure.pdf",
+                      "customized_file": "brochure_customized.pdf",
+                      "highlighted_file": "brochure_highlighted.pdf",
+                      "customizations_applied": [
+                        {
+                          "page_number": 5,
+                          "section": "Contact Information",
+                          "change_type": "text_replacement",
+                          "original_text": "Builder Contact: (555) 123-4567",
+                          "new_text": "Your Agent: [AGENT_NAME] at [BROKERAGE_NAME] - [AGENT_PHONE]",
+                          "highlight_color": "yellow",
+                          "annotation": "Agent contact information inserted"
+                        },
+                        {
+                          "page_number": 1,
+                          "section": "Cover Page",
+                          "change_type": "logo_insertion",
+                          "location": "bottom_right",
+                          "logo_file": "brokerage_logo.png",
+                          "annotation": "Brokerage logo added for branding"
+                        }
+                      ],
+                      "validation_status": "passed",
+                      "quality_notes": "All customizations applied successfully, formatting preserved"
+                    }
+                  ],
+                  "summary_statistics": {
+                    "text_replacements": COUNT,
+                    "logo_insertions": COUNT,
+                    "signature_additions": COUNT,
+                    "contact_updates": COUNT
+                  },
+                  "quality_assurance": {
+                    "all_required_changes_applied": true,
+                    "no_unintended_modifications": true,
+                    "formatting_preserved": true,
+                    "contact_info_accurate": true
+                  }
+                }
+                ```
+
+                SUCCESS CRITERIA:
+                - All PDF files are processed and customized
+                - All required changes from customization_requirements.json are applied
+                - Highlighted versions clearly show all modifications
+                - Customized PDFs are ready for professional client distribution
+                - Output files are organized in artifacts/pdf_processing/
+                - Quality validation confirms all changes are correct and professional
+          planning: ""
+          condition:
+            - to: "process_video_content"
+              on: "COMPLETED"
+          manual: false
+
+        - id: "process_video_content"
+          name: "Process Video Content"
+          description: "Review and organize video content for inclusion in application package"
+          status: "PENDING"
+          input: ["collected_materials_inventory"]
+          output: ["organized_videos", "video_content_summary"]
+          dependencies: ["identify_customization_needs"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE VIDEO PROCESSING TASK:
+
+                INPUT: collected_materials_inventory.json (containing all video files identified)
+
+                OBJECTIVE: Review, organize, and prepare all video content for professional inclusion in the condo application package.
+
+                REQUIRED ACTIONS:
+
+                1. VIDEO INVENTORY & ANALYSIS:
+                   For each video file in collected_materials_inventory.json:
+                   - Verify file accessibility and playability
+                   - Extract basic metadata (duration, resolution, file size)
+                   - Analyze content type (tour, promotional, construction, etc.)
+                   - Assess video quality and production value
+
+                2. CONTENT CATEGORIZATION:
+                   Classify videos by purpose:
+                   - Property Tours: Virtual walkthroughs, 3D tours
+                   - Promotional Videos: Marketing content, lifestyle videos
+                   - Construction Updates: Progress videos, timeline content
+                   - Amenity Showcases: Building features, location benefits
+                   - Developer Messages: CEO interviews, project updates
+
+                3. ORGANIZATION & STRUCTURE:
+                   Create logical directory structure:
+                   - organized_videos/property_tours/
+                   - organized_videos/promotional/
+                   - organized_videos/amenities/
+                   - organized_videos/construction/
+                   - organized_videos/additional/
+
+                4. QUALITY ASSESSMENT:
+                   Evaluate each video for:
+                   - Professional production quality
+                   - Relevance to condo purchase decision
+                   - Technical quality (resolution, audio, length)
+                   - Branding consistency with builder materials
+
+                5. CUSTOMIZATION OPPORTUNITIES:
+                   Identify videos that could benefit from:
+                   - Agent introduction overlays
+                   - Contact information text overlays
+                   - Branded intros or outros
+                   - Custom voiceover additions
+
+                OUTPUT REQUIREMENTS:
+
+                Create "organized_videos/" directory structure with categorized video files.
+
+                Create "video_content_summary.json":
+                ```json
+                {
+                  "processing_timestamp": "ISO_DATE_STRING",
+                  "total_videos_processed": NUMBER,
+                  "total_video_duration_minutes": NUMBER,
+                  "video_categories": {
+                    "property_tours": COUNT,
+                    "promotional": COUNT,
+                    "amenities": COUNT,
+                    "construction": COUNT,
+                    "other": COUNT
+                  },
+                  "video_inventory": [
+                    {
+                      "original_path": "videos/project_tour.mp4",
+                      "organized_path": "organized_videos/property_tours/project_tour.mp4",
+                      "file_name": "project_tour.mp4",
+                      "file_size_mb": 45.2,
+                      "duration_seconds": 180,
+                      "resolution": "1920x1080",
+                      "category": "property_tours",
+                      "content_type": "virtual_3d_tour",
+                      "quality_rating": "excellent",
+                      "description": "Complete 3D virtual tour of show unit with all floor plans",
+                      "key_features": [
+                        "Master bedroom walkthrough",
+                        "Kitchen and appliances showcase",
+                        "Balcony with city views",
+                        "Storage solutions tour"
+                      ],
+                      "customization_opportunities": [
+                        {
+                          "type": "text_overlay",
+                          "location": "end_credits",
+                          "content": "Presented by [AGENT_NAME]",
+                          "priority": "recommended"
+                        }
+                      ],
+                      "usage_recommendations": "Show to clients during initial consultation"
+                    }
+                  ],
+                  "quality_assessment": {
+                    "excellent_quality": COUNT,
+                    "good_quality": COUNT,
+                    "acceptable_quality": COUNT,
+                    "needs_improvement": COUNT
+                  },
+                  "customization_summary": {
+                    "videos_needing_agent_intro": COUNT,
+                    "videos_suitable_for_overlay": COUNT,
+                    "videos_requiring_branding": COUNT
+                  },
+                  "organization_structure": {
+                    "directories_created": [
+                      "organized_videos/property_tours",
+                      "organized_videos/promotional",
+                      "organized_videos/amenities"
+                    ],
+                    "files_copied": COUNT,
+                    "total_size_mb": NUMBER
+                  }
+                }
+                ```
+
+                SUCCESS CRITERIA:
+                - All video files are reviewed and categorized
+                - Videos are organized in logical directory structure
+                - Content summaries provide clear understanding of each video
+                - Quality assessments help determine video usage
+                - Customization opportunities are identified
+                - Output files are created in artifacts/video_processing/
+                - Videos are ready for inclusion in client packages
+          planning: ""
+          condition:
+            - to: "process_image_assets"
+              on: "COMPLETED"
+          manual: false
+
+        - id: "process_image_assets"
+          name: "Process Image Assets"
+          description: "Organize and optimize image assets for the application package"
+          status: "PENDING"
+          input: ["collected_materials_inventory"]
+          output: ["optimized_images", "image_gallery_structure"]
+          dependencies: ["identify_customization_needs"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE IMAGE PROCESSING TASK:
+
+                INPUT: collected_materials_inventory.json (containing all image files identified)
+
+                OBJECTIVE: Process, optimize, and organize all image assets into professional galleries for the condo application package.
+
+                REQUIRED ACTIONS:
+
+                1. IMAGE INVENTORY & ANALYSIS:
+                   For each image file in collected_materials_inventory.json:
+                   - Verify file accessibility and format validity
+                   - Extract metadata (dimensions, file size, color depth)
+                   - Analyze content and categorize by subject matter
+                   - Assess image quality and resolution
+
+                2. CONTENT CATEGORIZATION:
+                   Classify images into logical galleries:
+                   - Exterior: Building shots, street views, neighborhood
+                   - Interior: Room photos, finish samples, appliance shots
+                   - Amenities: Gym, pool, lobby, rooftop, parking
+                   - Floor Plans: Unit layouts, dimension drawings
+                   - Location: Nearby amenities, transportation, schools
+                   - Construction: Progress photos, site development
+                   - Lifestyle: People using spaces, community events
+
+                3. IMAGE OPTIMIZATION:
+                   For each image:
+                   - Resize for web/mobile viewing (maintain aspect ratio)
+                   - Compress file size while preserving quality
+                   - Convert to web-friendly formats (JPEG, WebP)
+                   - Add descriptive filenames
+                   - Create thumbnail versions for galleries
+
+                4. GALLERY ORGANIZATION:
+                   Create structured directory hierarchy:
+                   - optimized_images/exterior/
+                   - optimized_images/interior/
+                   - optimized_images/amenities/
+                   - optimized_images/thumbnails/
+                   - optimized_images/floor_plans/
+
+                5. QUALITY ENHANCEMENT:
+                   - Ensure consistent image sizing within categories
+                   - Optimize for fast loading in presentations
+                   - Maintain professional appearance
+                   - Create gallery index files for easy navigation
+
+                OUTPUT REQUIREMENTS:
+
+                Create "optimized_images/" directory structure with processed images.
+
+                Create "image_gallery_structure.json":
+                ```json
+                {
+                  "processing_timestamp": "ISO_DATE_STRING",
+                  "total_images_processed": NUMBER,
+                  "total_original_size_mb": NUMBER,
+                  "total_optimized_size_mb": NUMBER,
+                  "compression_ratio": NUMBER,
+                  "gallery_structure": {
+                    "exterior": {
+                      "image_count": COUNT,
+                      "total_size_mb": NUMBER,
+                      "categories": ["building_shots", "street_views", "neighborhood"],
+                      "optimized_formats": ["jpg", "webp"],
+                      "thumbnail_count": COUNT
+                    },
+                    "interior": {
+                      "image_count": COUNT,
+                      "total_size_mb": NUMBER,
+                      "categories": ["living_rooms", "bedrooms", "kitchens"],
+                      "optimized_formats": ["jpg", "webp"],
+                      "thumbnail_count": COUNT
+                    },
+                    "amenities": {
+                      "image_count": COUNT,
+                      "total_size_mb": NUMBER,
+                      "categories": ["gym", "pool", "lobby", "rooftop"],
+                      "optimized_formats": ["jpg", "webp"],
+                      "thumbnail_count": COUNT
+                    }
+                  },
+                  "image_inventory": [
+                    {
+                      "original_path": "images/building_exterior_001.jpg",
+                      "optimized_path": "optimized_images/exterior/building_exterior_001.jpg",
+                      "thumbnail_path": "optimized_images/thumbnails/building_exterior_001_thumb.jpg",
+                      "original_dimensions": "4000x3000",
+                      "optimized_dimensions": "1200x900",
+                      "original_size_kb": 2500,
+                      "optimized_size_kb": 150,
+                      "compression_ratio": 0.06,
+                      "category": "exterior",
+                      "subcategory": "building_shots",
+                      "quality_rating": "excellent",
+                      "description": "Front elevation of building during golden hour",
+                      "usage_context": "Perfect for brochure covers and presentations",
+                      "alt_text": "Modern condo building exterior with glass facade"
+                    }
+                  ],
+                  "processing_statistics": {
+                    "images_resized": COUNT,
+                    "images_compressed": COUNT,
+                    "thumbnails_created": COUNT,
+                    "format_conversions": COUNT,
+                    "average_compression_ratio": NUMBER
+                  },
+                  "quality_assurance": {
+                    "all_images_accessible": true,
+                    "no_quality_degradation": true,
+                    "consistent_naming": true,
+                    "proper_categorization": true
+                  },
+                  "gallery_features": {
+                    "web_optimized": true,
+                    "mobile_friendly": true,
+                    "fast_loading": true,
+                    "seo_optimized": true
+                  }
+                }
+                ```
+
+                SUCCESS CRITERIA:
+                - All image files are processed and optimized
+                - Images are organized into logical gallery categories
+                - File sizes are optimized for web delivery
+                - Professional naming conventions are applied
+                - Thumbnail versions are created for all images
+                - Output files are created in artifacts/image_processing/
+                - Images are ready for professional presentation materials
+          planning: ""
+          condition:
+            - to: "customize_application_forms"
+              on: "COMPLETED"
+          manual: false
+
+        - id: "customize_application_forms"
+          name: "Customize Application Forms"
+          description: "Customize application forms with agent information and prepare for client use"
+          status: "PENDING"
+          input: ["collected_materials_inventory", "customization_requirements", "agent_info_placeholders"]
+          output: ["customized_forms", "form_completion_guide"]
+          dependencies: ["identify_customization_needs"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE FORM CUSTOMIZATION TASK:
+
+                INPUTS:
+                - collected_materials_inventory.json (forms identified)
+                - customization_requirements.json (specific changes needed)
+                - agent_info_placeholders.txt (placeholder mappings)
+
+                OBJECTIVE: Customize all application forms with agent information and create clear completion guides for clients.
+
+                REQUIRED ACTIONS:
+
+                1. FORM IDENTIFICATION & ANALYSIS:
+                   From collected_materials_inventory.json, identify all forms:
+                   - Application forms, disclosure documents
+                   - Buyer representation agreements
+                   - Privacy consent forms, credit check authorizations
+                   - Any other client-completable documents
+
+                2. FORM CUSTOMIZATION:
+                   For each form requiring customization:
+                   - Insert agent name, license number, brokerage information
+                   - Add agent contact details in appropriate sections
+                   - Include brokerage logo where professionally appropriate
+                   - Ensure all legal disclosures remain intact
+
+                3. CLIENT COMPLETION GUIDANCE:
+                   For each form, create detailed completion instructions:
+                   - Which sections the client must fill out
+                   - What information is required (ID, financial details, etc.)
+                   - How to sign and date documents
+                   - Where to submit completed forms
+
+                4. FORM ORGANIZATION:
+                   Create logical groupings:
+                   - Pre-qualification forms
+                   - Purchase offer documents
+                   - Legal disclosure forms
+                   - Supporting documentation
+
+                5. QUALITY VALIDATION:
+                   - Verify all agent information is correctly inserted
+                   - Ensure forms remain legally compliant
+                   - Check that client completion areas are clearly marked
+                   - Validate that no required fields are pre-filled incorrectly
+
+                OUTPUT REQUIREMENTS:
+
+                Create "customized_forms/" directory with all customized form files.
+
+                Create "form_completion_guide.json":
+                ```json
+                {
+                  "processing_timestamp": "ISO_DATE_STRING",
+                  "total_forms_customized": NUMBER,
+                  "form_categories": {
+                    "application_forms": COUNT,
+                    "disclosure_documents": COUNT,
+                    "legal_agreements": COUNT,
+                    "supporting_docs": COUNT
+                  },
+                  "customized_forms": [
+                    {
+                      "original_file": "buyer_application_form.pdf",
+                      "customized_file": "customized_forms/buyer_application_agent.pdf",
+                      "form_type": "buyer_application",
+                      "customizations_applied": [
+                        {
+                          "section": "Agent Declaration",
+                          "change_type": "agent_info_insertion",
+                          "fields_updated": ["agent_name", "license_number", "brokerage_name"],
+                          "validation_status": "completed"
+                        },
+                        {
+                          "section": "Contact Information",
+                          "change_type": "contact_details",
+                          "fields_updated": ["office_phone", "email", "website"],
+                          "validation_status": "completed"
+                        }
+                      ],
+                      "client_completion_requirements": {
+                        "required_sections": [
+                          {
+                            "section_name": "Personal Information",
+                            "fields_to_complete": ["full_name", "date_of_birth", "address"],
+                            "instructions": "Please provide your current legal name and residential address"
+                          },
+                          {
+                            "section_name": "Financial Information",
+                            "fields_to_complete": ["employment_status", "annual_income", "assets"],
+                            "instructions": "Complete all financial information accurately. Attach supporting documents if required."
+                          }
+                        ],
+                        "signature_requirements": [
+                          {
+                            "signature_type": "buyer_signature",
+                            "location": "Page 3, Section 7",
+                            "witness_required": false,
+                            "date_required": true
+                          }
+                        ],
+                        "supporting_documents": [
+                          "Photo ID",
+                          "Proof of income (pay stubs, tax returns)",
+                          "Bank statements (last 3 months)"
+                        ]
+                      },
+                      "submission_instructions": {
+                        "method": "email_and_hard_copy",
+                        "email_recipient": "[AGENT_EMAIL]",
+                        "physical_address": "[BROKERAGE_ADDRESS]",
+                        "deadline": "Within 5 business days of receiving this package"
+                      },
+                      "legal_notes": "This form must be completed in full and signed by all buyers. Incomplete forms will delay the application process."
+                    }
+                  ],
+                  "completion_summary": {
+                    "total_client_fields": COUNT,
+                    "required_signatures": COUNT,
+                    "supporting_documents_needed": COUNT,
+                    "estimated_completion_time": "2-3 hours"
+                  },
+                  "agent_verification_checklist": [
+                    "All agent information is correctly inserted",
+                    "Brokerage information matches legal requirements",
+                    "Contact details are current and professional",
+                    "No pre-filled client information that could be misleading"
+                  ],
+                  "quality_assurance": {
+                    "all_forms_legally_compliant": true,
+                    "client_instructions_clear": true,
+                    "customizations_professional": true,
+                    "forms_ready_for_distribution": true
+                  }
+                }
+                ```
+
+                SUCCESS CRITERIA:
+                - All forms are customized with accurate agent information
+                - Client completion instructions are clear and comprehensive
+                - Forms remain legally compliant after customization
+                - Professional presentation is maintained
+                - Output files are created in artifacts/form_customization/
+                - Clients can easily understand how to complete and submit forms
+          planning: ""
+          condition:
+            - to: "assemble_application_package"
+              on: "COMPLETED"
+          manual: false
+
+        - id: "create_agent_instructions"
+          name: "Create Agent Instructions"
+          description: "Create comprehensive agent-specific instructions and talking points for property presentations"
+          status: "PENDING"
+          input: ["collected_materials_inventory", "customization_requirements", "market_analysis"]
+          output: ["agent_instructions_md", "presentation_guidelines"]
+          dependencies: ["identify_customization_needs", "analyze_market_positioning"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE AGENT INSTRUCTIONS CREATION TASK:
+
+                INPUTS:
+                - collected_materials_inventory.json (all project materials)
+                - customization_requirements.json (agent-specific details)
+                - market_analysis.json (competitive positioning and market data)
+
+                OBJECTIVE: Create comprehensive agent instructions specifically tailored for this property's presentations. This document should serve as a complete guide for real estate agents presenting this property.
+
+                REQUIRED ACTIONS:
+
+                1. PROPERTY ANALYSIS:
+                   Review all collected materials to identify:
+                   - Key selling points and unique features
+                   - Competitive advantages
+                   - Target buyer profiles
+                   - Pricing strategy and positioning
+
+                2. AGENT TALKING POINTS:
+                   Develop structured presentation framework:
+                   - Opening hooks and value propositions
+                   - Feature highlighting and benefit communication
+                   - Objection handling responses
+                   - Closing strategies and follow-up approaches
+
+                3. PRESENTATION GUIDELINES:
+                   Create comprehensive presentation guidance:
+                   - Digital presentation flow and timing
+                   - In-person showing protocols
+                   - Virtual tour best practices
+                   - Client consultation frameworks
+
+                4. MARKET INTELLIGENCE:
+                   Include competitive positioning:
+                   - Market advantages and differentiators
+                   - Target demographic analysis
+                   - Pricing strategy recommendations
+                   - Local market trends and insights
+
+                5. PRACTICAL RESOURCES:
+                   Provide actionable agent tools:
+                   - Common client questions and responses
+                   - Emergency contacts and procedures
+                   - Documentation and compliance reminders
+                   - Professional standards and best practices
+
+                OUTPUT REQUIREMENTS:
+
+                Create "agent_instructions.md" with comprehensive sections:
+                - Executive Summary (key positioning and target clients)
+                - Talking Points (structured presentation flow)
+                - Golf/Location Focus (property-specific advantages)
+                - Pricing Strategy (market positioning guidance)
+                - Client Questions (FAQ with responses)
+                - Presentation Tips (digital, in-person, virtual)
+                - Market Intelligence (competitive advantages)
+                - Follow-up Strategy (nurture sequences)
+                - Closing Strategies (conversion tactics)
+                - Emergency Contacts (support resources)
+
+                Create "presentation_guidelines.json":
+                ```json
+                {
+                  "creation_timestamp": "ISO_DATE_STRING",
+                  "property_name": "${project_name}",
+                  "agent_info": {
+                    "name": "${agent_name}",
+                    "brokerage": "${agent_brokerage}",
+                    "phone": "${agent_phone}",
+                    "email": "${agent_contact}"
+                  },
+                  "presentation_structure": {
+                    "opening_sequence": ["hook", "value_prop", "tour_intro"],
+                    "core_presentation": ["features", "benefits", "lifestyle"],
+                    "closing_sequence": ["objections", "next_steps", "follow_up"]
+                  },
+                  "timing_guidelines": {
+                    "digital_presentation": "15-20 minutes",
+                    "in_person_showing": "45-60 minutes",
+                    "virtual_tour": "20-30 minutes"
+                  },
+                  "key_messages": [
+                    "PRIMARY_MESSAGE",
+                    "SECONDARY_MESSAGE",
+                    "CLOSING_MESSAGE"
+                  ],
+                  "competitive_advantages": [
+                    "ADVANTAGE_1",
+                    "ADVANTAGE_2",
+                    "ADVANTAGE_3"
+                  ],
+                  "target_objections": [
+                    {
+                      "objection": "PRICE_TOO_HIGH",
+                      "response_strategy": "VALUE_FOCUS",
+                      "supporting_data": "COMPARABLES_DATA"
+                    }
+                  ]
+                }
+                ```
+
+                SUCCESS CRITERIA:
+                - Agent instructions provide complete presentation guidance
+                - Talking points are structured and memorable
+                - Market intelligence is current and actionable
+                - Presentation guidelines are practical and implementable
+                - Output files are created in artifacts/agent_instructions/
+                - Instructions are ready for immediate agent use
+          planning: ""
+          condition:
+            - to: "assemble_application_package"
+              on: "COMPLETED"
+          manual: false
+
+    - id: "phase_1_5_language_processing"
+      name: "Language Processing & Translation"
+      status: "PENDING"
+      metadata:
+        parallel: true
+      units:
+        - id: "create_language_versions"
+          name: "Create Language Versions"
+          description: "Generate content versions in configured languages (English, Chinese, etc.)"
+          status: "PENDING"
+          input: ["processed_content", "language_settings"]
+          output: ["multilingual_content"]
+          dependencies: ["create_agent_instructions"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE MULTI-LANGUAGE CONTENT GENERATION:
+
+                INPUTS:
+                - processed_content/ (all processed materials in primary language)
+                - language_settings (configured languages from config)
+
+                OBJECTIVE: Create language-specific versions of all content for multi-language package generation.
+
+                CONFIGURATION:
+                - Languages: ${default_languages}
+                - Primary Language: ${primary_language}
+                - Translation Mode: parallel processing
+
+                REQUIRED ACTIONS:
+
+                1. LANGUAGE DETECTION & SETUP:
+                   - Identify primary language content (${primary_language})
+                   - Set up output directories for each language
+                   - Configure translation parameters per language
+
+                2. CONTENT TRANSLATION:
+                   For each configured language (${default_languages}):
+                   - Translate project descriptions and marketing copy
+                   - Translate amenity descriptions and features
+                   - Translate agent instructions and talking points
+                   - Translate client questions and consultation guides
+                   - Maintain professional terminology and real estate vocabulary
+
+                3. MEDIA FILE HANDLING:
+                   - Copy non-text media files to language-specific directories
+                   - Generate language-specific filenames with suffixes
+                   - Update file references in translated documents
+
+                4. QUALITY ASSURANCE:
+                   - Verify translation accuracy and cultural appropriateness
+                   - Check that all links and references are maintained
+                   - Validate that branding elements are preserved
+                   - Ensure professional presentation in all languages
+
+                OUTPUT STRUCTURE:
+                Create language-specific directories:
+                - content/en/ (English version)
+                - content/zh/ (Chinese version)
+                - content/[language_code]/ (additional languages)
+
+                Each directory should contain complete translated versions of:
+                - project_summary.md
+                - feature_highlights.md
+                - agent_instructions.md
+                - client_questions.json
+                - All supporting documents and media
+
+                TRANSLATION GUIDELINES:
+                - Maintain professional real estate terminology
+                - Preserve brand voice and messaging
+                - Ensure cultural appropriateness
+                - Keep technical specifications accurate
+                - Translate contact information appropriately
+          planning: ""
+          condition:
+            - to: "assemble_application_package"
+              on: "COMPLETED"
+          manual: false
+
+    - id: "phase_2_package_assembly"
+      name: "Package Assembly & Validation"
+      status: "PENDING"
+      metadata:
+        parallel: false
+      units:
+        - id: "assemble_application_package"
+          name: "Assemble Application Package"
+          description: "Compile all processed materials into a comprehensive application package"
+          status: "PENDING"
+          input: ["processed_pdfs", "organized_videos", "optimized_images", "customized_forms", "pdf_customization_highlights", "agent_instructions_md", "presentation_guidelines", "multilingual_content"]
+          output: ["final_application_package", "package_manifest"]
+          dependencies: ["process_pdf_documents", "process_video_content", "process_image_assets", "customize_application_forms", "create_language_versions"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE MULTI-LANGUAGE PACKAGE ASSEMBLY TASK:
+
+                INPUTS:
+                - processed_pdfs/ (customized PDF documents)
+                - organized_videos/ (categorized video content)
+                - optimized_images/ (web-optimized image galleries)
+                - customized_forms/ (agent-customized application forms)
+                - pdf_customization_highlights.json (change tracking)
+                - multilingual_content/ (language-specific content versions)
+
+                OBJECTIVE: Assemble all processed materials into professional, client-ready application packages with comprehensive manifest for each configured language.
+
+                CONFIGURATION:
+                - Languages: ${default_languages}
+                - Primary Language: ${primary_language}
+                - Package Structure: Multi-language parallel assembly
+
+                REQUIRED ACTIONS:
+
+                1. MULTI-LANGUAGE PACKAGE STRUCTURE DESIGN:
+                   Create language-specific directory structures for client delivery:
+                   For each language in ${default_languages}:
+                   - final_application_package/[language_code]/
+                     ├── documents/ (PDFs, forms, legal docs)
+                     ├── images/ (organized galleries)
+                     ├── videos/ (categorized content)
+                     ├── guides/ (instructional materials)
+                     └── manifest_[language_code].json
+
+                2. LANGUAGE-SPECIFIC CONTENT ASSEMBLY:
+                   For each configured language:
+                   - Copy translated documents to language-specific directories
+                   - Include language-appropriate forms and applications
+                   - Add translated agent instructions and talking points
+                   - Include language-specific client consultation guides
+                   - Maintain consistent branding across all languages
+
+                3. MEDIA FILE ORGANIZATION:
+                   - Copy optimized images to each language directory
+                   - Organize videos by language-specific categories
+                   - Ensure media files are accessible in all language versions
+                   - Update file references in translated documents
+
+                4. MANIFEST GENERATION:
+                   Create language-specific manifests documenting:
+                   - Complete content inventory for each language
+                   - File sizes, descriptions, and customization details
+                   - Client action items translated appropriately
+                   - Quality assurance confirmations per language
+
+                OUTPUT STRUCTURE:
+                final_application_package/
+                ├── en/ (English package)
+                │   ├── documents/
+                │   ├── images/
+                │   ├── videos/
+                │   ├── guides/
+                │   └── manifest_en.json
+                ├── zh/ (Chinese package)
+                │   ├── documents/
+                │   ├── images/
+                │   ├── videos/
+                │   ├── guides/
+                │   └── manifest_zh.json
+                └── master_manifest.json (overview of all language packages)
+
+                SUCCESS CRITERIA:
+                - All processed materials are included in each language package
+                - Professional directory structure created for each language
+                - Comprehensive manifests document all language-specific contents
+                - Packages are ready for client distribution in respective languages
+                - Quality validation confirms completeness for all languages
+                - Output files created in artifacts/package_assembly/
+                - Clients can easily navigate and use packages in their preferred language
+
+                REQUIRED ACTIONS:
+
+                1. PACKAGE STRUCTURE DESIGN:
+                   Create logical directory structure for client delivery:
+                   - final_application_package/
+                     ├── documents/ (PDFs, forms, legal docs)
+                     ├── images/ (organized galleries)
+                    
+                    "brokerage": "[BROKERAGE_NAME]"
+                  },
+                  "package_structure": {
+                    "total_files": NUMBER,
+                    "total_size_mb": NUMBER,
+                    "directories": [
+                      "documents",
+                      "images",
+                      "videos",
+                      "guides"
+                    ]
+                  },
+                  "content_inventory": {
+                    "documents": [
+                      {
+                        "file_name": "project_brochure_customized.pdf",
+                        "file_path": "documents/project_brochure_customized.pdf",
+                        "file_size_mb": 5.2,
+                        "description": "Customized project brochure with agent contact information",
+                        "customizations": ["Agent contact details added", "Brokerage logo inserted"],
+                        "usage_context": "Initial client presentation",
+                        "client_action": "Review project features and specifications"
+                      },
+                      {
+                        "file_name": "buyer_application_form.pdf",
+                        "file_path": "documents/buyer_application_form.pdf",
+                        "file_size_mb": 1.8,
+                        "description": "Pre-qualified buyer application form",
+                        "customizations": ["Agent information inserted", "Brokerage details added"],
+                        "usage_context": "Application submission",
+                        "client_action": "Complete all required fields and sign"
+                      }
+                    ],
+                    "images": {
+                      "galleries": [
+                        {
+                          "gallery_name": "exterior",
+                          "file_count": 12,
+                          "total_size_mb": 45.3,
+                          "description": "Building exterior and neighborhood photos",
+                          "image_types": ["building_shots", "street_views", "amenities"],
+                          "usage_context": "Property visualization"
+                        },
+                        {
+                          "gallery_name": "interior",
+                          "file_count": 25,
+                          "total_size_mb": 67.8,
+                          "description": "Unit interior photos and finish samples",
+                          "image_types": ["living_spaces", "bedrooms", "kitchens"],
+                          "usage_context": "Space planning and design review"
+                        }
+                      ]
+                    },
+                    "videos": {
+                      "categories": [
+                        {
+                          "category_name": "property_tours",
+                          "file_count": 3,
+                          "total_duration_minutes": 15,
+                          "description": "Virtual property tours and walkthroughs",
+                          "content_types": ["3d_tours", "video_walkthroughs"],
+                          "usage_context": "Virtual property viewing"
+                        }
+                      ]
+                    },
+                    "guides": [
+                      {
+                        "file_name": "form_completion_guide.pdf",
+                        "description": "Step-by-step instructions for completing application forms",
+                        "client_action": "Read before starting form completion"
+                      }
+                    ]
+                  },
+                  "customization_summary": {
+                    "total_customizations_applied": NUMBER,
+                    "customization_highlights": "See pdf_customization_highlights.json for details",
+                    "agent_information_inserted": [
+                      "Contact details",
+                      "Brokerage information",
+                      "Professional credentials"
+                    ]
+                  },
+                  "client_action_items": [
+                    {
+                      "priority": "high",
+                      "action": "Review all documents in the package",
+                      "timeline": "Within 2 business days",
+                      "required": true
+                    },
+                    {
+                      "priority": "high",
+                      "action": "Complete and sign application forms",
+                      "timeline": "Within 5 business days",
+                      "required": true
+                    },
+                    {
+                      "priority": "medium",
+                      "action": "Schedule virtual property tour viewing",
+                      "timeline": "Within 1 week",
+                      "required": false
+                    }
+                  ],
+                  "quality_assurance": {
+                    "all_materials_present": true,
+                    "customizations_verified": true,
+                    "file_integrity_checked": true,
+                    "professional_presentation": true
+                  },
+                  "delivery_information": {
+                    "package_format": "Digital download + physical delivery option",
+                    "access_instructions": "Download from secure client portal",
+                    "support_contact": "[AGENT_EMAIL]",
+                    "version_control": "This is version 1.0.0 of the application package"
+                  }
+                }
+                ```
+
+                SUCCESS CRITERIA:
+                - All processed materials are included in the package
+                - Professional directory structure is created
+                - Comprehensive manifest documents all contents
+                - Package is ready for client distribution
+                - Quality validation confirms completeness
+                - Output files are created in artifacts/package_assembly/
+                - Client can easily navigate and use the package
+          planning: ""
+          condition:
+            - to: "validate_package_completeness"
+              on: "COMPLETED"
+          manual: false
+
+        - id: "validate_package_completeness"
+          name: "Validate Package Completeness"
+          description: "Verify all required materials are included and properly customized"
+          status: "PENDING"
+          input: ["final_application_package", "package_manifest", "customization_requirements", "multilingual_content"]
+          output: ["validation_report", "completeness_checklist"]
+          dependencies: ["assemble_application_package"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE MULTI-LANGUAGE PACKAGE VALIDATION TASK:
+
+                INPUTS:
+                - final_application_package/ (assembled multi-language client packages)
+                - package_manifest.json (content inventory per language)
+                - customization_requirements.json (required changes)
+                - multilingual_content/ (source of language-specific content)
+
+                OBJECTIVE: Perform comprehensive validation to ensure all language-specific application packages are complete, accurate, and ready for professional client distribution.
+
+                CONFIGURATION:
+                - Languages: ${default_languages}
+                - Validation Scope: All language packages
+
+                REQUIRED ACTIONS:
+
+                1. MULTI-LANGUAGE CONTENT VERIFICATION:
+                   For each language in ${default_languages}:
+                   - Cross-reference language-specific manifest with actual files
+                   - Verify all listed files exist in correct language directories
+                   - Check file sizes match manifest specifications
+                   - Validate file accessibility and integrity
+                   - Confirm proper categorization and organization per language
+
+                2. LANGUAGE-SPECIFIC CUSTOMIZATION VALIDATION:
+                   Using customization_requirements.json, verify for each language:
+                   - All required agent information is inserted and translated
+                   - Contact details are accurate and professionally translated
+                   - Brokerage information is correctly localized
+                   - Professional credentials are properly presented
+
+                3. TRANSLATION QUALITY CHECK:
+                   - Verify translation accuracy and cultural appropriateness
+                   - Check that real estate terminology is correctly translated
+                   - Ensure consistent branding across all languages
+                   - Validate that all links and references are maintained
+                   - Confirm professional presentation in all languages
+
+                4. CROSS-LANGUAGE CONSISTENCY:
+                   - Verify that core content is consistent across languages
+                   - Check that pricing and specifications are identical
+                   - Ensure contact information is consistent
+                   - Validate that customization elements are properly applied
+
+                5. PACKAGE INTEGRITY VALIDATION:
+                   - Confirm all language packages have complete file sets
+                   - Verify directory structures are correct for each language
+                   - Check that media files are present in all language versions
+                   - Validate manifest accuracy for each language package
+
+                OUTPUT: Comprehensive validation report covering all language packages with detailed findings and recommendations.
+                   - Branding elements are properly placed
+                   - No placeholder text remains in final documents
+
+                3. QUALITY ASSURANCE CHECKS:
+                   - Professional presentation and formatting
+                   - Consistent file naming conventions
+                   - Appropriate file formats for client use
+                   - Mobile-friendly image optimization
+                   - Functional form fields and signatures
+
+                4. LEGAL COMPLIANCE VERIFICATION:
+                   - Required disclosures are present and intact
+                   - Legal language is unmodified
+                   - Regulatory compliance elements are included
+                   - No unauthorized modifications to legal documents
+
+                5. FUNCTIONAL TESTING:
+                   - PDF forms are fillable and savable
+                   - Video files play correctly
+                   - Image galleries load properly
+                   - Links and references work
+
+                OUTPUT REQUIREMENTS:
+
+                Create "validation_report.json":
+                ```json
+                {
+                  "validation_timestamp": "ISO_DATE_STRING",
+                  "package_version": "1.0.0",
+                  "overall_status": "PASSED|FAILED|WARNINGS",
+                  "validation_summary": {
+                    "total_checks_performed": NUMBER,
+                    "checks_passed": NUMBER,
+                    "checks_failed": NUMBER,
+                    "warnings_issued": NUMBER
+                  },
+                  "content_verification": {
+                    "status": "PASSED",
+                    "details": {
+                      "files_accounted_for": "100%",
+                      "file_integrity": "All files accessible and uncorrupted",
+                      "size_verification": "All file sizes match manifest",
+                      "organization_check": "Proper directory structure maintained"
+                    }
+                  },
+                  "customization_validation": {
+                    "status": "PASSED",
+                    "details": {
+                      "agent_info_complete": true,
+                      "placeholders_resolved": "100%",
+                      "branding_consistent": true,
+                      "contact_accuracy": "All details verified and current"
+                    },
+                    "customization_details": [
+                      {
+                        "file": "project_brochure.pdf",
+                        "required_changes": 5,
+                        "changes_applied": 5,
+                        "validation_status": "PASSED",
+                        "notes": "All agent contact information correctly inserted"
+                      }
+                    ]
+                  },
+                  "quality_assurance": {
+                    "status": "PASSED",
+                    "presentation_quality": "Professional and consistent",
+                    "file_naming": "Clear and descriptive conventions used",
+                    "format_optimization": "All files optimized for client use",
+                    "mobile_compatibility": "Images and documents mobile-friendly"
+                  },
+                  "legal_compliance": {
+                    "status": "PASSED",
+                    "disclosures_present": true,
+                    "legal_language_intact": true,
+                    "regulatory_requirements": "All FINTRAC and privacy requirements met",
+                    "unauthorized_modifications": "None detected"
+                  },
+                  "functional_testing": {
+                    "status": "PASSED",
+                    "pdf_forms": "All forms fillable and functional",
+                    "video_playback": "All videos play correctly",
+                    "image_display": "All galleries load and display properly",
+                    "link_validation": "All links functional"
+                  },
+                  "critical_issues": [
+                    {
+                      "severity": "HIGH",
+                      "issue": "Missing required disclosure document",
+                      "impact": "Legal non-compliance",
+                      "resolution_required": true,
+                      "recommended_action": "Add missing document to package"
+                    }
+                  ],
+                  "warnings": [
+                    {
+                      "severity": "MEDIUM",
+                      "issue": "Large video file may slow download",
+                      "impact": "Client experience",
+                      "resolution_required": false,
+                      "recommended_action": "Consider providing download link option"
+                    }
+                  ],
+                  "recommendations": [
+                    "Consider adding digital signature capability to forms",
+                    "Include video file size information in manifest",
+                    "Add estimated download times for large files"
+                  ],
+                  "final_assessment": {
+                    "ready_for_distribution": true,
+                    "quality_rating": "EXCELLENT",
+                    "compliance_status": "FULLY_COMPLIANT",
+                    "client_readiness": "PROFESSIONAL_GRADE"
+                  }
+                }
+                ```
+
+                Create "completeness_checklist.md":
+                ```markdown
+                # Condo Application Package Completeness Checklist
+
+                **Validation Date:** ISO_DATE_STRING
+                **Package Version:** 1.0.0
+                **Overall Status:** PASSED/FAILED
+
+                ## Content Verification ✅
+                - [x] All required documents present
+                - [x] File integrity verified
+                - [x] Proper organization maintained
+                - [x] File sizes match specifications
+
+                ## Customization Validation ✅
+                - [x] Agent information complete
+                - [x] All placeholders resolved
+                - [x] Branding consistent
+                - [x] Contact details accurate
+
+                ## Quality Assurance ✅
+                - [x] Professional presentation
+                - [x] Consistent file naming
+                - [x] Optimized formats
+                - [x] Mobile compatibility
+
+                ## Legal Compliance ✅
+                - [x] Required disclosures present
+                - [x] Legal language intact
+                - [x] Regulatory requirements met
+                - [x] No unauthorized modifications
+
+                ## Functional Testing ✅
+                - [x] PDF forms functional
+                - [x] Videos play correctly
+                - [x] Images display properly
+                - [x] All links work
+
+                ## Critical Issues
+                - None identified
+
+                ## Recommendations
+                - Consider digital signature options
+                - Add file size information to manifest
+
+                ## Final Assessment
+                ✅ **PACKAGE READY FOR CLIENT DISTRIBUTION**
+                ```
+
+                SUCCESS CRITERIA:
+                - Comprehensive validation covers all aspects of the package
+                - All critical issues are identified and resolved
+                - Validation report provides clear pass/fail status
+                - Checklist format enables quick quality verification
+                - Output files are created in artifacts/validation/
+                - Package is confirmed ready for professional distribution
+          planning: ""
+          condition:
+            - to: "prepare_client_distribution"
+              on: "COMPLETED"
+          manual: false
+
+        - id: "prepare_client_distribution"
+          name: "Prepare for Client Distribution"
+          description: "Final preparation and packaging for client delivery"
+          status: "PENDING"
+          input: ["final_application_package", "validation_report"]
+          output: ["client_ready_package", "distribution_readme"]
+          dependencies: ["validate_package_completeness"]
+          prompts:
+            - role: "user"
+              text: |
+                EXECUTE CLIENT DISTRIBUTION PREPARATION TASK:
+
+                INPUTS:
+                - final_application_package/ (validated client package)
+                - validation_report.json (quality assurance results)
+
+                OBJECTIVE: Prepare the final application package for professional client distribution with clear instructions and optimal delivery format.
+
+                REQUIRED ACTIONS:
+
+                1. FINAL PACKAGE OPTIMIZATION:
+                   Based on validation_report.json:
+                   - Address any remaining warnings or recommendations
+                   - Optimize package for chosen delivery method
+                   - Ensure all files are in final client-ready state
+                   - Add any final professional touches
+
+                2. DELIVERY FORMAT PREPARATION:
+                   Create appropriate delivery formats:
+                   - Digital download package (ZIP archive)
+                   - Secure client portal upload
+                   - Physical delivery preparation (if required)
+                   - Multiple format options for client preference
+
+                3. CLIENT COMMUNICATION MATERIALS:
+                   Create comprehensive client instructions:
+                   - Package overview and contents explanation
+                   - Step-by-step usage instructions
+                   - Important deadlines and next steps
+                   - Contact information for questions
+
+                4. PROFESSIONAL PRESENTATION:
+                   Ensure package meets professional standards:
+                   - Consistent branding and presentation
+                   - Clear navigation and file organization
+                   - Professional cover letter or introduction
+                   - Appropriate legal disclaimers
+
+                5. DISTRIBUTION LOGISTICS:
+                   Prepare for multiple delivery scenarios:
+                   - Email delivery with secure links
+                   - Client portal access instructions
+                   - Physical delivery coordination
+                   - Follow-up communication planning
+
+                OUTPUT REQUIREMENTS:
+
+                Create "client_ready_package/" directory with final distribution materials.
+
+                Create "distribution_readme.md":
+                ```markdown
+                # Condo Application Package - [PROJECT_NAME]
+
+                **Prepared for:** [CLIENT_NAME]  
+                **Prepared by:** [AGENT_NAME], [BROKERAGE_NAME]  
+                **Date:** [PREPARATION_DATE]  
+                **Package Version:** 1.0.0
+
+                ---
+
+                ## Package Overview
+
+                This comprehensive application package contains all the materials you need to make an informed decision about purchasing a unit at [PROJECT_NAME]. The package has been professionally prepared and customized with your agent's contact information.
+
+                ### What's Included
+
+                #### 📄 Documents (`documents/`)
+                - **Project Brochure**: Complete project overview with specifications
+                - **Floor Plans**: Detailed unit layouts and dimensions
+                - **Application Forms**: Pre-qualified buyer application documents
+                - **Legal Documents**: Required disclosures and agreements
+
+                #### 🖼️ Image Galleries (`images/`)
+                - **Exterior Gallery**: Building and neighborhood photography
+                - **Interior Gallery**: Unit finishes and space planning
+                - **Amenities Gallery**: Building features and facilities
+                - **Location Gallery**: Nearby amenities and transportation
+
+                #### 🎥 Videos (`videos/`)
+                - **Virtual Tours**: Interactive property walkthroughs
+                - **Project Videos**: Construction progress and features
+                - **Lifestyle Content**: Community and neighborhood highlights
+
+                #### 📋 Guides (`guides/`)
+                - **Form Completion Guide**: Step-by-step instructions
+                - **Next Steps Timeline**: Important dates and deadlines
+
+                ---
+
+                ## Important Instructions
+
+                ### 1. Review Timeline
+                Please review all materials within **2 business days** of receiving this package.
+
+                ### 2. Form Completion
+                Complete and sign all application forms within **5 business days**:
+                - Read the Form Completion Guide first
+                - Complete all required fields accurately
+                - Sign and date all signature sections
+                - Attach all required supporting documents
+
+                ### 3. Supporting Documents Required
+                - Government-issued photo ID
+                - Proof of employment/income (last 3 months)
+                - Bank statements (last 3 months)
+                - References (if required)
+
+                ### 4. Submission Methods
+                Choose one of the following submission methods:
+
+                **Email Submission (Recommended):**
+                - Send completed forms to: [AGENT_EMAIL]
+                - Attach all supporting documents
+                - Use subject line: "[CLIENT_NAME] - [PROJECT_NAME] Application"
+
+                **Physical Delivery:**
+                - Deliver to: [BROKERAGE_ADDRESS]
+                - Include cover letter with your contact information
+                - Request signed receipt
+
+                **Client Portal:**
+                - Access: [PORTAL_URL]
+                - Upload completed documents
+                - Track application status
+
+                ---
+
+                ## Next Steps After Submission
+
+                1. **Application Review** (2-3 business days)
+                   - Your agent will review all submitted materials
+                   - Additional information may be requested
+
+                2. **Pre-Approval Coordination** (3-5 business days)
+                   - Mortgage pre-approval coordination
+                   - Financial qualification verification
+
+                3. **Offer Preparation** (1-2 weeks)
+                   - Property selection and offer strategy
+                   - Purchase offer document preparation
+
+                4. **Due Diligence** (30-60 days)
+                   - Home inspection coordination
+                   - Legal review and closing preparation
+
+                ---
+
+                ## Contact Information
+
+                **Your Agent:**  
+                [AGENT_NAME]  
+                [AGENT_TITLE]  
+                [BROKERAGE_NAME]  
+                Phone: [AGENT_PHONE]  
+                Email: [AGENT_EMAIL]  
+                Website: [AGENT_WEBSITE]  
+
+                **Office:**  
+                [BROKERAGE_ADDRESS]  
+                Phone: [BROKERAGE_PHONE]  
+
+                ---
+
+                ## Important Legal Notes
+
+                - This package is confidential and intended only for [CLIENT_NAME]
+                - All information is current as of [PREPARATION_DATE]
+                - Contact your agent immediately if you have any questions
+                - This is not legal advice; consult appropriate professionals for legal matters
+
+                ---
+
+                ## Package Validation
+
+                ✅ **Quality Assurance Passed**  
+                ✅ **All Customizations Applied**  
+                ✅ **Legal Compliance Verified**  
+                ✅ **Professional Presentation Confirmed**  
+
+                *Validation completed on [VALIDATION_DATE]*
+
+                ---
+
+                Thank you for choosing [BROKERAGE_NAME] for your real estate needs. We're excited to help you find your dream home at [PROJECT_NAME]!
+
+                Best regards,  
+                [AGENT_NAME]  
+                [BROKERAGE_NAME]
+                ```
+
+                Create "client_distribution_summary.json":
+                ```json
+                {
+                  "distribution_timestamp": "ISO_DATE_STRING",
+                  "package_version": "1.0.0",
+                  "client_info": {
+                    "client_name": "[CLIENT_NAME]",
+                    "project_name": "[PROJECT_NAME]",
+                    "agent_name": "[AGENT_NAME]",
+                    "brokerage_name": "[BROKERAGE_NAME]"
+                  },
+                  "delivery_formats": {
+                    "digital_download": {
+                      "format": "ZIP archive",
+                      "file_name": "condo_application_package.zip",
+                      "size_mb": NUMBER,
+                      "contents": [
+                        "documents/",
+                        "images/",
+                        "videos/",
+                        "guides/",
+                        "README.md"
+                      ]
+                    },
+                    "client_portal": {
+                      "access_url": "[PORTAL_URL]",
+                      "upload_required": false,
+                      "tracking_available": true
+                    },
+                    "physical_delivery": {
+                      "available": true,
+                      "preparation_required": true,
+                      "tracking_number": "TBD"
+                    }
+                  },
+                  "client_instructions": {
+                    "review_deadline": "2 business days",
+                    "completion_deadline": "5 business days",
+                    "required_documents": [
+                      "Photo ID",
+                      "Proof of income",
+                      "Bank statements",
+                      "Employment verification"
+                    ],
+                    "submission_methods": [
+                      "email",
+                      "physical_delivery",
+                      "client_portal"
+                    ]
+                  },
+                  "follow_up_plan": {
+                    "initial_followup": "24 hours after delivery",
+                    "completion_check": "3 days after delivery",
+                    "support_availability": "Email and phone support available"
+                  },
+                  "quality_assurance": {
+                    "validation_status": "PASSED",
+                    "customization_verified": true,
+                    "professional_presentation": true,
+                    "client_ready": true
+                  }
+                }
+                ```
+
+                SUCCESS CRITERIA:
+                - Package is optimized for client delivery
+                - Clear, comprehensive instructions are provided
+                - Professional presentation meets industry standards
+                - Multiple delivery options are prepared
+                - Client can easily understand and use the package
+                - Output files are created in artifacts/client_distribution/
+                - Package is ready for immediate professional distribution
+          planning: ""
+          manual: false
+
+  # artifacts: Tracking of pipeline artifacts
+  artifacts:
+    total_count: 0
+    files: []
+
+  # other settings: Optional settings for detailed tracking
+  settings:
+    slackNotify:
+      enabled: false
+      description: "If true, notify the team when pipeline completes"
+    retry:
+      maxAttempts: 3
+      description: "Maximum retry attempts for failed units"

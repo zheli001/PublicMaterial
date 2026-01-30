@@ -1,0 +1,26 @@
+{
+  "presentation_images": {
+    "hero_images": [
+      "golf_course_aerial.jpg",
+      "building_exterior.jpg"
+    ],
+    "interior_showcase": [
+      "suite_living_room.jpg",
+      "suite_bedroom.jpg",
+      "suite_kitchen.jpg"
+    ],
+    "amenities_gallery": [
+      "lobby.jpg",
+      "gym.jpg",
+      "concierge.jpg"
+    ],
+    "location_context": [
+      "neighborhood_map.jpg",
+      "transportation.jpg"
+    ]
+  },
+  "thumbnails": "Create 300x200px thumbnails for gallery views",
+  "high_res": "Keep original high-resolution images for printing",
+  "videos": "Organize promotional videos for client presentations",
+  "documents": "Clean PDF documents for distribution"
+}

@@ -1,0 +1,39 @@
+# Royal Bayview Agent Website Settings
+# Customize these settings to personalize your presentation website
+# Generated: 2025-11-16 14:34:35
+
+agent:
+  name: "Sarah Gu"
+  title: "Real Estate Professional"
+  brokerage: "Sarah Gu Real Estate Inc."
+  phone: "(647) 233-2202"
+  email: "sarah_gu@hotmail.com"
+  website: "www.sarahgurealestate.com"
+  photo: "agent_photo.jpg"
+  years_experience: "10+"
+  specialties:
+    - "Luxury Condos"
+    - "Golf Communities"
+    - "Thornhill Properties"
+
+branding:
+  primary_color: "#2E86AB"
+  secondary_color: "#2c3e50"
+  accent_color: "#3498db"
+
+features:
+  presentation_style: "professional"
+  include_testimonials: true
+  include_market_stats: true
+  include_virtual_tour: true
+  contact_form_enabled: true
+
+# To customize this website:
+# 1. Edit the values above
+# 2. Replace agent photo in images/ directory
+# 3. Add your own images/videos to respective folders
+# 4. Re-run the website generator to apply changes
+# 5. Open index.html in your web browser
+
+# Note: Colors should be valid CSS color values (hex, rgb, or color names)
+# Photo should be a JPG/PNG file placed in the images/ directory

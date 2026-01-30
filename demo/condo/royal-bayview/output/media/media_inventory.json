@@ -1,0 +1,49 @@
+{
+  "download_date": "2025-11-16T13:39:22.032192",
+  "total_files": 8,
+  "images": [
+    {
+      "filename": "rb_amenities_04_Royal-Bayview_Amenities_LobbyQ2s",
+      "size_kb": 28.3,
+      "path": "media\\images\\rb_amenities_04_Royal-Bayview_Amenities_LobbyQ2s"
+    },
+    {
+      "filename": "rb_amenities_07_Royal-Bayview_Amenities_LobbyQ2s",
+      "size_kb": 56.8,
+      "path": "media\\images\\rb_amenities_07_Royal-Bayview_Amenities_LobbyQ2s"
+    },
+    {
+      "filename": "rb_interior_03_Royal-Bayview_105_01",
+      "size_kb": 38.2,
+      "path": "media\\images\\rb_interior_03_Royal-Bayview_105_01"
+    },
+    {
+      "filename": "rb_interior_06_Royal_Bayview_GL20-07",
+      "size_kb": 20.3,
+      "path": "media\\images\\rb_interior_06_Royal_Bayview_GL20-07"
+    },
+    {
+      "filename": "rb_interior_09_Royal_Bayview_GL20-07",
+      "size_kb": 37.0,
+      "path": "media\\images\\rb_interior_09_Royal_Bayview_GL20-07"
+    },
+    {
+      "filename": "rb_location_05_Royal-Bayview_Aerial-Golf-Course",
+      "size_kb": 26.6,
+      "path": "media\\images\\rb_location_05_Royal-Bayview_Aerial-Golf-Course"
+    },
+    {
+      "filename": "rb_location_08_Royal-Bayview_Aerial-Golf-Course",
+      "size_kb": 56.3,
+      "path": "media\\images\\rb_location_08_Royal-Bayview_Aerial-Golf-Course"
+    }
+  ],
+  "videos": [],
+  "documents": [
+    {
+      "filename": "rb_doc_01_royalbayview.pdf",
+      "size_kb": 158.2,
+      "path": "media\\documents\\rb_doc_01_royalbayview.pdf"
+    }
+  ]
+}
