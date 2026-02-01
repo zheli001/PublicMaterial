@@ -24,4 +24,4 @@
 
 ---
 
-[上一章：陋室栖迟悟道心](chapter_2.md) | [目录](index.md)
+[上一章：陋室栖迟悟道心](chapter_2.md) | [下一章：天地有灵](chapter_4.md) | [目录](index.md)

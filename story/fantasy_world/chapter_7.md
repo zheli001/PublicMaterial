@@ -50,4 +50,4 @@
 
 ---
 
-[上一章](chapter_6.md) | [下一章](chapter_8.md) | [目录](index.md)
+[上一章：灵气浩瀚洗尘埃](chapter_6.md) | [下一章：五行妙变悟天道](chapter_8.md) | [目录](index.md)

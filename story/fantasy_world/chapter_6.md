@@ -36,4 +36,4 @@
 
 ---
 
-[上一章](chapter_5.md) | [下一章](chapter_7.md) | [目录](index.md)
+[上一章：执事指迷开慧路](chapter_5.md) | [下一章：吐纳苦修炼真元](chapter_7.md) | [目录](index.md)

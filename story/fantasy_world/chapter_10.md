@@ -48,4 +48,4 @@
 
 ---
 
-[上一章](chapter_9.md) | [下一章](chapter_11.md) | [目录](index.md)
+[上一章：瓶颈初临试道境](chapter_9.md) | [下一章：渐入佳境道自明](chapter_11.md) | [目录](index.md)

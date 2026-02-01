@@ -48,4 +48,4 @@
 
 ---
 
-[上一章](chapter_7.md) | [下一章](chapter_9.md) | [目录](index.md)
+[上一章：吐纳苦修炼真元](chapter_7.md) | [下一章：瓶颈初临试道境](chapter_9.md) | [目录](index.md)

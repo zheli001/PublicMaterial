@@ -48,4 +48,4 @@
 
 ---
 
-[上一章](chapter_8.md) | [下一章](chapter_10.md) | [目录](index.md)
+[上一章：五行妙变悟天道](chapter_8.md) | [下一章：交流论道参玄机](chapter_10.md) | [目录](index.md)

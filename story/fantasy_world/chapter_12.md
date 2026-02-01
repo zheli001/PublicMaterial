@@ -50,4 +50,4 @@
 
 ---
 
-[上一章](chapter_11.md) | [下一章](chapter_13.md) | [目录](index.md)
+[上一章：渐入佳境道自明](chapter_11.md) | [下一章：性格相投结忘形](chapter_13.md) | [目录](index.md)
