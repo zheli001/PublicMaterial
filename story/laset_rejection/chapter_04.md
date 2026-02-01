@@ -1,6 +1,6 @@
 # 第四章｜暗潮涌动
 
-[上一章](chapter_03.md) | [目录](index.md) | [下一章](chapter_05.md)
+[上一章：第三章｜主权幻象](chapter_03.md) | [目录](index.md) | [下一章：第五章｜能源阴影](chapter_05.md)
 
 ---
 

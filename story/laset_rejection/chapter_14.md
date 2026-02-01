@@ -1,6 +1,6 @@
 # 第十四章｜秩序的牢笼
 
-[上一章](chapter_13.md) | [目录](index.md) | [下一章](chapter_15.md)
+[上一章：第十三章｜能源阴影加剧](chapter_13.md) | [目录](index.md) | [下一章：第十五章｜微光孤岛](chapter_15.md)
 
 ---
 

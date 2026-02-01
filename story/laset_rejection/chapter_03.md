@@ -1,6 +1,6 @@
 # 第三章｜主权幻象
 
-[上一章](chapter_02.md) | [目录](index.md) | [下一章](chapter_04.md)
+[上一章：第二章｜算法的温柔](chapter_02.md) | [目录](index.md) | [下一章：第四章｜暗潮涌动](chapter_04.md)
 
 ---
 

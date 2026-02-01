@@ -1,6 +1,6 @@
 # 第十一章｜暗流扩散
 
-[上一章](chapter_10.md) | [目录](index.md) | [下一章](chapter_12.md)
+[上一章：第十章｜裂缝初现](chapter_10.md) | [目录](index.md) | [下一章：第十二章｜最后一次尝试](chapter_12.md)
 
 ---
 

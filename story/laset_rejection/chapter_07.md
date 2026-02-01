@@ -1,6 +1,6 @@
 # 第七章｜微光共振
 
-[上一章](chapter_06.md) | [目录](index.md) | [下一章](chapter_08.md)
+[上一章：第六章｜冷光城市](chapter_06.md) | [目录](index.md) | [下一章：第八章｜系统的温度](chapter_08.md)
 
 ---
 

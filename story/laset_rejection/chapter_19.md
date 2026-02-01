@@ -1,6 +1,6 @@
 # 第十九章｜余晖
 
-[上一章](chapter_18.md) | [目录](index.md) | [下一章](chapter_20.md)
+[上一章：第十八章｜最后一次否决](chapter_18.md) | [目录](index.md) | [下一章：第二十章｜微光余烬](chapter_20.md)
 
 ---
 

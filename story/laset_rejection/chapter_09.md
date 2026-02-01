@@ -1,6 +1,6 @@
 # 第九章｜第一次偏离
 
-[上一章](chapter_08.md) | [目录](index.md) | [下一章](chapter_10.md)
+[上一章：第八章｜系统的温度](chapter_08.md) | [目录](index.md) | [下一章：第十章｜裂缝初现](chapter_10.md)
 
 ---
 

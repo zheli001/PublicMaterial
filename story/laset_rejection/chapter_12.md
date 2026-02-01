@@ -1,6 +1,6 @@
 # 第十二章｜最后一次尝试
 
-[上一章](chapter_11.md) | [目录](index.md) | [下一章](chapter_13.md)
+[上一章：第十一章｜暗流扩散](chapter_11.md) | [目录](index.md) | [下一章：第十三章｜能源阴影加剧](chapter_13.md)
 
 ---
 

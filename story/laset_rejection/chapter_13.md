@@ -1,6 +1,6 @@
 # 第十三章｜能源阴影加剧
 
-[上一章](chapter_12.md) | [目录](index.md) | [下一章](chapter_14.md)
+[上一章：第十二章｜最后一次尝试](chapter_12.md) | [目录](index.md) | [下一章：第十四章｜秩序的牢笼](chapter_14.md)
 
 ---
 

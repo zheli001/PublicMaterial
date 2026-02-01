@@ -1,6 +1,6 @@
 # 第十五章｜微光孤岛
 
-[上一章](chapter_14.md) | [目录](index.md) | [下一章](chapter_16.md)
+[上一章：第十四章｜秩序的牢笼](chapter_14.md) | [目录](index.md) | [下一章：第十六章｜冷光城市](chapter_16.md)
 
 ---
 

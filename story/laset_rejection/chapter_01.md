@@ -1,6 +1,6 @@
 # 第一章｜微光初现
 
-[上一章](prologue.md) | [目录](index.md) | [下一章](chapter_02.md)
+[上一章：序章｜完美黎明](prologue.md) | [目录](index.md) | [下一章：第二章｜算法的温柔](chapter_02.md)
 
 ---
 

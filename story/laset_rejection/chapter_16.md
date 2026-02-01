@@ -1,6 +1,6 @@
 # 第十六章｜冷光城市
 
-[上一章](chapter_15.md) | [目录](index.md) | [下一章](chapter_17.md)
+[上一章：第十五章｜微光孤岛](chapter_15.md) | [目录](index.md) | [下一章：第十七章｜秩序震颤](chapter_17.md)
 
 ---
 

@@ -1,6 +1,6 @@
 # 第二章｜算法的温柔
 
-[上一章](chapter_01.md) | [目录](index.md) | [下一章](chapter_03.md)
+[上一章：第一章｜微光初现](chapter_01.md) | [目录](index.md) | [下一章：第三章｜主权幻象](chapter_03.md)
 
 ---
 

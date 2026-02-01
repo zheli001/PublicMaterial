@@ -1,6 +1,6 @@
 # 第六章｜冷光城市
 
-[上一章](chapter_05.md) | [目录](index.md) | [下一章](chapter_07.md)
+[上一章：第五章｜能源阴影](chapter_05.md) | [目录](index.md) | [下一章：第七章｜微光共振](chapter_07.md)
 
 ---
 

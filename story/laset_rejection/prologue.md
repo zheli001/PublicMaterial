@@ -1,6 +1,6 @@
 # 序章｜完美黎明
 
-[目录](index.md) | [下一章](chapter_01.md)
+[目录](index.md) | [下一章：第一章｜微光初现](chapter_01.md)
 
 ---
 

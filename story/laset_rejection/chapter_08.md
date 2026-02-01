@@ -1,6 +1,6 @@
 # 第八章｜系统的温度
 
-[上一章](chapter_07.md) | [目录](index.md) | [下一章](chapter_09.md)
+[上一章：第七章｜微光共振](chapter_07.md) | [目录](index.md) | [下一章：第九章｜第一次偏离](chapter_09.md)
 
 ---
 

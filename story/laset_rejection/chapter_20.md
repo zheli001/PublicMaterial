@@ -1,6 +1,6 @@
 # 第二十章｜微光余烬
 
-[上一章](chapter_19.md) | [目录](index.md)
+[上一章：第十九章｜余晖](chapter_19.md) | [目录](index.md)
 
 ---
 

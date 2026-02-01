@@ -1,6 +1,6 @@
 # 第十章｜裂缝初现
 
-[上一章](chapter_09.md) | [目录](index.md) | [下一章](chapter_11.md)
+[上一章：第九章｜第一次偏离](chapter_09.md) | [目录](index.md) | [下一章：第十一章｜暗流扩散](chapter_11.md)
 
 ---
 

@@ -1,6 +1,6 @@
 # 第十八章｜最后一次否决
 
-[上一章](chapter_17.md) | [目录](index.md) | [下一章](chapter_19.md)
+[上一章：第十七章｜秩序震颤](chapter_17.md) | [目录](index.md) | [下一章：第十九章｜余晖](chapter_19.md)
 
 ---
 

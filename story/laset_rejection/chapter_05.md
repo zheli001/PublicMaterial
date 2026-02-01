@@ -1,6 +1,6 @@
 # 第五章｜能源阴影
 
-[上一章](chapter_04.md) | [目录](index.md) | [下一章](chapter_06.md)
+[上一章：第四章｜暗潮涌动](chapter_04.md) | [目录](index.md) | [下一章：第六章｜冷光城市](chapter_06.md)
 
 ---
 
