@@ -1,1 +1,58 @@
-# Daily standup issue template will be filled in later
+name: Daily Standup
+description: Daily collaborative writing check-in for serialized and independent stories
+title: "📅 Standup - YYYY-MM-DD"
+labels: ["standup", "writing"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🧭 协同写作每日会议
+        **日期**: YYYY-MM-DD  
+        **时长**: 30–60 分钟
+
+  - type: input
+    id: serial_status
+    attributes:
+      label: "1️⃣ 连载状态（每日必填）"
+      description: |
+        Jeff: 初稿状态（未开始 / 进行中 / 已完成）  
+        Sarah: 校正/发布状态（未开始 / 进行中 / 已完成）  
+        今日章节：第 __–__ 章
+        是否需要修改/回稿：____
+      default: ""
+
+  - type: input
+    id: serial_next
+    attributes:
+      label: "明日连载目标"
+      description: "Jeff: 明日初稿目标 | Sarah: 校正/发布目标"
+      default: ""
+
+  - type: input
+    id: independent_status
+    attributes:
+      label: "2️⃣ 独立故事（离散更新，可跳过）"
+      description: "本周是否推进独立文章：是/否 | 当前阶段：构思/初稿/校正/发布 | 下一步负责人：____"
+      default: ""
+
+  - type: input
+    id: brainstorming
+    attributes:
+      label: "3️⃣ Brainstorming（至少 1 个可执行创意）"
+      description: "明日章节关键点 或 新独立故事核心设定/冲突/场景"
+      default: ""
+
+  - type: input
+    id: roadblock
+    attributes:
+      label: "4️⃣ Roadblocks（阻塞项）"
+      description: "是否存在阻塞：无 / 有 | 内容：____ | 负责人：Jeff / Sarah | 是否影响连载：是 / 否"
+      default: ""
+
+  - type: input
+    id: closing
+    attributes:
+      label: "5️⃣ 会议结束确认"
+      description: "今日连载是否更新完成：是 / 否 | 明日最小可交付已确定：是 / 否 | 下次会议关注点：____"
+      default: ""
