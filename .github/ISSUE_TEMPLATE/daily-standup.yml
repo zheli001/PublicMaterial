@@ -1,15 +1,23 @@
 name: Daily Standup
 description: Daily collaborative writing check-in for serialized and independent stories
-title: "📅 Standup - {{date}}"
+title: "📅 Daily Standup"
 labels: ["standup", "writing"]
 
 body:
+  - type: input
+    id: meeting_date
+    attributes:
+      label: "📅 Meeting Date | 会议日期"
+      description: "Enter today's date"
+      placeholder: "2026-02-06"
+    validations:
+      required: true
+
   - type: markdown
     attributes:
       value: |
         ## 🧭 协同写作每日会议 | Collaborative Writing Daily Standup
 
-        **日期/Date**: {{date}}  
         **时长/Duration**: 30–60 分钟/minutes  
         **参与者/Participants**: Jeff / Sarah
 
@@ -67,7 +75,7 @@ body:
   - type: input
     id: roadblock
     attributes:
-      label: "4️⃣ Roadblocks（阻塞项）"
+      label: "4️⃣ Roadblocks��阻塞项）"
       description: |
         是否存在阻塞/Any blockers: 无/有 (None/Yes)  
         阁塞内容/Blocker: ____  
