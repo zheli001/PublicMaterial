@@ -75,10 +75,10 @@ body:
   - type: input
     id: roadblock
     attributes:
-      label: "4️⃣ Roadblocks��阻塞项）"
+      label: "4️⃣ Roadblocks（阻塞项）"
       description: |
         是否存在阻塞/Any blockers: 无/有 (None/Yes)  
-        阁塞内容/Blocker: ____  
+        阻塞内容/Blocker: ____  
         负责人/Owner: Jeff / Sarah  
         是否影响连载/Affecting serial?: 是/否 (Yes/No)
       default: ""
