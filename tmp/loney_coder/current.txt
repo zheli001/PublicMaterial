@@ -1,1 +1,3 @@
-(Initial draft for the current chapter)
+progress: chapters 1-8 and epilogue committed
+branch: loney_coder
+last_updated: 2026-02-07
