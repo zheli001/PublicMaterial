@@ -1,33 +1,40 @@
-# Quickstart Guide for Last Rejection Novel Workflow
+# Quickstart Guide for Collaborative Story Editing (通用版)
 
 ## 概述
 
-此流程用于协作编辑 last_rejection 小说。请注意：current.txt 是对已有小说内容的编辑和更改，不是重写。
+本流程适用于任何小说或故事项目。只需指定你的故事名称，系统会自动创建对应的编辑目录（如：tmp/你的故事名/current.txt 和 tmp/你的故事名/score.md），其后流程可直接复用。请注意：current.txt 应用于对已有小说内容的编辑和更改，而不是重写整个作品。
 
-## 目录说明
+## 基本流程
 
-- tmp/last_rejection/current.txt
-  保存当前小说需修改的内容，仅做编辑更改。
-- tmp/last_rejection/score.md
-  对 current.txt 每次编辑后评分及反馈。
+1. 指定故事名称
+   - 例如：your_story
+   - 系统将自动创建 tmp/your_story/current.txt 和 tmp/your_story/score.md 文件
 
-## 操作流程
+2. 编辑与评分循环
+   1. 打开 current.txt，编辑和优化现有内容（请注意：是修改、补充，不是重写全部）。
+   2. 修改后，在 score.md 里给当前内容评分并写下简短反馈。
+   3. 可根据反馈反复修改，直到你满意为止。
+   4. 完成后，输入或选择“done”，系统会自动备份当前内容和反馈/总结，文件名带日期时间。
 
-1. 打开 current.txt，阅读并编辑已有小说内容。
-2. 修改后，在 score.md 给出评分和简短反馈。
-3. 根据评分和反馈继续优化当前内容，直到满意。
-4. 当你认为 "done" 时，系统会自动备份 current.txt 和本次总结到带日期时间的新文件。
+3. 备份说明
+   - 每次“done”后，将自动将当前内容（current.txt）和简要总结备份到带日期时间的新文件，方便历史追溯及后续优化。
 
-## 新用户操作简要
+## 新手操作简要
 
-- 打开 current.txt，编辑已有内容。
-- 修改后，在 score.md 打分与反馈。
-- 自己满意后，输入 "done"，系统自动完成备份。
+- 只需指定故事名称，其余流程均可参照上述步骤循环进行。
 
-## 备份说明
+## 工作建议
 
-- 每次 done 后，自动将 current.txt 及总结指示备份到带日期时间的新文件，便于未来查阅与迭代。
+- 只对 current.txt 现有内容进行补充、优化和编辑（非全部重写）。
+- 打分和反馈要具体，便于持续提升故事质量。
+- 多次修改，分步优化，让故事自然成长。
 
 ---
 
-欢迎循环优化你的小说，逐步提升！
+如需启动新项目：
+1. 指定故事名后，即可获得独立的 current.txt 和 score.md。
+2. 每个故事目录互不干扰，可灵活并行使用。
+
+---
+
+此文件为通用快速入门指南，便于用户和 LLM 作为启动指示使用。
