@@ -1,0 +1,31 @@
+我要生成一个可以指导Sarah使用story/quickstart.md来写故事的ppt. 这个ppt应该包含交互式的内容，讲解的同时可以让她动手实践。
+生成一个html版本的ppt，我可以在另外一个屏幕上展示。然后 Sarah 可以在她的屏幕上操作。
+
+- html 版本的ppt.
+- ppt scripts in markdown.
+- instructions how to use the story/quickstart.md. 假设Sarah 是一个初学者，她需要一步一步来。
+
+- Github 简单介绍，快速介绍他是做什么的，为什么适合我们。一些基本概念，比如branch, commit, push, pull, merge等。 还有Github的界面介绍。
+    - 如何利用PR or commit to publish story in main branch.
+    - 如何管理自己的story branch.
+
+- Antigravity 简单介绍，快速介绍如何使用和与Github的交互。
+    - 如何选择AI model 和对话。
+    - 如何使用antigravity的界面，还有管理自己的对话。
+
+- 如何用简单story/quickstart.md来写故事。
+    - 介绍story/quickstart.md的结构。如何写或修改大纲等等。
+    - 介绍如何使用antigravity来写和修改故事，包括评分和修改。
+    - 介绍如何使用github来管理自己的故事。
+    - 介绍如何使用github来发布故事。
+
+- 交互式内容：
+    - 在ppt中加入一些可以交互的内容，让Sarah可以动手实践。
+    - 比如，在介绍github的时候，可以让她在自己的电脑上操作。
+    - 在介绍antigravity的时候，可以让她在自己的电脑上操作。
+    - 在介绍如何写故事的时候，可以让她在自己的电脑上操作。
+
+- Discussion
+    - 那里发布，发布情况怎么样。
+    - 目标建议，比如是开始起来，慢慢改进， 还是等写出一个之间满意的作品再发布。
+    - 可加入封面图片等。
