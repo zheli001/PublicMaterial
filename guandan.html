@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#1a1a2e">
-    <title>智能惯蛋 - 横屏优化版</title>
+    <title>智能惯蛋</title>
     <style>
         * {
             margin: 0;
@@ -18,68 +16,28 @@
         }
         
         :root {
-            --card-width: 85px;
-            --card-height: 120px;
-            --card-mini-width: 60px;
-            --card-mini-height: 85px;
+            --card-width: 75px;
+            --card-height: 105px;
             --primary: #FFD700;
             --ai-color: #00ff88;
             --turn-indicator: #ff6b6b;
         }
         
-        /* 强制横屏提示 */
-        @media screen and (orientation: portrait) and (max-width: 600px) {
-            #rotate-hint {
-                display: flex !important;
-            }
-            #game-container {
-                display: none !important;
-            }
-        }
-        
-        #rotate-hint {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #1a1a2e;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            z-index: 10000;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        #rotate-hint .icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: rotatePhone 2s infinite;
-        }
-        
-        @keyframes rotatePhone {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(90deg); }
-        }
-        
         html { font-size: 16px; }
         @media (max-width: 900px) { html { font-size: 14px; } }
-        @media (max-width: 700px) { html { font-size: 12px; } }
+        @media (max-width: 600px) { html { font-size: 12px; } }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
+            min-height: 100dvh;
             overflow: hidden;
             color: white;
             user-select: none;
-            -webkit-user-select: none;
         }
         
-        /* 菜单 */
+        /* 菜单 - 适配所有屏幕 */
         #menu {
             position: fixed;
             top: 0;
@@ -95,105 +53,136 @@
             padding: 20px;
         }
         
-        .logo { font-size: 3.5rem; margin-bottom: 10px; }
-        .title { font-size: 2.2rem; font-weight: bold; color: var(--primary); margin-bottom: 5px; }
-        .subtitle { color: rgba(255,255,255,0.7); margin-bottom: 30px; text-align: center; }
+        .logo { font-size: 4rem; margin-bottom: 10px; }
+        .title { font-size: 2.5rem; font-weight: bold; color: var(--primary); margin-bottom: 10px; text-align: center; }
+        .subtitle { color: rgba(255,255,255,0.7); margin-bottom: 40px; text-align: center; font-size: 1rem; }
         
         .menu-btn {
             width: 280px;
-            padding: 18px;
+            padding: 20px;
             margin: 8px 0;
             border: none;
             border-radius: 30px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             cursor: pointer;
             background: rgba(255,255,255,0.1);
             color: white;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+        
+        .menu-btn:hover, .menu-btn:active {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
         }
         
         .menu-btn.primary {
             background: linear-gradient(45deg, var(--primary), #ff8c00);
             color: #000;
             font-weight: bold;
+            border: none;
         }
         
-        /* 游戏容器 - 横屏优化 */
+        /* 游戏容器 */
         #game-container {
             display: none;
-            width: 100vw;
-            height: 100vh;
-            flex-direction: row;
-            position: relative;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
         }
         
-        /* 左侧信息栏 */
-        #sidebar {
-            width: 200px;
-            background: rgba(0,0,0,0.5);
-            padding: 20px;
+        /* 竖屏布局（默认） */
+        .layout-portrait {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            backdrop-filter: blur(10px);
         }
         
-        @media (max-width: 900px) {
-            #sidebar { width: 150px; padding: 15px; }
-        }
-        
-        .info-card {
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-        }
-        
-        .info-title {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 5px;
-        }
-        
-        .info-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-        
-        .turn-indicator {
-            background: var(--turn-indicator);
-            color: white;
+        .layout-portrait #game-header {
+            height: 60px;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
             padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            animation: pulseTurn 1.5s infinite;
         }
         
-        @keyframes pulseTurn {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        .layout-portrait #game-table {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
-        /* 主游戏区 */
-        #game-area {
+        .layout-portrait #top-players {
+            height: 80px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px;
+        }
+        
+        .layout-portrait #play-area {
             flex: 1;
             display: flex;
             flex-direction: column;
-            position: relative;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
         }
         
-        /* 顶部玩家 */
-        #top-players {
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 60px;
+        .layout-portrait #my-hand {
+            height: 200px;
+            background: rgba(0,0,0,0.3);
             padding: 10px;
         }
         
+        /* 横屏布局 */
+        .layout-landscape {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .layout-landscape #sidebar {
+            width: 180px;
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .layout-landscape #game-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .layout-landscape #top-players {
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            align-items: center;
+            padding: 10px;
+        }
+        
+        .layout-landscape #play-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .layout-landscape #my-hand {
+            height: 180px;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+        }
+        
+        /* 玩家样式 */
         .player-box {
             display: flex;
             flex-direction: column;
@@ -202,10 +191,10 @@
             position: relative;
         }
         
-        .player-box.active::before {
-            content: '⬇';
+        .player-box.active::after {
+            content: '▼';
             position: absolute;
-            top: -25px;
+            top: -20px;
             color: var(--turn-indicator);
             font-size: 1.5rem;
             animation: bounce 1s infinite;
@@ -217,16 +206,15 @@
         }
         
         .avatar {
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             border: 3px solid rgba(255,255,255,0.3);
-            position: relative;
         }
         
         .avatar.ai {
@@ -239,89 +227,80 @@
             box-shadow: 0 0 20px var(--turn-indicator);
         }
         
-        .player-info {
+        .player-name { font-size: 0.75rem; color: rgba(255,255,255,0.9); }
+        .player-cards { font-size: 0.75rem; color: var(--primary); font-weight: bold; }
+        
+        /* 信息卡片 */
+        .info-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 10px;
             text-align: center;
         }
         
-        .player-name {
-            font-size: 0.875rem;
-            color: rgba(255,255,255,0.9);
-        }
+        .info-title { font-size: 0.7rem; color: rgba(255,255,255,0.6); }
+        .info-value { font-size: 1.3rem; font-weight: bold; color: var(--primary); }
         
-        .player-cards {
-            font-size: 0.75rem;
-            color: var(--primary);
+        .turn-indicator {
+            background: var(--turn-indicator);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
             font-weight: bold;
+            font-size: 0.875rem;
         }
         
-        /* 中央出牌区 */
-        #table-center {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        
-        #play-area {
-            min-width: 400px;
-            min-height: 200px;
+        /* 出牌区 */
+        #play-table {
+            min-width: 300px;
+            min-height: 120px;
             background: rgba(0,0,0,0.4);
             border-radius: 20px;
-            border: 3px dashed rgba(255,255,255,0.3);
+            border: 2px dashed rgba(255,255,255,0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 30px;
-        }
-        
-        @media (max-width: 900px) {
-            #play-area { min-width: 300px; min-height: 150px; }
+            padding: 20px;
         }
         
         #last-play {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 10px;
+            min-height: 60px;
             flex-wrap: wrap;
             justify-content: center;
-            min-height: 85px;
         }
         
         .play-info {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: rgba(255,255,255,0.9);
             text-align: center;
-            font-weight: bold;
         }
         
-        /* 底部我的手牌区 */
-        #my-area {
-            height: 180px;
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
+        /* 手牌区 */
+        .hand-label {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-        }
-        
-        .my-label {
-            font-size: 0.875rem;
-            color: rgba(255,255,255,0.6);
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            padding: 0 10px;
+        }
+        
+        .hand-label span {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem;
         }
         
         .auto-sort-btn {
-            padding: 5px 12px;
+            padding: 6px 15px;
             background: var(--ai-color);
             color: #000;
             border: none;
             border-radius: 15px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             cursor: pointer;
             font-weight: bold;
         }
@@ -333,44 +312,44 @@
             overflow-x: auto;
             overflow-y: visible;
             padding: 10px;
-            max-width: 100%;
+            height: calc(100% - 40px);
         }
         
         #hand-area::-webkit-scrollbar { display: none; }
         
-        /* 扑克牌样式 - 增大并清晰显示花色 */
+        /* 扑克牌 */
         .card {
             width: var(--card-width);
             height: var(--card-height);
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            padding: 6px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             cursor: pointer;
             transition: all 0.2s;
             position: relative;
             flex-shrink: 0;
-            margin-left: -45px;
+            margin-left: -40px;
             border: 2px solid transparent;
         }
         
         .card:first-child { margin-left: 0; }
         
-        @media (max-width: 900px) {
+        @media (max-width: 600px) {
             .card {
-                width: 70px;
-                height: 100px;
+                width: 60px;
+                height: 84px;
                 margin-left: -35px;
             }
         }
         
-        .card:hover { transform: translateY(-8px); }
+        .card:hover { transform: translateY(-5px); }
         
         .card.selected {
-            transform: translateY(-30px) scale(1.05);
+            transform: translateY(-25px) scale(1.05);
             border-color: var(--primary);
             box-shadow: 0 10px 30px rgba(255,215,0,0.5);
             z-index: 100;
@@ -379,114 +358,83 @@
         .card.ai-pick {
             border-color: var(--ai-color);
             box-shadow: 0 0 25px rgba(0,255,136,0.7);
-            animation: aiGlow 1.5s infinite;
         }
         
-        @keyframes aiGlow {
-            0%, 100% { box-shadow: 0 0 25px rgba(0,255,136,0.7); }
-            50% { box-shadow: 0 0 35px rgba(0,255,136,1); }
-        }
-        
-        /* 牌面文字 - 增大 */
         .card-corner {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             line-height: 1;
-            display: flex;
-            align-items: center;
-            gap: 2px;
         }
         
-        .card-corner .suit-small {
-            font-size: 0.9rem;
-        }
-        
-        .card-corner.bottom { 
-            transform: rotate(180deg); 
-        }
-        
+        .card-corner .suit { font-size: 0.9em; margin-left: 2px; }
+        .card-corner.bottom { transform: rotate(180deg); }
         .red { color: #e74c3c; }
         .black { color: #2c3e50; }
         
-        /* 中央大花色 */
         .card-center {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 2.5rem;
-            line-height: 1;
+            font-size: 2.2rem;
         }
         
-        @media (max-width: 900px) {
-            .card-center { font-size: 2rem; }
-        }
-        
-        /* 级牌标记 */
-        .level-badge-card {
+        .level-badge {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 4px;
+            right: 4px;
+            width: 20px;
+            height: 20px;
             background: var(--primary);
             color: #000;
-            width: 22px;
-            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
         
-        /* 迷你牌（用于出牌区） */
+        /* 迷你牌 */
         .card-mini {
-            width: var(--card-mini-width);
-            height: var(--card-mini-height);
+            width: 50px;
+            height: 70px;
             background: white;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 5px;
+            padding: 4px;
             position: relative;
             flex-shrink: 0;
-            margin-left: -20px;
+            margin-left: -15px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.3);
         }
         
         .card-mini:first-child { margin-left: 0; }
         
-        .card-mini .corner {
-            font-size: 0.875rem;
-            font-weight: bold;
-        }
-        
-        .card-mini .center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.5rem;
+        .card-mini .corner { font-size: 0.875rem; font-weight: bold; }
+        .card-mini .center { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            font-size: 1.3rem; 
         }
         
         /* 控制按钮 */
         #controls {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             display: flex;
+            justify-content: center;
             gap: 10px;
-        }
-        
-        @media (max-width: 900px) {
-            #controls {
-                bottom: 10px;
-                right: 10px;
-                flex-wrap: wrap;
-                justify-content: flex-end;
-            }
+            padding: 15px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            z-index: 100;
         }
         
         .btn {
@@ -497,11 +445,11 @@
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s;
-            min-width: 90px;
+            min-width: 80px;
         }
         
         .btn:active { transform: scale(0.95); }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn:disabled { opacity: 0.4; }
         
         .btn-play {
             background: linear-gradient(45deg, var(--primary), #ff8c00);
@@ -519,25 +467,20 @@
             border: 1px solid rgba(255,255,255,0.3);
         }
         
-        /* AI建议面板 */
+        /* AI面板 */
         #ai-panel {
-            position: absolute;
-            top: 20px;
-            left: 220px;
+            position: fixed;
+            top: 80px;
+            left: 20px;
             right: 20px;
             background: rgba(0,20,0,0.95);
             border: 2px solid var(--ai-color);
             border-radius: 15px;
             padding: 20px;
-            max-height: 250px;
+            max-height: 300px;
             overflow-y: auto;
             display: none;
-            z-index: 50;
-            backdrop-filter: blur(10px);
-        }
-        
-        @media (max-width: 900px) {
-            #ai-panel { left: 170px; }
+            z-index: 200;
         }
         
         #ai-panel.show { display: block; }
@@ -549,68 +492,56 @@
             color: var(--ai-color);
             font-weight: bold;
             margin-bottom: 15px;
-            font-size: 1.1rem;
         }
         
-        .ai-close { cursor: pointer; font-size: 1.3rem; }
-        
-        .ai-content {
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
+        .ai-close { cursor: pointer; font-size: 1.5rem; }
         
         /* 记牌器 */
         #recorder-btn {
-            position: absolute;
-            top: 20px;
+            position: fixed;
+            top: 70px;
             right: 20px;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             background: rgba(0,0,0,0.7);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            z-index: 40;
+            z-index: 50;
             border: 2px solid rgba(255,215,0,0.3);
         }
         
         #recorder {
-            position: absolute;
-            top: 80px;
+            position: fixed;
+            top: 125px;
             right: 20px;
-            width: 200px;
+            width: 180px;
             background: rgba(0,0,0,0.95);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 15px;
             display: none;
-            z-index: 45;
-            border: 1px solid rgba(255,255,255,0.2);
+            z-index: 55;
         }
         
         #recorder.show { display: block; }
         
-        .rec-title {
-            color: var(--primary);
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
+        .rec-title { color: var(--primary); font-weight: bold; margin-bottom: 10px; }
         
         .rec-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
+            gap: 5px;
         }
         
         .rec-item {
             text-align: center;
             padding: 6px;
             background: rgba(255,255,255,0.1);
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 0.75rem;
         }
         
@@ -620,7 +551,7 @@
             opacity: 0.5;
         }
         
-        /* Toast提示 */
+        /* Toast */
         #toast {
             position: fixed;
             top: 50%;
@@ -631,12 +562,10 @@
             padding: 20px 40px;
             border-radius: 15px;
             font-size: 1.2rem;
-            z-index: 2000;
+            z-index: 3000;
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
-            max-width: 80vw;
-            text-align: center;
             border: 2px solid var(--primary);
         }
         
@@ -654,19 +583,19 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 3000;
+            z-index: 5000;
         }
         
-        .result-title { font-size: 3.5rem; margin-bottom: 20px; }
-        .result-stats { font-size: 1.5rem; margin-bottom: 30px; text-align: center; line-height: 1.8; }
+        .result-title { font-size: 3rem; margin-bottom: 20px; }
+        .result-stats { font-size: 1.3rem; margin-bottom: 30px; text-align: center; line-height: 1.8; }
         
         /* 动画 */
-        @keyframes cardFly {
+        @keyframes flyIn {
             from { transform: scale(1.3) translateY(-30px); opacity: 0; }
             to { transform: scale(1) translateY(0); opacity: 1; }
         }
         
-        .fly-in { animation: cardFly 0.3s ease-out; }
+        .fly-in { animation: flyIn 0.3s ease-out; }
         
         /* 离线提示 */
         #offline-banner {
@@ -682,36 +611,937 @@
             z-index: 4000;
             display: none;
         }
-        
-        #offline-banner.show { display: block; }
     </style>
 </head>
 <body>
-    <!-- 旋转提示 -->
-    <div id="rotate-hint">
-        <div class="icon">📱</div>
-        <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 10px;">请旋转手机</div>
-        <div style="color: rgba(255,255,255,0.7);">为获得最佳游戏体验，请使用横屏模式</div>
-    </div>
-    
     <!-- 离线提示 -->
     <div id="offline-banner">⚠️ 离线模式 - AI使用本地策略</div>
 
-    <!-- 菜单 -->
+    <!-- 主菜单 -->
     <div id="menu">
         <div class="logo">🃏</div>
         <div class="title">智能惯蛋</div>
-        <div class="subtitle">横屏优化版 · 大字大花色 · 自动理牌</div>
+        <div class="subtitle">自动适配横竖屏 · 大字大花色 · 点击开始</div>
         <button class="menu-btn primary" onclick="game.start()">▶ 开始游戏</button>
         <button class="menu-btn" onclick="game.showHelp()">📖 游戏规则</button>
-        <div style="margin-top: 20px; color: rgba(255,255,255,0.5); font-size: 0.875rem;">
-            提示：建议横屏游玩，牌面更大更清晰
+        <div style="margin-top: 30px; color: rgba(255,255,255,0.5); font-size: 0.8rem; text-align: center;">
+            提示：横屏体验更佳，竖屏也能玩<br>
+            支持离线模式，无需网络
         </div>
     </div>
 
     <!-- 游戏容器 -->
     <div id="game-container">
-        <!-- 左侧信息栏 -->
-        <div id="sidebar">
-            <div class="info-card">
-                <div class="info-title">当前级数</div
+        <!-- 内容将由JS根据屏幕方向动态生成 -->
+    </div>
+
+    <!-- AI建议面板 -->
+    <div id="ai-panel">
+        <div class="ai-header">
+            <span>💡 AI 智能分析</span>
+            <span class="ai-close" onclick="game.toggleAiPanel()">✕</span>
+        </div>
+        <div id="ai-content"></div>
+    </div>
+
+    <!-- 记牌器 -->
+    <div id="recorder-btn" onclick="game.toggleRecorder()">📊</div>
+    <div id="recorder">
+        <div class="rec-title">记牌器</div>
+        <div class="rec-grid" id="rec-grid"></div>
+    </div>
+
+    <!-- 控制按钮 -->
+    <div id="controls" style="display: none;">
+        <button class="btn btn-secondary" onclick="game.reset()">重置</button>
+        <button class="btn btn-ai" onclick="game.askAi()">🤖 问AI</button>
+        <button class="btn btn-play" id="btn-play" onclick="game.play()" disabled>出牌</button>
+        <button class="btn btn-secondary" id="btn-pass" onclick="game.pass()" disabled>过牌</button>
+    </div>
+
+    <!-- 游戏结束 -->
+    <div id="game-over">
+        <div class="result-title" id="result-title">🏆</div>
+        <div class="result-stats" id="result-stats"></div>
+        <button class="menu-btn primary" onclick="game.backToMenu()" style="width: 250px;">返回菜单</button>
+        <button class="menu-btn" onclick="game.restart()" style="width: 250px; margin-top: 10px;">再来一局</button>
+    </div>
+
+    <div id="toast"></div>
+
+    <script>
+        class GuanDanGame {
+            constructor() {
+                this.suits = ['♠', '♥', '♣', '♦'];
+                this.ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+                
+                this.players = [];
+                this.currentPlayer = 0;
+                this.currentLevel = 2;
+                this.ourScore = 0;
+                this.theirScore = 0;
+                this.round = 1;
+                
+                this.deck = [];
+                this.selected = [];
+                this.lastPlay = null;
+                this.lastPlayer = -1;
+                this.recorder = {};
+                
+                this.isLandscape = window.innerWidth > window.innerHeight;
+                
+                // 监听屏幕旋转
+                window.addEventListener('resize', () => {
+                    const newLandscape = window.innerWidth > window.innerHeight;
+                    if (newLandscape !== this.isLandscape && document.getElementById('game-container').style.display === 'flex') {
+                        this.isLandscape = newLandscape;
+                        this.renderLayout();
+                        this.updateUI();
+                        if (this.players[0]) this.renderHand();
+                    }
+                });
+                
+                // 网络状态
+                window.addEventListener('online', () => {
+                    document.getElementById('offline-banner').classList.remove('show');
+                    this.showToast('🌐 已连接网络');
+                });
+                window.addEventListener('offline', () => {
+                    document.getElementById('offline-banner').classList.add('show');
+                    this.showToast('📴 离线模式');
+                });
+            }
+            
+            renderLayout() {
+                const container = document.getElementById('game-container');
+                this.isLandscape = window.innerWidth > window.innerHeight;
+                
+                if (this.isLandscape) {
+                    // 横屏布局
+                    container.className = 'layout-landscape';
+                    container.innerHTML = `
+                        <div id="sidebar">
+                            <div class="info-card">
+                                <div class="info-title">当前级数</div>
+                                <div class="info-value" id="level">2</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="info-title">我方得分</div>
+                                <div class="info-value" id="our-score" style="color: var(--ai-color);">0</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="info-title">对方得分</div>
+                                <div class="info-value" id="their-score" style="color: #ff6b6b;">0</div>
+                            </div>
+                            <div class="turn-indicator" id="turn-indicator">等待开始...</div>
+                            <div style="margin-top: auto; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; text-align: center; font-size: 0.8rem;">
+                                <div style="color: var(--ai-color);">🤖 AI状态</div>
+                                <div id="ai-status">就绪</div>
+                            </div>
+                        </div>
+                        <div id="game-main">
+                            <div id="top-players">
+                                <div class="player-box" id="p1-box">
+                                    <div class="avatar ai" id="p1-avatar">🤖</div>
+                                    <div class="player-name">对手A</div>
+                                    <div class="player-cards" id="p1-cards">27张</div>
+                                </div>
+                                <div class="player-box" id="p2-box">
+                                    <div class="avatar ai" id="p2-avatar">🤖</div>
+                                    <div class="player-name">AI队友</div>
+                                    <div class="player-cards" id="p2-cards">27张</div>
+                                </div>
+                                <div class="player-box" id="p3-box">
+                                    <div class="avatar ai" id="p3-avatar">🤖</div>
+                                    <div class="player-name">对手B</div>
+                                    <div class="player-cards" id="p3-cards">27张</div>
+                                </div>
+                            </div>
+                            <div id="play-area">
+                                <div id="play-table">
+                                    <div id="last-play"></div>
+                                    <div class="play-info" id="play-msg">等待开始...</div>
+                                </div>
+                            </div>
+                            <div id="my-hand">
+                                <div class="hand-label">
+                                    <span>我的手牌（点击选牌）</span>
+                                    <button class="auto-sort-btn" onclick="game.autoSort()">🔄 理牌</button>
+                                </div>
+                                <div id="hand-area"></div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // 竖屏布局
+                    container.className = 'layout-portrait';
+                    container.innerHTML = `
+                        <div id="game-header">
+                            <div class="info-card" style="padding: 5px 15px;">
+                                <div class="info-title">级</div>
+                                <div class="info-value" id="level" style="font-size: 1.5rem;">2</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">我方: <span id="our-score" style="color: var(--ai-color); font-weight: bold;">0</span></div>
+                                <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">对方: <span id="their-score" style="color: #ff6b6b; font-weight: bold;">0</span></div>
+                            </div>
+                            <div class="turn-indicator" id="turn-indicator" style="padding: 8px 15px; font-size: 0.8rem;">等待...</div>
+                        </div>
+                        <div id="game-table">
+                            <div id="top-players">
+                                <div class="player-box" id="p1-box">
+                                    <div class="avatar ai" id="p1-avatar">🤖</div>
+                                    <div class="player-name">对手A</div>
+                                    <div class="player-cards" id="p1-cards">27</div>
+                                </div>
+                                <div class="player-box" id="p2-box">
+                                    <div class="avatar ai" id="p2-avatar">🤖</div>
+                                    <div class="player-name">队友</div>
+                                    <div class="player-cards" id="p2-cards">27</div>
+                                </div>
+                                <div class="player-box" id="p3-box">
+                                    <div class="avatar ai" id="p3-avatar">🤖</div>
+                                    <div class="player-name">对手B</div>
+                                    <div class="player-cards" id="p3-cards">27</div>
+                                </div>
+                            </div>
+                            <div id="play-area">
+                                <div id="play-table">
+                                    <div id="last-play"></div>
+                                    <div class="play-info" id="play-msg">点击开始游戏</div>
+                                </div>
+                            </div>
+                            <div id="my-hand">
+                                <div class="hand-label">
+                                    <span>我的手牌</span>
+                                    <button class="auto-sort-btn" onclick="game.autoSort()">🔄 理牌</button>
+                                </div>
+                                <div id="hand-area"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            start() {
+                document.getElementById('menu').style.display = 'none';
+                document.getElementById('game-container').style.display = 'flex';
+                document.getElementById('game-over').style.display = 'none';
+                document.getElementById('controls').style.display = 'flex';
+                
+                this.renderLayout();
+                this.initRecorder();
+                this.newRound();
+            }
+
+            initRecorder() {
+                this.recorder = {};
+                ['2','3','4','5','6','7','8','9','10','J','Q','K','A','小王','大王'].forEach(r => {
+                    this.recorder[r] = { total: r.includes('王') ? 2 : 4, out: 0 };
+                });
+            }
+
+            createDeck() {
+                this.deck = [];
+                for (let d = 0; d < 2; d++) {
+                    for (let s of this.suits) {
+                        for (let r of this.ranks) {
+                            this.deck.push({ suit: s, rank: r, value: this.getValue(r) });
+                        }
+                    }
+                    this.deck.push({ suit: 'joker', rank: '小王', value: 16 });
+                    this.deck.push({ suit: 'joker', rank: '大王', value: 17 });
+                }
+            }
+
+            getValue(rank) {
+                const map = { '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'J':11, 'Q':12, 'K':13, 'A':14 };
+                return map[rank] || 0;
+            }
+
+            shuffle() {
+                for (let i = this.deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
+                }
+            }
+
+            sortHand(hand) {
+                return hand.sort((a, b) => {
+                    const aLevel = a.rank === String(this.currentLevel);
+                    const bLevel = b.rank === String(this.currentLevel);
+                    
+                    if (aLevel && !bLevel) return -1;
+                    if (!aLevel && bLevel) return 1;
+                    if (aLevel && bLevel) {
+                        if (a.suit === 'joker') return -1;
+                        if (b.suit === 'joker') return 1;
+                        return a.suit === '♥' ? -1 : (b.suit === '♥' ? 1 : 0);
+                    }
+                    
+                    if (a.suit === 'joker' && b.suit !== 'joker') return -1;
+                    if (a.suit !== 'joker' && b.suit === 'joker') return 1;
+                    if (a.suit === 'joker' && b.suit === 'joker') {
+                        return a.rank === '大王' ? -1 : 1;
+                    }
+                    
+                    return b.value - a.value;
+                });
+            }
+
+            autoSort() {
+                if (this.players[0] && this.players[0].hand.length > 0) {
+                    this.players[0].hand = this.sortHand(this.players[0].hand);
+                    this.selected = [];
+                    this.renderHand();
+                    this.showToast('🔄 已理牌');
+                }
+            }
+
+            getPower(card) {
+                if (card.rank === String(this.currentLevel)) return 20 + (card.suit === 'joker' ? 1 : 0);
+                if (card.suit === 'joker') return 16 + (card.rank === '大王' ? 1 : 0);
+                return card.value;
+            }
+
+            isLevel(card) {
+                return card.rank === String(this.currentLevel);
+            }
+
+            newRound() {
+                this.selected = [];
+                this.lastPlay = null;
+                this.lastPlayer = -1;
+                
+                const lastPlay = document.getElementById('last-play');
+                if (lastPlay) lastPlay.innerHTML = '';
+                
+                const playMsg = document.getElementById('play-msg');
+                if (playMsg) playMsg.textContent = '等待开局...';
+                
+                this.players = [
+                    { id: 0, name: '我', hand: [], team: 0, ai: false },
+                    { id: 1, name: '对手A', hand: [], team: 1, ai: true },
+                    { id: 2, name: 'AI队友', hand: [], team: 0, ai: true },
+                    { id: 3, name: '对手B', hand: [], team: 1, ai: true }
+                ];
+
+                this.createDeck();
+                this.shuffle();
+                
+                for (let i = 0; i < 27; i++) {
+                    for (let p = 0; p < 4; p++) {
+                        this.players[p].hand.push(this.deck.pop());
+                    }
+                }
+                
+                this.players.forEach(p => p.hand = this.sortHand(p.hand));
+                
+                this.currentPlayer = Math.floor(Math.random() * 4);
+                
+                this.updateUI();
+                this.renderHand();
+                this.showToast(`第${this.round}局 开始！打${this.currentLevel}`);
+                
+                setTimeout(() => this.nextTurn(), 600);
+            }
+
+            nextTurn() {
+                this.updateUI();
+                
+                const p = this.players[this.currentPlayer];
+                
+                if (p.ai) {
+                    this.aiPlay(p);
+                } else {
+                    const btnPass = document.getElementById('btn-pass');
+                    if (btnPass) btnPass.disabled = !this.lastPlay || this.lastPlayer === 0;
+                    this.renderHand();
+                }
+            }
+
+            async aiPlay(player) {
+                const aiStatus = document.getElementById('ai-status');
+                if (aiStatus) aiStatus.textContent = '思考中...';
+                
+                let decision = null;
+                
+                if (navigator.onLine) {
+                    try {
+                        const prompt = this.buildAIPrompt(player);
+                        const response = await fetch(
+                            `https://text.pollinations.ai/${encodeURIComponent(prompt)}?seed=${Date.now()}&json=true`,
+                            { signal: AbortSignal.timeout(5000) }
+                        );
+                        
+                        if (response.ok) {
+                            const text = await response.text();
+                            decision = this.parseAIResponse(text);
+                        }
+                    } catch (err) {
+                        console.log('AI API失败');
+                    }
+                }
+                
+                if (!decision) {
+                    decision = this.localStrategy(player);
+                }
+                
+                await this.executeDecision(player, decision);
+                
+                if (aiStatus) aiStatus.textContent = '就绪';
+            }
+
+            buildAIPrompt(player) {
+                const handStr = player.hand.map((c, i) => {
+                    const name = c.suit === 'joker' ? c.rank : c.suit + c.rank;
+                    const mark = this.isLevel(c) ? '[级]' : '';
+                    return `${i}:${name}${mark}`;
+                }).join(', ');
+
+                const lastStr = this.lastPlay ? 
+                    `${this.lastPlay.type}(${this.lastPlay.cards.map(c => c.suit === 'joker' ? c.rank : c.suit + c.rank).join(',')})` 
+                    : '无';
+
+                const teammate = this.players.find(p => p.team === player.team && p.id !== player.id);
+                const opponents = this.players.filter(p => p.team !== player.team);
+                
+                return `惯蛋决策。打${this.currentLevel}。${player.name}(${player.team === 0 ? '我方' : '对方'})手牌: ${handStr}。上家: ${lastStr}。队友${teammate?.name}剩${teammate?.hand.length}张。对手${opponents.map(o => o.name + '剩' + o.hand.length).join(',')}。JSON: {"action":"play/pass","indices":[0],"type":"single/pair/bomb","reason":"理由"}`;
+            }
+
+            parseAIResponse(text) {
+                try {
+                    text = text.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+                    const match = text.match(/\{[\s\S]*?\}/);
+                    if (match) {
+                        const data = JSON.parse(match[0]);
+                        return {
+                            action: data.action || 'play',
+                            indices: data.indices || [0],
+                            type: data.type || 'single',
+                            reason: data.reason || 'AI'
+                        };
+                    }
+                } catch (e) {}
+                return null;
+            }
+
+            localStrategy(player) {
+                const hand = player.hand;
+                
+                if (!this.lastPlay) {
+                    for (let i = hand.length - 1; i >= 0; i--) {
+                        if (!this.isLevel(hand[i]) && hand[i].suit !== 'joker') {
+                            return { action: 'play', indices: [i], type: 'single', reason: '先手出小' };
+                        }
+                    }
+                    return { action: 'play', indices: [hand.length - 1], type: 'single', reason: '出牌' };
+                }
+                
+                if (this.lastPlay.type === 'single') {
+                    const target = this.getPower(this.lastPlay.cards[0]);
+                    for (let i = hand.length - 1; i >= 0; i--) {
+                        const power = this.getPower(hand[i]);
+                        if (power > target && !this.isLevel(hand[i]) && hand[i].suit !== 'joker') {
+                            return { action: 'play', indices: [i], type: 'single', reason: '压牌' };
+                        }
+                    }
+                    for (let i = 0; i < hand.length; i++) {
+                        if (this.getPower(hand[i]) > target) {
+                            return { action: 'play', indices: [i], type: 'single', reason: '大牌压' };
+                        }
+                    }
+                }
+                
+                const groups = {};
+                hand.forEach((c, i) => {
+                    if (!groups[c.rank]) groups[c.rank] = [];
+                    groups[c.rank].push(i);
+                });
+                for (let [_, idxs] of Object.entries(groups)) {
+                    if (idxs.length >= 4 && this.lastPlay.type !== 'bomb') {
+                        return { action: 'play', indices: idxs.slice(0, 4), type: 'bomb', reason: '炸弹' };
+                    }
+                }
+                
+                return { action: 'pass', indices: [], type: 'pass', reason: '过' };
+            }
+
+            async executeDecision(player, decision) {
+                if (decision.action === 'pass') {
+                    this.showToast(`${player.name} 过牌`);
+                    this.nextPlayer();
+                    return;
+                }
+                
+                const validIndices = decision.indices.filter(i => i >= 0 && i < player.hand.length);
+                if (validIndices.length === 0) {
+                    this.pass();
+                    return;
+                }
+                
+                const cards = validIndices.map(i => player.hand[i]);
+                const play = this.createPlay(cards, validIndices);
+                
+                if (play && this.isValidPlay(play)) {
+                    this.executePlay(player.id, play, decision.reason);
+                } else {
+                    const single = { type: 'single', cards: [cards[0]], indices: [validIndices[0]], value: this.getPower(cards[0]) };
+                    if (this.isValidPlay(single)) {
+                        this.executePlay(player.id, single, '单张');
+                    } else {
+                        this.pass();
+                    }
+                }
+            }
+
+            createPlay(cards, indices) {
+                if (cards.length === 1) {
+                    return { type: 'single', cards, indices, value: this.getPower(cards[0]) };
+                }
+                if (cards.length === 2 && cards[0].rank === cards[1].rank) {
+                    return { type: 'pair', cards, indices, value: this.getPower(cards[0]) };
+                }
+                if (cards.length >= 4 && cards.every(c => c.rank === cards[0].rank)) {
+                    return { type: 'bomb', cards: indices.slice(0, 4).map(i => cards[indices.indexOf(i)]), indices: indices.slice(0, 4), value: 100 + cards.length };
+                }
+                return null;
+            }
+
+            isValidPlay(play) {
+                if (!this.lastPlay || this.lastPlayer === -1 || this.lastPlayer === this.currentPlayer) return true;
+                if (play.type === 'bomb' && this.lastPlay.type !== 'bomb') return true;
+                if (play.type !== this.lastPlay.type) return false;
+                return play.value > this.lastPlay.value;
+            }
+
+            executePlay(playerId, play, reason) {
+                const player = this.players[playerId];
+                
+                // 关键修复：正确移除手牌
+                const sortedIndices = [...play.indices].sort((a, b) => b - a);
+                sortedIndices.forEach(idx => {
+                    player.hand.splice(idx, 1);
+                });
+                
+                play.cards.forEach(c => {
+                    if (this.recorder[c.rank]) this.recorder[c.rank].out++;
+                });
+                
+                this.showPlay(play, player.name, reason);
+                
+                this.lastPlay = play;
+                this.lastPlayer = playerId;
+                
+                if (player.hand.length === 0) {
+                    this.handleWin(playerId);
+                    return;
+                }
+                
+                this.nextPlayer();
+            }
+
+            showPlay(play, playerName, reason) {
+                const area = document.getElementById('last-play');
+                if (!area) return;
+                
+                area.innerHTML = '';
+                
+                play.cards.forEach((c, i) => {
+                    const el = this.createMiniCard(c);
+                    el.classList.add('fly-in');
+                    area.appendChild(el);
+                });
+                
+                const typeNames = { single: '单张', pair: '对子', bomb: '炸弹' };
+                const msg = document.getElementById('play-msg');
+                if (msg) msg.textContent = `${playerName}: ${typeNames[play.type] || play.type} ${reason ? '(' + reason + ')' : ''}`;
+            }
+
+            createMiniCard(card) {
+                const div = document.createElement('div');
+                div.className = 'card-mini';
+                
+                const isRed = card.suit === '♥' || card.suit === '♦' || (card.suit === 'joker' && card.rank === '大王');
+                const color = isRed ? 'red' : 'black';
+                const suitChar = card.suit === 'joker' ? (card.rank === '大王' ? '👑' : '🃏') : card.suit;
+                
+                div.innerHTML = `
+                    <div class="corner ${color}">${card.rank}<span style="font-size:0.7em">${suitChar}</span></div>
+                    <div class="center ${color}">${suitChar}</div>
+                `;
+                
+                if (this.isLevel(card)) {
+                    div.style.border = '2px solid var(--primary)';
+                }
+                
+                return div;
+            }
+
+            createCardElement(card) {
+                const div = document.createElement('div');
+                div.className = 'card';
+                
+                const isRed = card.suit === '♥' || card.suit === '♦' || (card.suit === 'joker' && card.rank === '大王');
+                const color = isRed ? 'red' : 'black';
+                const suitChar = card.suit === 'joker' ? (card.rank === '大王' ? '👑' : '🃏') : card.suit;
+                
+                div.innerHTML = `
+                    <div class="card-corner ${color}">${card.rank}<span class="suit">${suitChar}</span></div>
+                    <div class="card-center ${color}">${suitChar}</div>
+                    <div class="card-corner bottom ${color}">${card.rank}<span class="suit">${suitChar}</span></div>
+                `;
+                
+                if (this.isLevel(card)) {
+                    div.innerHTML += '<div class="level-badge">级</div>';
+                    div.style.border = '3px solid var(--primary)';
+                }
+                
+                return div;
+            }
+
+            nextPlayer() {
+                this.currentPlayer = (this.currentPlayer + 1) % 4;
+                
+                if (this.currentPlayer === this.lastPlayer || (this.lastPlayer === -1 && this.currentPlayer === 0)) {
+                    this.lastPlay = null;
+                    const lastPlay = document.getElementById('last-play');
+                    if (lastPlay) lastPlay.innerHTML = '';
+                    const msg = document.getElementById('play-msg');
+                    if (msg) msg.textContent = '新一轮开始';
+                }
+                
+                setTimeout(() => this.nextTurn(), 500);
+            }
+
+            renderHand() {
+                const area = document.getElementById('hand-area');
+                if (!area) return;
+                
+                area.innerHTML = '';
+                
+                const hand = this.players[0].hand;
+                hand.forEach((c, i) => {
+                    const el = this.createCardElement(c);
+                    el.dataset.index = i;
+                    
+                    if (this.selected.includes(i)) {
+                        el.classList.add('selected');
+                    }
+                    
+                    el.onclick = () => this.toggleCard(i);
+                    area.appendChild(el);
+                });
+            }
+
+            toggleCard(index) {
+                const pos = this.selected.indexOf(index);
+                if (pos > -1) {
+                    this.selected.splice(pos, 1);
+                } else {
+                    this.selected.push(index);
+                    this.selected.sort((a, b) => a - b);
+                }
+                this.renderHand();
+                this.validateSelection();
+                
+                document.querySelectorAll('.ai-pick').forEach(c => c.classList.remove('ai-pick'));
+            }
+
+            validateSelection() {
+                const cards = this.selected.map(i => this.players[0].hand[i]);
+                const play = this.createPlay(cards, this.selected);
+                
+                const btn = document.getElementById('btn-play');
+                if (!play) {
+                    btn.disabled = true;
+                    return;
+                }
+                
+                if (this.lastPlay && this.lastPlayer !== 0) {
+                    if (!this.isValidPlay(play)) {
+                        btn.disabled = true;
+                        return;
+                    }
+                }
+                
+                btn.disabled = false;
+            }
+
+            play() {
+                const cards = this.selected.map(i => this.players[0].hand[i]);
+                const play = this.createPlay(cards, this.selected);
+                
+                if (play && this.isValidPlay(play)) {
+                    this.selected = [];
+                    this.executePlay(0, play, '玩家');
+                }
+            }
+
+            pass() {
+                this.selected = [];
+                this.showToast('过牌');
+                this.nextPlayer();
+            }
+
+            reset() {
+                this.selected = [];
+                this.renderHand();
+                const btn = document.getElementById('btn-play');
+                if (btn) btn.disabled = true;
+                document.querySelectorAll('.ai-pick').forEach(c => c.classList.remove('ai-pick'));
+            }
+
+            async askAi() {
+                if (this.currentPlayer !== 0) {
+                    this.showToast('请等待你的回合');
+                    return;
+                }
+                
+                const aiStatus = document.getElementById('ai-status');
+                if (aiStatus) aiStatus.textContent = '思考中...';
+                
+                let decision = null;
+                
+                if (navigator.onLine) {
+                    try {
+                        const prompt = this.buildAIPrompt(this.players[0]);
+                        const response = await fetch(
+                            `https://text.pollinations.ai/${encodeURIComponent(prompt)}?seed=${Date.now()}&json=true`,
+                            { signal: AbortSignal.timeout(5000) }
+                        );
+                        
+                        if (response.ok) {
+                            const text = await response.text();
+                            decision = this.parseAIResponse(text);
+                        }
+                    } catch (err) {}
+                }
+                
+                if (!decision) {
+                    decision = this.localStrategy(this.players[0]);
+                    decision.reason = '离线:' + decision.reason;
+                }
+                
+                if (decision && decision.action === 'play') {
+                    this.showAiSuggestion(decision);
+                } else {
+                    this.showToast('AI建议: 过牌');
+                }
+                
+                if (aiStatus) aiStatus.textContent = '就绪';
+            }
+
+            showAiSuggestion(decision) {
+                const panel = document.getElementById('ai-panel');
+                const content = document.getElementById('ai-content');
+                if (!panel || !content) return;
+                
+                const cards = decision.indices.map(i => this.players[0].hand[i]).filter(c => c);
+                
+                content.innerHTML = `
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: var(--ai-color); font-size: 1.2rem;">🎯 推荐${decision.type === 'single' ? '单张' : decision.type === 'pair' ? '对子' : '出牌'}</strong>
+                        <div style="margin-top: 10px; display: flex; gap: 8px;">
+                            ${cards.map(c => {
+                                const isRed = c.suit === '♥' || c.suit === '♦';
+                                const name = c.suit === 'joker' ? c.rank : c.suit + c.rank;
+                                return `<div style="padding: 8px 12px; background: ${isRed ? '#ffebee' : '#eceff1'}; color: ${isRed ? '#c62828' : '#263238'}; border-radius: 8px; font-weight: bold;">${name}</div>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.9); margin-bottom: 15px;">${decision.reason}</div>
+                    <button class="btn btn-ai" onclick="game.applyAi()" style="width: 100%;">✨ 应用建议</button>
+                `;
+                
+                panel.classList.add('show');
+                
+                this.selected = [];
+                this.renderHand();
+                decision.indices.forEach(idx => {
+                    const card = document.querySelector(`#hand-area .card[data-index="${idx}"]`);
+                    if (card) card.classList.add('ai-pick');
+                });
+            }
+
+            applyAi() {
+                const picks = document.querySelectorAll('.ai-pick');
+                this.selected = Array.from(picks).map(c => parseInt(c.dataset.index));
+                this.renderHand();
+                this.validateSelection();
+                
+                setTimeout(() => {
+                    const btn = document.getElementById('btn-play');
+                    if (btn && !btn.disabled) {
+                        this.play();
+                    }
+                }, 300);
+                
+                this.toggleAiPanel();
+            }
+
+            toggleAiPanel() {
+                const panel = document.getElementById('ai-panel');
+                if (panel) panel.classList.toggle('show');
+            }
+
+            toggleRecorder() {
+                const rec = document.getElementById('recorder');
+                if (rec) {
+                    rec.classList.toggle('show');
+                    this.updateRecorder();
+                }
+            }
+
+            handleWin(winnerId) {
+                const winner = this.players[winnerId];
+                const isOur = winner.team === 0;
+                
+                if (isOur) {
+                    this.ourScore++;
+                    this.showToast(`🎉 ${winner.name} 获胜! 我方+1`);
+                } else {
+                    this.theirScore++;
+                    this.showToast(`😔 ${winner.name} 获胜! 对方+1`);
+                }
+                
+                if (this.ourScore > 0 && this.ourScore % 2 === 0) {
+                    this.currentLevel = this.currentLevel === 14 ? 2 : this.currentLevel + 1;
+                }
+                
+                this.round++;
+                
+                if (this.round <= 10) {
+                    setTimeout(() => this.newRound(), 2000);
+                } else {
+                    this.gameOver();
+                }
+            }
+
+            gameOver() {
+                const win = this.ourScore > this.theirScore;
+                const title = document.getElementById('result-title');
+                const stats = document.getElementById('result-stats');
+                
+                if (title) title.textContent = win ? '🏆 胜利!' : '💔 失败';
+                if (stats) {
+                    stats.innerHTML = `最终比分<br>我方 ${this.ourScore} : 对方 ${this.theirScore}<br><span style="color: ${win ? 'var(--ai-color)' : '#ff6b6b'}">${win ? '恭喜!' : '再接再厉!'}</span>`;
+                }
+                
+                document.getElementById('game-over').style.display = 'flex';
+            }
+
+            updateUI() {
+                // 更新分数
+                const level = document.getElementById('level');
+                const ourScore = document.getElementById('our-score');
+                const theirScore = document.getElementById('their-score');
+                
+                if (level) level.textContent = this.currentLevel;
+                if (ourScore) ourScore.textContent = this.ourScore;
+                if (theirScore) theirScore.textContent = this.theirScore;
+                
+                // 更新玩家状态
+                [1, 2, 3].forEach((pid, idx) => {
+                    const p = this.players[pid];
+                    const box = document.getElementById(`p${idx + 1}-box`);
+                    const avatar = document.getElementById(`p${idx + 1}-avatar`);
+                    const cards = document.getElementById(`p${idx + 1}-cards`);
+                    
+                    if (cards) {
+                        cards.textContent = this.isLandscape ? `${p.hand.length}张` : p.hand.length;
+                    }
+                    
+                    if (box) box.classList.toggle('active', this.currentPlayer === pid);
+                    if (avatar) avatar.classList.toggle('active', this.currentPlayer === pid);
+                });
+                
+                // 回合指示器
+                const indicator = document.getElementById('turn-indicator');
+                if (indicator) {
+                    const currentP = this.players[this.currentPlayer];
+                    if (currentP.ai) {
+                        indicator.textContent = this.isLandscape ? `等待 ${currentP.name}...` : '等待...';
+                        indicator.style.background = '#666';
+                    } else {
+                        indicator.textContent = '👉 轮到你了!';
+                        indicator.style.background = 'var(--turn-indicator)';
+                    }
+                }
+                
+                this.updateRecorder();
+            }
+
+            updateRecorder() {
+                const grid = document.getElementById('rec-grid');
+                if (!grid) return;
+                
+                grid.innerHTML = '';
+                const keys = ['2','3','4','5','6','7','8','9','10','J','Q','K','A','小王','大王'];
+                keys.forEach(k => {
+                    const data = this.recorder[k];
+                    const left = data.total - data.out;
+                    const div = document.createElement('div');
+                    div.className = 'rec-item' + (left === 0 ? ' out' : '');
+                    div.textContent = `${k}:${left}`;
+                    grid.appendChild(div);
+                });
+            }
+
+            showToast(msg) {
+                const toast = document.getElementById('toast');
+                if (toast) {
+                    toast.textContent = msg;
+                    toast.classList.add('show');
+                    setTimeout(() => toast.classList.remove('show'), 2500);
+                }
+            }
+
+            showHelp() {
+                alert(`🃏 智能惯蛋
+
+【操作】
+• 点击手牌选中，再点取消
+• 点击"🔄 理牌"自动整理
+• 点击"🤖 问AI"获取建议
+
+【牌型】
+单张 > 对子 > 三张 > 炸弹
+炸弹可压任何非炸弹
+
+【提示】
+• 级牌(当前打的数)最大
+• 红桃级牌 > 其他级牌
+• 支持横竖屏自动适配`);
+            }
+
+            backToMenu() {
+                document.getElementById('game-over').style.display = 'none';
+                document.getElementById('game-container').style.display = 'none';
+                document.getElementById('controls').style.display = 'none';
+                document.getElementById('menu').style.display = 'flex';
+                
+                const aiPanel = document.getElementById('ai-panel');
+                const recorder = document.getElementById('recorder');
+                if (aiPanel) aiPanel.classList.remove('show');
+                if (recorder) recorder.classList.remove('show');
+            }
+
+            restart() {
+                document.getElementById('game-over').style.display = 'none';
+                this.round = 1;
+                this.ourScore = 0;
+                this.theirScore = 0;
+                this.currentLevel = 2;
+                this.newRound();
+            }
+            
+            get isLandscape() {
+                return window.innerWidth > window.innerHeight;
+            }
+        }
+
+        const game = new GuanDanGame();
+    </script>
+</body>
+</html>
