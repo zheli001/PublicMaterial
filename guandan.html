@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>智能惯蛋 - AI Guandan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        :root {
+            --card-width: 56px;
+            --card-height: 78px;
+            --primary: #FFD700;
+            --ai-color: #00ff88;
+            --bg: #1a1a2e;
+        }
+        
+        html { font-size: 16px; }
+        @media (max-width: 380px) { html { font-size: 13px; }
+        @media (max-width: 320px) { html { font-size: 12px; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100dvh;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            color: white;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        /* 安装提示 */
+        #install-hint {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,255,136,0.9);
+            color: #000;
+            padding: 12px 20px;
+            font-size: 0.875rem;
+            z-index: 5000;
+            display: none;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        #install-hint.show { display: block; }
+        #install-hint .close-hint {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        /* 主菜单 */
+        #menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 20px;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 4px 15px rgba(255,215,0,0.4);
+            margin-bottom: 5px;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .version-tag {
+            background: var(--ai-color);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+        
+        .menu-btn {
+            width: 280px;
+            padding: 18px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .menu-btn:hover, .menu-btn:active {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .menu-btn.primary {
+            background: linear-gradient(45deg, var(--primary), #ff8c00);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            box-shadow: 0 4px 20px rgba(255,215,0,0.3);
+        }
+        
+        .menu-btn.small {
+            width: 200px;
+            padding: 12px;
+            font-size: 0.875rem;
+            margin-top: 30px;
+        }
+        
+        .storage-info {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            line-height: 1.6;
+            max-width: 300px;
+        }
+        
+        /* 游戏界面 */
+        #game {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+        }
+        
+        #header {
+            background: rgba(0,0,0,0.4);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .score-board {
+            display: flex;
+            gap: 15px;
+            font-size: 0.875rem;
+        }
+        
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .level-badge {
+            background: var(--primary);
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+        
+        .ai-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: rgba(0,255,136,0.15);
+            border: 1px solid var(--ai-color);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--ai-color);
+        }
+        
+        .ai-indicator.thinking::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--ai-color);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        #table {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .player {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .player-top { top: 10px; }
+        .player-left { left: 10px; top: 50%; transform: translateY(-50%); }
+        .player-right { right: 10px; top: 50%; transform: translateY(-50%); }
+        
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .avatar.ai {
+            background: linear-gradient(135deg, var(--ai-color) 0%, #00cc6a 100%);
+            border-color: var(--ai-color);
+            box-shadow: 0 0 20px rgba(0,255,136,0.4);
+        }
+        
+        .avatar.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px rgba(255,215,0,0.6);
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .player-name {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+        
+        .card-count {
+            background: rgba(0,0,0,0.6);
+            color: var(--primary);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            min-width: 36px;
+            text-align: center;
+        }
+        
+        #play-area {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 260px;
+            min-height: 140px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            border: 2px dashed rgba(255,255,255,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        #last-play {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            min-height: 60px;
+        }
+        
+        .play-info {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+        }
+        
+        #ai-panel {
+            position: absolute;
+            top: 70px;
+            left: 10px;
+            right: 10px;
+            background: rgba(0,20,0,0.95);
+            border: 2px solid var(--ai-color);
+            border-radius: 15px;
+            padding: 15px;
+            max-height: 220px;
+            overflow-y: auto;
+            display: none;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+        }
+        
+        #ai-panel.show { display: block; }
+        
+        .ai-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--ai-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .ai-close { cursor: pointer; font-size: 1.2rem; }
+        
+        .ai-suggestion {
+            background: rgba(0,255,136,0.1);
+            border-left: 3px solid var(--ai-color);
+            padding: 12px;
+            border-radius: 0 10px 10px 0;
+            margin: 10px 0;
+        }
+        
+        .ai-cards-row {
+            display: flex;
+            gap: 6px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        
+        .ai-mini-card {
+            width: 36px;
+            height: 50px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .ai-reason {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.5;
+            margin-top: 8px;
+        }
+        
+        #hand-area {
+            position: absolute;
+            bottom: 75px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            min-height: 100px;
+        }
+        
+        #hand-area::-webkit-scrollbar { display: none; }
+        
+        .card {
+            width: var(--card-width);
+            height: var(--card-height);
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            flex-shrink: 0;
+            margin-left: -32px;
+        }
+        
+        .card:first-child { margin-left: 0; }
+        
+        @media (max-width: 400px) {
+            .card {
+                width: 50px;
+                height: 70px;
+                margin-left: -28px;
+            }
+        }
+        
+        .card:hover { transform: translateY(-5px); }
+        
+        .card.selected {
+            transform: translateY(-25px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255,215,0,0.5);
+            border: 2px solid var(--primary);
+            z-index: 100;
+        }
+        
+        .card.ai-pick {
+            border: 2px solid var(--ai-color);
+            box-shadow: 0 0 20px rgba(0,255,136,0.6);
+            animation: aiGlow 1.5s infinite;
+        }
+        
+        @keyframes aiGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0,255,136,0.6); }
+            50% { box-shadow: 0 0 30px rgba(0,255,136,0.9); }
+        }
+        
+        .card-corner {
+            font-size: 0.875rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+        
+        .card-corner.bottom { transform: rotate(180deg); }
+        .red { color: #e74c3c; }
+        .black { color: #2c3e50; }
+        
+        .card-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+        }
+        
+        .level-mark {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 5px var(--primary);
+        }
+        
+        #controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            gap: 10px;
+            padding: 12px 15px calc(12px + env(safe-area-inset-bottom));
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(20px);
+            justify-content: center;
+            z-index: 100;
+        }
+        
+        .btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 80px;
+            touch-action: manipulation;
+        }
+        
+        .btn:active { transform: scale(0.95); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        
+        .btn-play {
+            background: linear-gradient(45deg, var(--primary), #ff8c00);
+            color: #000;
+        }
+        
+        .btn-ai {
+            background: linear-gradient(45deg, var(--ai-color), #00cc6a);
+            color: #000;
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        #recorder-btn {
+            position: fixed;
+            top: 65px;
+            right: 10px;
+            width: 42px;
+            height: 42px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 40;
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+        
+        #recorder {
+            position: fixed;
+            top: 115px;
+            right: 10px;
+            width: 170px;
+            background: rgba(0,0,0,0.9);
+            border-radius: 12px;
+            padding: 12px;
+            display: none;
+            z-index: 45;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        #recorder.show { display: block; }
+        
+        .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin-top: 8px;
+        }
+        
+        .rec-item {
+            text-align: center;
+            padding: 5px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            font-size: 0.625rem;
+        }
+        
+        .rec-item.out {
+            color: #e74c3c;
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+        
+        #toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 18px 30px;
+            border-radius: 15px;
+            font-size: 1rem;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            max-width: 85vw;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        #toast.show { opacity: 1; }
+        
+        #game-over {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+        }
+        
+        .result-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .result-stats {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.8;
+        }
+        
+        @keyframes cardFly {
+            from {
+                transform: scale(1.2) translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .fly-in { animation: cardFly 0.3s ease-out; }
+        
+        /* 离线提示 */
+        #offline-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ff6b6b;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.875rem;
+            z-index: 4000;
+            display: none;
+        }
+        
+        #offline-banner.show { display: block; }
+    </style>
+</head>
+<body>
+    <!-- 安装提示 -->
+    <div id="install-hint">
+        💡 提示：点击菜单"添加到主屏幕"可像APP一样使用
+        <span class="close-hint" onclick="this.parentElement.classList.remove('show')">✕</span>
+    </div>
+    
+    <!-- 离线提示 -->
+    <div id="offline-banner">
+        ⚠️ 当前离线模式，AI使用本地策略
+    </div>
+
+    <!-- 主菜单 -->
+    <div id="menu">
+        <div class="logo">🃏</div>
+        <div class="title">智能惯蛋</div>
+        <div class="subtitle">Pollinations AI 驱动 · 无需登录 · 完全免费</div>
+        <div class="version-tag">✓ 离线可玩</div>
+        
+        <button class="menu-btn primary" onclick="game.start()">
+            <span>▶</span> 开始游戏
+        </button>
+        <button class="menu-btn" onclick="game.showHelp()">
+            <span>📖</span> 游戏规则
+        </button>
+        <button class="menu-btn" onclick="game.showDeploy()">
+            <span>🌐</span> 部署到服务器
+        </button>
+        
+        <div class="storage-info">
+            <strong>💾 本地使用方式</strong><br>
+            1. 点击右上角 ⋮ → "下载" 或 "分享"<br>
+            2. 保存为 guandan.html<br>
+            3. 用手机浏览器打开即可玩<br>
+            4. 支持添加到主屏幕（像APP一样）<br>
+            <br>
+            无需网络也能玩（AI会切换本地模式）
+        </div>
+        
+        <button class="menu-btn small" onclick="game.checkInstall()">
+            检测是否可以安装
+        </button>
+    </div>
+
+    <!-- 游戏界面 -->
+    <div id="game">
+        <div id="header">
+            <div class="score-board">
+                <div class="score-item">
+                    <span>级:</span>
+                    <span class="level-badge" id="level">2</span>
+                </div>
+                <div class="score-item">
+                    <span>我方:</span>
+                    <span id="our-score" style="color: var(--primary); font-weight: bold;">0</span>
+                </div>
+                <div class="score-item">
+                    <span>对方:</span>
+                    <span id="their-score" style="color: #ff6b6b; font-weight: bold;">0</span>
+                </div>
+            </div>
+            <div class="ai-indicator" id="ai-status">
+                <span>🤖</span>
+                <span id="ai-text">AI就绪</span>
+            </div>
+        </div>
+
+        <div id="table">
+            <div id="ai-panel">
+                <div class="ai-header">
+                    <span>💡 AI 智能分析</span>
+                    <span class="ai-close" onclick="game.toggleAiPanel()">✕</span>
+                </div>
+                <div id="ai-content"></div>
+            </div>
+
+            <div class="player player-top">
+                <div class="avatar ai" id="p2-avatar">🤖</div>
+                <div class="player-name">AI队友</div>
+                <div class="card-count" id="p2-count">27</div>
+            </div>
+
+            <div class="player player-left">
+                <div class="avatar ai" id="p1-avatar">🤖</div>
+                <div class="player-name">对手A</div>
+                <div class="card-count" id="p1-count">27</div>
+            </div>
+
+            <div class="player player-right">
+                <div class="avatar ai" id="p3-avatar">🤖</div>
+                <div class="player-name">对手B</div>
+                <div class="card-count" id="p3-count">27</div>
+            </div>
+
+            <div id="play-area">
+                <div id="last-play"></div>
+                <div class="play-info" id="play-msg">点击"开始游戏"</div>
+            </div>
+
+            <div id="hand-area"></div>
+        </div>
+
+        <div id="recorder-btn" onclick="game.toggleRecorder()">📊</div>
+        <div id="recorder">
+            <div style="color: var(--primary); font-weight: bold;">记牌器</div>
+            <div class="rec-grid" id="rec-grid"></div>
+        </div>
+
+        <div id="controls">
+            <button class="btn btn-secondary" onclick="game.reset()">重置</button>
+            <button class="btn btn-ai" onclick="game.askAi()">🤖 问AI</button>
+            <button class="btn btn-play" id="btn-play" onclick="game.play()" disabled>出牌</button>
+            <button class="btn btn-secondary" id="btn-pass" onclick="game.pass()" disabled>过牌</button>
+        </div>
+    </div>
+
+    <div id="game-over">
+        <div class="result-title" id="result-title">🏆 胜利!</div>
+        <div class="result-stats" id="result-stats"></div>
+        <button class="menu-btn primary" onclick="game.backToMenu()">返回菜单</button>
+        <button class="menu-btn" onclick="game.restart()">再来一局</button>
+    </div>
+
+    <div id="toast"></div>
+
+    <script>
+        // 检测离线状态
+        window.addEventListener('online', () => {
+            document.getElementById('offline-banner').classList.remove('show');
+            game.showToast('🌐 已连接到网络');
+        });
+        
+        window.addEventListener('offline', () => {
+            document.getElementById('offline-banner').classList.add('show');
+            game.showToast('📴 进入离线模式');
+        });
+
+        class GuanDanGame {
+            constructor() {
+                this.suits = ['♠', '♥', '♣', '♦'];
+                this.ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+                
+                this.players = [];
+                this.currentPlayer = 0;
+                this.currentLevel = 2;
+                this.ourScore = 0;
+                this.theirScore = 0;
+                this.round = 1;
+                
+                this.deck = [];
+                this.selected = [];
+                this.lastPlay = null;
+                this.lastPlayer = -1;
+                this.recorder = {};
+                
+                this.isOnline = navigator.onLine;
+                
+                // 检测是否需要显示安装提示
+                this.checkInstallHint();
+            }
+            
+            checkInstallHint() {
+                // iOS Safari 或 Android Chrome 显示安装提示
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                const isAndroid = /Android/.test(navigator.userAgent);
+                const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                                    window.navigator.standalone;
+                
+                if ((isIOS || isAndroid) && !isStandalone && !localStorage.getItem('install_hint_shown')) {
+                    setTimeout(() => {
+                        document.getElementById('install-hint').classList.add('show');
+                        localStorage.setItem('install_hint_shown', 'true');
+                    }, 2000);
+                }
+            }
+            
+            checkInstall() {
+                const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                                    window.navigator.standalone;
+                
+                if (isStandalone) {
+                    this.showToast('✓ 已安装为独立应用');
+                } else if ('BeforeInstallPromptEvent' in window) {
+                    this.showToast('💡 浏览器支持安装，请点击菜单"添加到主屏幕"');
+                } else {
+                    this.showToast('💡 请使用浏览器菜单"添加到主屏幕"');
+                }
+            }
+
+            initRecorder() {
+                this.recorder = {};
+                ['2','3','4','5','6','7','8','9','10','J','Q','K','A','小王','大王'].forEach(r => {
+                    this.recorder[r] = { total: r.includes('王') ? 2 : 4, out: 0 };
+                });
+            }
+
+            createDeck() {
+                this.deck = [];
+                for (let d = 0; d < 2; d++) {
+                    for (let s of this.suits) {
+                        for (let r of this.ranks) {
+                            this.deck.push({ suit: s, rank: r, value: this.getValue(r) });
+                        }
+                    }
+                    this.deck.push({ suit: 'joker', rank: '小王', value: 16 });
+                    this.deck.push({ suit: 'joker', rank: '大王', value: 17 });
+                }
+            }
+
+            getValue(rank) {
+                const map = { '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, 
+                             '9':9, '10':10, 'J':11, 'Q':12, 'K':13, 'A':14 };
+                return map[rank] || 0;
+            }
+
+            shuffle() {
+                for (let i = this.deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
+                }
+            }
+
+            sortHand(hand) {
+                return hand.sort((a, b) => {
+                    const aLevel = a.rank === String(this.currentLevel);
+                    const bLevel = b.rank === String(this.currentLevel);
+                    
+                    if (aLevel && !bLevel) return 1;
+                    if (!aLevel && bLevel) return -1;
+                    if (aLevel && bLevel) {
+                        if (a.suit === 'joker') return 1;
+                        if (b.suit === 'joker') return -1;
+                        return (a.suit === '♥' ? 1 : 0) - (b.suit === '♥' ? 1 : 0);
+                    }
+                    
+                    if (a.suit === 'joker' && b.suit !== 'joker') return 1;
+                    if (a.suit !== 'joker' && b.suit === 'joker') return -1;
+                    if (a.suit === 'joker' && b.suit === 'joker') {
+                        return a.rank === '大王' ? 1 : -1;
+                    }
+                    
+                    return a.value - b.value;
+                });
+            }
+
+            getPower(card) {
+                if (card.rank === String(this.currentLevel)) return 20 + (card.suit === 'joker' ? 1 : 0);
+                if (card.suit === 'joker') return 16 + (card.rank === '大王' ? 1 : 0);
+                return card.value;
+            }
+
+            isLevel(card) {
+                return card.rank === String(this.currentLevel);
+            }
+
+            start() {
+                document.getElementById('menu').style.display = 'none';
+                document.getElementById('game').style.display = 'flex';
+                document.getElementById('game-over').style.display = 'none';
+                
+                this.initRecorder();
+                this.newRound();
+            }
+
+            newRound() {
+                this.players = [
+                    { id: 0, name: '我', hand: [], team: 0, ai: false },
+                    { id: 1, name: '对手A', hand: [], team: 1, ai: true },
+                    { id: 2, name: 'AI队友', hand: [], team: 0, ai: true },
+                    { id: 3, name: '对手B', hand: [], team: 1, ai: true }
+                ];
+
+                this.createDeck();
+                this.shuffle();
+                
+                for (let i = 0; i < 27; i++) {
+                    for (let p = 0; p < 4; p++) {
+                        this.players[p].hand.push(this.deck.pop());
+                    }
+                }
+                
+                this.players.forEach(p => p.hand = this.sortHand(p.hand));
+                
+                this.currentPlayer = Math.floor(Math.random() * 4);
+                this.lastPlay = null;
+                this.lastPlayer = -1;
+                this.selected = [];
+                
+                this.updateUI();
+                this.renderHand();
+                this.showToast(`第${this.round}局 开始！打${this.currentLevel}`);
+                
+                setTimeout(() => this.nextTurn(), 500);
+            }
+
+            nextTurn() {
+                this.updateUI();
+                
+                const p = this.players[this.currentPlayer];
+                
+                if (p.ai) {
+                    this.aiPlay(p);
+                } else {
+                    document.getElementById('btn-pass').disabled = !this.lastPlay || this.lastPlayer === 0;
+                    this.renderHand();
+                }
+            }
+
+            async aiPlay(player) {
+                const status = document.getElementById('ai-status');
+                const aiText = document.getElementById('ai-text');
+                status.classList.add('thinking');
+                aiText.textContent = 'AI思考中...';
+                
+                let decision = null;
+                
+                // 在线时使用Pollinations，离线时用本地策略
+                if (navigator.onLine) {
+                    try {
+                        const prompt = this.buildAIPrompt(player);
+                        const controller = new AbortController();
+                        const timeout = setTimeout(() => controller.abort(), 5000); // 5秒超时
+                        
+                        const response = await fetch(
+                            `https://text.pollinations.ai/${encodeURIComponent(prompt)}?seed=${Date.now()}&json=true`,
+                            { signal: controller.signal }
+                        );
+                        
+                        clearTimeout(timeout);
+                        
+                        if (response.ok) {
+                            const text = await response.text();
+                            decision = this.parseAIResponse(text);
+                        }
+                    } catch (err) {
+                        console.log('AI API失败，使用本地策略');
+                    }
+                }
+                
+                // 离线或API失败时使用本地策略
+                if (!decision) {
+                    decision = this.localStrategy(player);
+                }
+                
+                await this.executeDecision(player, decision);
+                
+                status.classList.remove('thinking');
+                aiText.textContent = 'AI就绪';
+            }
+
+            buildAIPrompt(player) {
+                const handStr = player.hand.map((c, i) => {
+                    const name = c.suit === 'joker' ? c.rank : c.suit + c.rank;
+                    const mark = this.isLevel(c) ? '[级]' : '';
+                    return `${i}:${name}${mark}`;
+                }).join(', ');
+
+                const lastStr = this.lastPlay ? 
+                    `${this.lastPlay.type}(${this.lastPlay.cards.map(c => c.suit === 'joker' ? c.rank : c.suit + c.rank).join(',')})` 
+                    : '无（先手）';
+
+                const teammate = this.players.find(p => p.team === player.team && p.id !== player.id);
+                const opponents = this.players.filter(p => p.team !== player.team);
+                
+                return `你是惯蛋大师。当前打${this.currentLevel}，${player.name}（${player.team === 0 ? '我方' : '对方'}）决策。
+
+手牌[${player.hand.length}张]: ${handStr}
+上家出牌: ${lastStr}
+队友: ${teammate?.name}剩${teammate?.hand.length}张
+对手: ${opponents.map(o => o.name + '剩' + o.hand.length + '张').join(', ')}
+
+规则: 级牌(${this.currentLevel})最大，红桃级牌>其他级牌>大王>小王>A>K>...>2。炸弹(4张相同)可压任何非炸弹。
+
+策略: ${player.team === 0 ? '配合队友，能接牌就接，帮队友走牌' : '拦截对方，保留大牌'}。
+
+用JSON返回: {"action":"play/pass", "indices":[0,1], "type":"single/pair/straight/bomb", "reason":"理由"}`;
+            }
+
+            parseAIResponse(text) {
+                try {
+                    text = text.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+                    const match = text.match(/\{[\s\S]*?\}/);
+                    if (match) {
+                        const data = JSON.parse(match[0]);
+                        return {
+                            action: data.action || 'play',
+                            indices: data.indices || [0],
+                            type: data.type || 'single',
+                            reason: data.reason || 'AI决策'
+                        };
+                    }
+                } catch (e) {
+                    console.log('AI解析失败:', text);
+                }
+                return null;
+            }
+
+            localStrategy(player) {
+                const hand = player.hand;
+                
+                if (!this.lastPlay) {
+                    const candidates = hand.filter((c, i) => {
+                        return !this.isLevel(c) && c.suit !== 'joker';
+                    });
+                    
+                    if (candidates.length > 0) {
+                        const minCard = candidates.reduce((min, c) => this.getPower(c) < this.getPower(min) ? c : min);
+                        const idx = hand.indexOf(minCard);
+                        return { action: 'play', indices: [idx], type: 'single', reason: '本地策略：先手出小牌' };
+                    }
+                    
+                    return { action: 'play', indices: [0], type: 'single', reason: '本地策略：出级牌' };
+                }
+                
+                if (this.lastPlay.type === 'single') {
+                    const targetPower = this.getPower(this.lastPlay.cards[0]);
+                    
+                    for (let i = 0; i < hand.length; i++) {
+                        const power = this.getPower(hand[i]);
+                        if (power > targetPower && !this.isLevel(hand[i]) && hand[i].suit !== 'joker') {
+                            return { action: 'play', indices: [i], type: 'single', reason: '本地策略：用大牌压' };
+                        }
+                    }
+                    
+                    for (let i = 0; i < hand.length; i++) {
+                        if (this.getPower(hand[i]) > targetPower) {
+                            return { action: 'play', indices: [i], type: 'single', reason: '本地策略：用级牌/王压' };
+                        }
+                    }
+                }
+                
+                const bomb = this.findBomb(hand);
+                if (bomb && this.lastPlay.type !== 'bomb') {
+                    return { action: 'play', indices: bomb.indices.slice(0, 4), type: 'bomb', reason: '本地策略：炸弹压制' };
+                }
+                
+                return { action: 'pass', indices: [], type: 'pass', reason: '本地策略：无法压牌' };
+            }
+
+            findBomb(hand) {
+                const groups = {};
+                hand.forEach((c, i) => {
+                    if (!groups[c.rank]) groups[c.rank] = [];
+                    groups[c.rank].push(i);
+                });
+                
+                for (let [rank, indices] of Object.entries(groups)) {
+                    if (indices.length >= 4) {
+                        return { rank, indices };
+                    }
+                }
+                return null;
+            }
+
+            async executeDecision(player, decision) {
+                if (decision.action === 'pass') {
+                    this.showToast(`${player.name} 过牌 (${decision.reason})`);
+                    this.nextPlayer();
+                    return;
+                }
+                
+                const validIndices = decision.indices.filter(i => i >= 0 && i < player.hand.length);
+                if (validIndices.length === 0) {
+                    this.pass();
+                    return;
+                }
+                
+                const cards = validIndices.map(i => player.hand[i]);
+                const play = this.createPlay(cards, validIndices);
+                
+                if (play && this.isValidPlay(play)) {
+                    this.executePlay(player.id, play, decision.reason);
+                } else {
+                    const single = { type: 'single', cards: [cards[0]], indices: [validIndices[0]], value: this.getPower(cards[0]) };
+                    if (this.isValidPlay(single)) {
+                        this.executePlay(player.id, single, '回退到单张');
+                    } else {
+                        this.pass();
+                    }
+                }
+            }
+
+            createPlay(cards, indices) {
+                if (cards.length === 1) {
+                    return { type: 'single', cards, indices, value: this.getPower(cards[0]) };
+                }
+                if (cards.length === 2 && cards[0].rank === cards[1].rank) {
+                    return { type: 'pair', cards, indices, value: this.getPower(cards[0]) };
+                }
+                if (cards.length >= 4 && cards.every(c => c.rank === cards[0].rank)) {
+                    return { type: 'bomb', cards: indices.slice(0, 4).map(i => cards[indices.indexOf(i)]), indices: indices.slice(0, 4), value: 100 + cards.length };
+                }
+                if (cards.length >= 5) {
+                    const sorted = [...cards].sort((a, b) => a.value - b.value);
+                    const isStraight = sorted.every((c, i) => i === 0 || c.value === sorted[i-1].value + 1);
+                    if (isStraight) {
+                        return { type: 'straight', cards, indices, value: 50 + sorted[0].value };
+                    }
+                }
+                return null;
+            }
+
+            isValidPlay(play) {
+                if (!this.lastPlay || this.lastPlayer === -1 || this.lastPlayer === this.currentPlayer) return true;
+                if (play.type === 'bomb' && this.lastPlay.type !== 'bomb') return true;
+                if (play.type !== this.lastPlay.type) return false;
+                return play.value > this.lastPlay.value;
+            }
+
+            executePlay(playerId, play, reason = '') {
+                const player = this.players[playerId];
+                
+                play.indices.sort((a, b) => b - a).forEach(idx => {
+                    player.hand.splice(idx, 1);
+                });
+                
+                play.cards.forEach(c => {
+                    if (this.recorder[c.rank]) this.recorder[c.rank].out++;
+                });
+                
+                this.showPlay(play, player.name, reason);
+                
+                this.lastPlay = play;
+                this.lastPlayer = playerId;
+                
+                if (player.hand.length === 0) {
+                    this.handleWin(playerId);
+                    return;
+                }
+                
+                this.nextPlayer();
+            }
+
+            showPlay(play, playerName, reason) {
+                const area = document.getElementById('last-play');
+                area.innerHTML = '';
+                
+                play.cards.forEach((c, i) => {
+                    setTimeout(() => {
+                        const el = this.createCardElement(c, true);
+                        el.classList.add('fly-in');
+                        area.appendChild(el);
+                    }, i * 80);
+                });
+                
+                const typeNames = { single: '单张', pair: '对子', triple: '三张', straight: '顺子', bomb: '炸弹' };
+                let msg = `${playerName}: ${typeNames[play.type] || play.type}`;
+                if (reason) msg += ` (${reason})`;
+                document.getElementById('play-msg').textContent = msg;
+            }
+
+            createCardElement(card, small = false) {
+                const div = document.createElement('div');
+                div.className = 'card';
+                if (small) {
+                    div.style.cssText = 'width:40px;height:56px;margin-left:0;';
+                }
+                
+                const isRed = card.suit === '♥' || card.suit === '♦' || (card.suit === 'joker' && card.rank === '大王');
+                
+                div.innerHTML = `
+                    <div class="card-corner ${isRed ? 'red' : 'black'}">${card.rank}</div>
+                    <div class="card-center">${card.suit === 'joker' ? (card.rank === '大王' ? '👑' : '🃏') : card.suit}</div>
+                    <div class="card-corner bottom ${isRed ? 'red' : 'black'}">${card.rank}</div>
+                `;
+                
+                if (this.isLevel(card)) {
+                    div.innerHTML += '<div class="level-mark"></div>';
+                    div.style.border = '2px solid var(--primary)';
+                }
+                
+                return div;
+            }
+
+            nextPlayer() {
+                this.currentPlayer = (this.currentPlayer + 1) % 4;
+                
+                if (this.currentPlayer === this.lastPlayer || (this.lastPlayer === -1 && this.currentPlayer === 0)) {
+                    this.lastPlay = null;
+                    document.getElementById('last-play').innerHTML = '';
+                    document.getElementById('play-msg').textContent = '新一轮开始';
+                }
+                
+                setTimeout(() => this.nextTurn(), 500);
+            }
+
+            renderHand() {
+                const area = document.getElementById('hand-area');
+                area.innerHTML = '';
+                
+                const hand = this.players[0].hand;
+                hand.forEach((c, i) => {
+                    const el = this.createCardElement(c);
+                    el.dataset.index = i;
+                    
+                    if (this.selected.includes(i)) {
+                        el.classList.add('selected');
+                    }
+                    
+                    el.onclick = () => this.toggleCard(i);
+                    area.appendChild(el);
+                });
+                
+                area.scrollLeft = area.scrollWidth;
+            }
+
+            toggleCard(index) {
+                const pos = this.selected.indexOf(index);
+                if (pos > -1) {
+                    this.selected.splice(pos, 1);
+                } else {
+                    this.selected.push(index);
+                    this.selected.sort((a, b) => a - b);
+                }
+                this.renderHand();
+                this.validateSelection();
+                
+                document.querySelectorAll('.ai-pick').forEach(c => c.classList.remove('ai-pick'));
+            }
+
+            validateSelection() {
+                const cards = this.selected.map(i => this.players[0].hand[i]);
+                const play = this.createPlay(cards, this.selected);
+                
+                const btn = document.getElementById('btn-play');
+                if (!play) {
+                    btn.disabled = true;
+                    return;
+                }
+                
+                if (this.lastPlay && this.lastPlayer !== 0) {
+                    if (!this.isValidPlay(play)) {
+                        btn.disabled = true;
+                        return;
+                    }
+                }
+                
+                btn.disabled = false;
+            }
+
+            play() {
+                const cards = this.selected.map(i => this.players[0].hand[i]);
+                const play = this.createPlay(cards, this.selected);
+                
+                if (play && this.isValidPlay(play)) {
+                    this.selected = [];
+                    this.executePlay(0, play, '玩家出牌');
+                }
+            }
+
+            pass() {
+                this.selected = [];
+                this.showToast(`${this.players[this.currentPlayer].name} 过牌`);
+                this.nextPlayer();
+            }
+
+            reset() {
+                this.selected = [];
+                this.renderHand();
+                document.getElementById('btn-play').disabled = true;
+                document.querySelectorAll('.ai-pick').forEach(c => c.classList.remove('ai-pick'));
+            }
+
+            async askAi() {
+                if (this.currentPlayer !== 0) {
+                    this.showToast('请等待到你的回合');
+                    return;
+                }
+                
+                const status = document.getElementById('ai-status');
+                const aiText = document.getElementById('ai-text');
+                status.classList.add('thinking');
+                aiText.textContent = 'AI思考中...';
+                
+                let decision = null;
+                
+                if (navigator.onLine) {
+                    try {
+                        const prompt = this.buildAIPrompt(this.players[0]);
+                        const controller = new AbortController();
+                        const timeout = setTimeout(() => controller.abort(), 5000);
+                        
+                        const response = await fetch(
+                            `https://text.pollinations.ai/${encodeURIComponent(prompt)}?seed=${Date.now()}&json=true`,
+                            { signal: controller.signal }
+                        );
+                        
+                        clearTimeout(timeout);
+                        
+                        if (response.ok) {
+                            const text = await response.text();
+                            decision = this.parseAIResponse(text);
+                        }
+                    } catch (err) {
+                        console.log('AI建议获取失败');
+                    }
+                }
+                
+                if (!decision) {
+                    decision = this.localStrategy(this.players[0]);
+                    decision.reason = '离线模式：' + decision.reason;
+                }
+                
+                if (decision && decision.action === 'play') {
+                    this.displayAiSuggestion(decision);
+                } else {
+                    this.showToast('AI建议：过牌');
+                }
+                
+                status.classList.remove('thinking');
+                aiText.textContent = 'AI就绪';
+            }
+
+            displayAiSuggestion(decision) {
+                const panel = document.getElementById('ai-panel');
+                const content = document.getElementById('ai-content');
+                
+                const cards = decision.indices.map(i => this.players[0].hand[i]).filter(c => c);
+                
+                content.innerHTML = `
+                    <div class="ai-suggestion">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <strong style="color: var(--ai-color);">🎯 推荐${decision.type === 'single' ? '单张' : decision.type === 'pair' ? '对子' : decision.type === 'bomb' ? '炸弹' : '出牌'}</strong>
+                        </div>
+                        <div class="ai-cards-row">
+                            ${cards.map(c => {
+                                const isRed = c.suit === '♥' || c.suit === '♦';
+                                const name = c.suit === 'joker' ? c.rank : c.suit + c.rank;
+                                return `<div class="ai-mini-card ${isRed ? 'red' : 'black'}">${name}</div>`;
+                            }).join('')}
+                        </div>
+                        <div class="ai-reason">${decision.reason}</div>
+                        <button class="btn btn-ai" onclick="game.applyAi()" style="width: 100%; margin-top: 10px;">✨ 应用建议</button>
+                    </div>
+                `;
+                
+                panel.classList.add('show');
+                
+                this.selected = [];
+                this.renderHand();
+                decision.indices.forEach(idx => {
+                    const card = document.querySelector(`#hand-area .card[data-index="${idx}"]`);
+                    if (card) card.classList.add('ai-pick');
+                });
+            }
+
+            applyAi() {
+                const picks = document.querySelectorAll('.ai-pick');
+                this.selected = Array.from(picks).map(c => parseInt(c.dataset.index));
+                this.renderHand();
+                this.validateSelection();
+                
+                setTimeout(() => {
+                    if (!document.getElementById('btn-play').disabled) {
+                        this.play();
+                    }
+                }, 300);
+                
+                this.toggleAiPanel();
+            }
+
+            toggleAiPanel() {
+                document.getElementById('ai-panel').classList.toggle('show');
+            }
+
+            handleWin(winnerId) {
+                const winner = this.players[winnerId];
+                const isOur = winner.team === 0;
+                
+                if (isOur) {
+                    this.ourScore++;
+                    this.showToast(`🎉 ${winner.name} 获胜！我方+1分`);
+                } else {
+                    this.theirScore++;
+                    this.showToast(`😔 ${winner.name} 获胜！对方+1分`);
+                }
+                
+                if (this.ourScore > 0 && this.ourScore % 2 === 0) {
+                    this.currentLevel = this.currentLevel === 14 ? 2 : this.currentLevel + 1;
+                }
+                
+                this.round++;
+                
+                if (this.round <= 10) {
+                    setTimeout(() => this.newRound(), 2000);
+                } else {
+                    this.gameOver();
+                }
+            }
+
+            gameOver() {
+                const win = this.ourScore > this.theirScore;
+                document.getElementById('result-title').textContent = win ? '🏆 胜利!' : '💔 失败';
+                document.getElementById('result-stats').innerHTML = `
+                    最终比分<br>
+                    我方 ${this.ourScore} : 对方 ${this.theirScore}<br>
+                    <span style="color: ${win ? 'var(--ai-color)' : '#ff6b6b'}">${win ? '恭喜获胜！' : '再接再厉！'}</span>
+                `;
+                document.getElementById('game-over').style.display = 'flex';
+            }
+
+            updateUI() {
+                document.getElementById('level').textContent = this.currentLevel;
+                document.getElementById('our-score').textContent = this.ourScore;
+                document.getElementById('their-score').textContent = this.theirScore;
+                
+                document.getElementById('p1-count').textContent = this.players[1]?.hand.length || 0;
+                document.getElementById('p2-count').textContent = this.players[2]?.hand.length || 0;
+                document.getElementById('p3-count').textContent = this.players[3]?.hand.length || 0;
+                
+                document.querySelectorAll('.avatar').forEach((el, i) => {
+                    el.classList.toggle('active', i === this.currentPlayer);
+                });
+                
+                this.updateRecorder();
+            }
+
+            updateRecorder() {
+                const grid = document.getElementById('rec-grid');
+                if (!grid) return;
+                
+                grid.innerHTML = '';
+                const keys = ['2','3','4','5','6','7','8','9','10','J','Q','K','A','小王','大王'];
+                keys.forEach(k => {
+                    const data = this.recorder[k];
+                    const left = data.total - data.out;
+                    const div = document.createElement('div');
+                    div.className = 'rec-item' + (left === 0 ? ' out' : '');
+                    div.textContent = `${k}:${left}`;
+                    grid.appendChild(div);
+                });
+            }
+
+            toggleRecorder() {
+                document.getElementById('recorder').classList.toggle('show');
+                this.updateRecorder();
+            }
+
+            showToast(msg) {
+                const toast = document.getElementById('toast');
+                toast.textContent = msg;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2500);
+            }
+
+            showHelp() {
+                alert(`🃏 智能惯蛋 - 完整规则
+
+【牌型大小】
+大王 > 小王 > 级牌(当前打的数) > A > K > Q > J > 10 > 9 > 8 > 7 > 6 > 5 > 4 > 3 > 2
+红桃级牌 > 其他花色级牌
+
+【牌型】
+• 单张：任意一张
+• 对子：两张相同点数
+• 顺子：五张连续单牌（如3-4-5-6-7）
+• 炸弹：四张或更多相同点数（炸弹最大，可压任何非炸弹）
+
+【操作】
+• 点击手牌选中，再次点击取消
+• 点击"🤖 问AI"获取智能推荐
+• 绿色高亮为AI推荐牌，点击"应用"自动出牌
+• 支持离线模式，无需网络也能玩
+
+【AI系统】
+在线：使用 Pollinations.ai 免费大模型
+离线：自动切换本地智能策略`);
+            }
+
+            showDeploy() {
+                const deployInfo = `
+🌐 免费部署方案
+
+【方案1：GitHub Pages】（推荐）
+1. 注册 github.com（免费）
+2. 创建新仓库，上传此HTML文件
+3. 进入 Settings → Pages → Source 选择 main分支
+4. 获得免费域名：https://你的用户名.github.io/仓库名/
+5. 全球CDN加速，永久免费
+
+【方案2：Netlify】
+1. 访问 netlify.com（免费注册）
+2. 拖拽HTML文件到部署区域
+3. 自动获得 https://xxx.netlify.app 域名
+4. 支持自定义域名，HTTPS自动配置
+
+【方案3：Vercel】
+1. 访问 vercel.com（用GitHub账号登录）
+2. 导入GitHub仓库或拖拽文件
+3. 自动获得 https://xxx.vercel.app 域名
+4. 全球边缘网络，速度极快
+
+【方案4：Surge.sh】（最简单）
+1. 安装Node.js，运行 npm install -g surge
+2. 在项目文件夹运行 surge
+3. 获得免费 https://xxx.surge.sh 域名
+4. 一键部署，秒级上线
+
+所有方案均：
+✓ 完全免费
+✓ 支持HTTPS
+✓ 全球访问
+✓ 无需服务器维护
+                `;
+                
+                // 复制到剪贴板功能
+                const textarea = document.createElement('textarea');
+                textarea.value = document.documentElement.outerHTML;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    this.showToast('✓ 游戏代码已复制到剪贴板！\n可粘贴到GitHub或免费托管服务');
+                } catch (err) {
+                    alert(deployInfo + '\n\n💡 提示：长按页面 → 全选 → 复制，然后粘贴到GitHub');
+                }
+                
+                document.body.removeChild(textarea);
+            }
+
+            backToMenu() {
+                document.getElementById('game-over').style.display = 'none';
+                document.getElementById('game').style.display = 'none';
+                document.getElementById('menu').style.display = 'flex';
+                document.getElementById('recorder').classList.remove('show');
+                document.getElementById('ai-panel').classList.remove('show');
+            }
+
+            restart() {
+                document.getElementById('game-over').style.display = 'none';
+                this.round = 1;
+                this.ourScore = 0;
+                this.theirScore = 0;
+                this.currentLevel = 2;
+                this.newRound();
+            }
+        }
+
+        const game = new GuanDanGame();
+        
+        // 注册Service Worker实现离线功能（可选）
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript,' + encodeURIComponent(`
+                self.addEventListener('install', e => self.skipWaiting());
+                self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => new Response('Offline'))));
+            `)).catch(() => {});
+        }
+    </script>
+</body>
+</html>
