@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#1a1a2e">
-    <title>智能惯蛋 - AI Guandan</title>
+    <title>智能惯蛋 - 完整版</title>
     <style>
         * {
             margin: 0;
@@ -22,53 +18,24 @@
             --card-height: 78px;
             --primary: #FFD700;
             --ai-color: #00ff88;
-            --bg: #1a1a2e;
+            --bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
         }
         
         html { font-size: 16px; }
-        @media (max-width: 380px) { html { font-size: 13px; }
-        @media (max-width: 320px) { html { font-size: 12px; }
+        @media (max-width: 380px) { html { font-size: 13px; } }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: var(--bg);
             min-height: 100dvh;
             overflow: hidden;
             position: fixed;
             width: 100%;
             height: 100%;
             color: white;
-            user-select: none;
-            -webkit-user-select: none;
         }
         
-        /* 安装提示 */
-        #install-hint {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,255,136,0.9);
-            color: #000;
-            padding: 12px 20px;
-            font-size: 0.875rem;
-            z-index: 5000;
-            display: none;
-            text-align: center;
-            font-weight: bold;
-        }
-        
-        #install-hint.show { display: block; }
-        #install-hint .close-hint {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-        
-        /* 主菜单 */
+        /* 菜单 */
         #menu {
             position: fixed;
             top: 0;
@@ -80,43 +47,26 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            padding: 20px;
-        }
-        
-        .logo {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
+            background: var(--bg);
         }
         
         .title {
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-weight: bold;
             color: var(--primary);
             text-shadow: 0 4px 15px rgba(255,215,0,0.4);
-            margin-bottom: 5px;
-            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+            letter-spacing: 4px;
         }
         
         .subtitle {
             color: rgba(255,255,255,0.7);
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-        
-        .version-tag {
-            background: var(--ai-color);
-            color: #000;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 40px;
+            margin-bottom: 3rem;
+            font-size: 1rem;
         }
         
         .menu-btn {
-            width: 280px;
+            width: 260px;
             padding: 18px;
             margin: 8px 0;
             border: none;
@@ -131,10 +81,9 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            text-decoration: none;
         }
         
-        .menu-btn:hover, .menu-btn:active {
+        .menu-btn:hover {
             background: rgba(255,255,255,0.2);
             transform: translateY(-2px);
         }
@@ -144,26 +93,6 @@
             color: #000;
             font-weight: bold;
             border: none;
-            box-shadow: 0 4px 20px rgba(255,215,0,0.3);
-        }
-        
-        .menu-btn.small {
-            width: 200px;
-            padding: 12px;
-            font-size: 0.875rem;
-            margin-top: 30px;
-        }
-        
-        .storage-info {
-            margin-top: 30px;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.6);
-            text-align: center;
-            line-height: 1.6;
-            max-width: 300px;
         }
         
         /* 游戏界面 */
@@ -181,7 +110,6 @@
             justify-content: space-between;
             align-items: center;
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
         }
         
         .score-board {
@@ -229,6 +157,7 @@
         
         @keyframes spin { to { transform: rotate(360deg); } }
         
+        /* 游戏桌 */
         #table {
             flex: 1;
             position: relative;
@@ -237,6 +166,7 @@
             align-items: center;
         }
         
+        /* 玩家位置 */
         .player {
             position: absolute;
             display: flex;
@@ -260,6 +190,7 @@
             font-size: 1.5rem;
             border: 3px solid rgba(255,255,255,0.3);
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: relative;
         }
         
         .avatar.ai {
@@ -296,12 +227,13 @@
             text-align: center;
         }
         
+        /* 出牌区 */
         #play-area {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            min-width: 260px;
+            min-width: 280px;
             min-height: 140px;
             background: rgba(0,0,0,0.3);
             border-radius: 20px;
@@ -328,6 +260,7 @@
             text-align: center;
         }
         
+        /* AI建议面板 */
         #ai-panel {
             position: absolute;
             top: 70px;
@@ -337,7 +270,7 @@
             border: 2px solid var(--ai-color);
             border-radius: 15px;
             padding: 15px;
-            max-height: 220px;
+            max-height: 200px;
             overflow-y: auto;
             display: none;
             z-index: 50;
@@ -391,6 +324,16 @@
             margin-top: 8px;
         }
         
+        .ai-strategy {
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.75rem;
+        }
+        
+        /* 手牌区 */
         #hand-area {
             position: absolute;
             bottom: 75px;
@@ -422,6 +365,7 @@
             position: relative;
             flex-shrink: 0;
             margin-left: -32px;
+            user-select: none;
         }
         
         .card:first-child { margin-left: 0; }
@@ -483,6 +427,7 @@
             box-shadow: 0 0 5px var(--primary);
         }
         
+        /* 控制栏 */
         #controls {
             position: fixed;
             bottom: 0;
@@ -528,6 +473,7 @@
             border: 1px solid rgba(255,255,255,0.3);
         }
         
+        /* 记牌器 */
         #recorder-btn {
             position: fixed;
             top: 65px;
@@ -583,6 +529,7 @@
             opacity: 0.5;
         }
         
+        /* 提示 */
         #toast {
             position: fixed;
             top: 50%;
@@ -604,13 +551,14 @@
         
         #toast.show { opacity: 1; }
         
+        /* 游戏结束 */
         #game-over {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.9);
             display: none;
             flex-direction: column;
             justify-content: center;
@@ -630,6 +578,7 @@
             line-height: 1.8;
         }
         
+        /* 牌型动画 */
         @keyframes cardFly {
             from {
                 transform: scale(1.2) translateY(-50px);
@@ -642,67 +591,16 @@
         }
         
         .fly-in { animation: cardFly 0.3s ease-out; }
-        
-        /* 离线提示 */
-        #offline-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #ff6b6b;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            font-size: 0.875rem;
-            z-index: 4000;
-            display: none;
-        }
-        
-        #offline-banner.show { display: block; }
     </style>
 </head>
 <body>
-    <!-- 安装提示 -->
-    <div id="install-hint">
-        💡 提示：点击菜单"添加到主屏幕"可像APP一样使用
-        <span class="close-hint" onclick="this.parentElement.classList.remove('show')">✕</span>
-    </div>
-    
-    <!-- 离线提示 -->
-    <div id="offline-banner">
-        ⚠️ 当前离线模式，AI使用本地策略
-    </div>
-
     <!-- 主菜单 -->
     <div id="menu">
-        <div class="logo">🃏</div>
-        <div class="title">智能惯蛋</div>
-        <div class="subtitle">Pollinations AI 驱动 · 无需登录 · 完全免费</div>
-        <div class="version-tag">✓ 离线可玩</div>
-        
-        <button class="menu-btn primary" onclick="game.start()">
-            <span>▶</span> 开始游戏
-        </button>
-        <button class="menu-btn" onclick="game.showHelp()">
-            <span>📖</span> 游戏规则
-        </button>
-        <button class="menu-btn" onclick="game.showDeploy()">
-            <span>🌐</span> 部署到服务器
-        </button>
-        
-        <div class="storage-info">
-            <strong>💾 本地使用方式</strong><br>
-            1. 点击右上角 ⋮ → "下载" 或 "分享"<br>
-            2. 保存为 guandan.html<br>
-            3. 用手机浏览器打开即可玩<br>
-            4. 支持添加到主屏幕（像APP一样）<br>
-            <br>
-            无需网络也能玩（AI会切换本地模式）
-        </div>
-        
-        <button class="menu-btn small" onclick="game.checkInstall()">
-            检测是否可以安装
-        </button>
+        <div class="title">🃏 智能惯蛋</div>
+        <div class="subtitle">Pollinations AI 驱动 · 无需登录</div>
+        <button class="menu-btn primary" onclick="game.start()">开始游戏</button>
+        <button class="menu-btn" onclick="game.showHelp()">📖 游戏规则</button>
+        <button class="menu-btn" onclick="game.showAbout()">ℹ️ 关于AI</button>
     </div>
 
     <!-- 游戏界面 -->
@@ -724,11 +622,12 @@
             </div>
             <div class="ai-indicator" id="ai-status">
                 <span>🤖</span>
-                <span id="ai-text">AI就绪</span>
+                <span>AI就绪</span>
             </div>
         </div>
 
         <div id="table">
+            <!-- AI建议面板 -->
             <div id="ai-panel">
                 <div class="ai-header">
                     <span>💡 AI 智能分析</span>
@@ -737,6 +636,7 @@
                 <div id="ai-content"></div>
             </div>
 
+            <!-- 其他玩家 -->
             <div class="player player-top">
                 <div class="avatar ai" id="p2-avatar">🤖</div>
                 <div class="player-name">AI队友</div>
@@ -755,28 +655,33 @@
                 <div class="card-count" id="p3-count">27</div>
             </div>
 
+            <!-- 出牌区 -->
             <div id="play-area">
                 <div id="last-play"></div>
-                <div class="play-info" id="play-msg">点击"开始游戏"</div>
+                <div class="play-info" id="play-msg">等待开局...</div>
             </div>
 
+            <!-- 我的手牌 -->
             <div id="hand-area"></div>
         </div>
 
+        <!-- 记牌器 -->
         <div id="recorder-btn" onclick="game.toggleRecorder()">📊</div>
         <div id="recorder">
             <div style="color: var(--primary); font-weight: bold;">记牌器</div>
             <div class="rec-grid" id="rec-grid"></div>
         </div>
 
+        <!-- 控制按钮 -->
         <div id="controls">
             <button class="btn btn-secondary" onclick="game.reset()">重置</button>
-            <button class="btn btn-ai" onclick="game.askAi()">🤖 问AI</button>
+            <button class="btn btn-ai" onclick="game.askAi()">🤖 AI建议</button>
             <button class="btn btn-play" id="btn-play" onclick="game.play()" disabled>出牌</button>
             <button class="btn btn-secondary" id="btn-pass" onclick="game.pass()" disabled>过牌</button>
         </div>
     </div>
 
+    <!-- 游戏结束 -->
     <div id="game-over">
         <div class="result-title" id="result-title">🏆 胜利!</div>
         <div class="result-stats" id="result-stats"></div>
@@ -787,17 +692,6 @@
     <div id="toast"></div>
 
     <script>
-        // 检测离线状态
-        window.addEventListener('online', () => {
-            document.getElementById('offline-banner').classList.remove('show');
-            game.showToast('🌐 已连接到网络');
-        });
-        
-        window.addEventListener('offline', () => {
-            document.getElementById('offline-banner').classList.add('show');
-            game.showToast('📴 进入离线模式');
-        });
-
         class GuanDanGame {
             constructor() {
                 this.suits = ['♠', '♥', '♣', '♦'];
@@ -816,40 +710,10 @@
                 this.lastPlayer = -1;
                 this.recorder = {};
                 
-                this.isOnline = navigator.onLine;
-                
-                // 检测是否需要显示安装提示
-                this.checkInstallHint();
-            }
-            
-            checkInstallHint() {
-                // iOS Safari 或 Android Chrome 显示安装提示
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-                const isAndroid = /Android/.test(navigator.userAgent);
-                const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
-                                    window.navigator.standalone;
-                
-                if ((isIOS || isAndroid) && !isStandalone && !localStorage.getItem('install_hint_shown')) {
-                    setTimeout(() => {
-                        document.getElementById('install-hint').classList.add('show');
-                        localStorage.setItem('install_hint_shown', 'true');
-                    }, 2000);
-                }
-            }
-            
-            checkInstall() {
-                const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
-                                    window.navigator.standalone;
-                
-                if (isStandalone) {
-                    this.showToast('✓ 已安装为独立应用');
-                } else if ('BeforeInstallPromptEvent' in window) {
-                    this.showToast('💡 浏览器支持安装，请点击菜单"添加到主屏幕"');
-                } else {
-                    this.showToast('💡 请使用浏览器菜单"添加到主屏幕"');
-                }
+                this.aiThinking = false;
             }
 
+            // 初始化记牌器
             initRecorder() {
                 this.recorder = {};
                 ['2','3','4','5','6','7','8','9','10','J','Q','K','A','小王','大王'].forEach(r => {
@@ -857,6 +721,7 @@
                 });
             }
 
+            // 创建牌组
             createDeck() {
                 this.deck = [];
                 for (let d = 0; d < 2; d++) {
@@ -871,11 +736,11 @@
             }
 
             getValue(rank) {
-                const map = { '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, 
-                             '9':9, '10':10, 'J':11, 'Q':12, 'K':13, 'A':14 };
+                const map = { '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, 'J':11, 'Q':12, 'K':13, 'A':14 };
                 return map[rank] || 0;
             }
 
+            // 洗牌
             shuffle() {
                 for (let i = this.deck.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -883,6 +748,7 @@
                 }
             }
 
+            // 排序手牌（惯蛋规则：级牌最大）
             sortHand(hand) {
                 return hand.sort((a, b) => {
                     const aLevel = a.rank === String(this.currentLevel);
@@ -906,16 +772,19 @@
                 });
             }
 
+            // 获取牌力（用于比较）
             getPower(card) {
                 if (card.rank === String(this.currentLevel)) return 20 + (card.suit === 'joker' ? 1 : 0);
                 if (card.suit === 'joker') return 16 + (card.rank === '大王' ? 1 : 0);
                 return card.value;
             }
 
+            // 判断是否为级牌
             isLevel(card) {
                 return card.rank === String(this.currentLevel);
             }
 
+            // 开始游戏
             start() {
                 document.getElementById('menu').style.display = 'none';
                 document.getElementById('game').style.display = 'flex';
@@ -925,7 +794,9 @@
                 this.newRound();
             }
 
+            // 新一局
             newRound() {
+                // 初始化玩家
                 this.players = [
                     { id: 0, name: '我', hand: [], team: 0, ai: false },
                     { id: 1, name: '对手A', hand: [], team: 1, ai: true },
@@ -933,6 +804,7 @@
                     { id: 3, name: '对手B', hand: [], team: 1, ai: true }
                 ];
 
+                // 发牌
                 this.createDeck();
                 this.shuffle();
                 
@@ -944,6 +816,7 @@
                 
                 this.players.forEach(p => p.hand = this.sortHand(p.hand));
                 
+                // 随机先手
                 this.currentPlayer = Math.floor(Math.random() * 4);
                 this.lastPlay = null;
                 this.lastPlayer = -1;
@@ -956,6 +829,7 @@
                 setTimeout(() => this.nextTurn(), 500);
             }
 
+            // 轮到下一个
             nextTurn() {
                 this.updateUI();
                 
@@ -964,53 +838,52 @@
                 if (p.ai) {
                     this.aiPlay(p);
                 } else {
+                    // 玩家回合
                     document.getElementById('btn-pass').disabled = !this.lastPlay || this.lastPlayer === 0;
                     this.renderHand();
                 }
             }
 
+            // AI使用Pollinations决策
             async aiPlay(player) {
                 const status = document.getElementById('ai-status');
-                const aiText = document.getElementById('ai-text');
                 status.classList.add('thinking');
-                aiText.textContent = 'AI思考中...';
+                status.innerHTML = '<span></span><span>AI思考中...</span>';
                 
-                let decision = null;
+                const prompt = this.buildAIPrompt(player);
                 
-                // 在线时使用Pollinations，离线时用本地策略
-                if (navigator.onLine) {
-                    try {
-                        const prompt = this.buildAIPrompt(player);
-                        const controller = new AbortController();
-                        const timeout = setTimeout(() => controller.abort(), 5000); // 5秒超时
-                        
-                        const response = await fetch(
-                            `https://text.pollinations.ai/${encodeURIComponent(prompt)}?seed=${Date.now()}&json=true`,
-                            { signal: controller.signal }
-                        );
-                        
-                        clearTimeout(timeout);
-                        
-                        if (response.ok) {
-                            const text = await response.text();
-                            decision = this.parseAIResponse(text);
-                        }
-                    } catch (err) {
-                        console.log('AI API失败，使用本地策略');
+                try {
+                    // 调用Pollinations（免费，无需登录）
+                    const response = await fetch(
+                        `https://text.pollinations.ai/${encodeURIComponent(prompt)}?seed=${Date.now()}&json=true`,
+                        { headers: { 'Accept': 'application/json' } }
+                    );
+                    
+                    let decision = null;
+                    
+                    if (response.ok) {
+                        const data = await response.text();
+                        decision = this.parseAIResponse(data);
                     }
+                    
+                    // 如果AI失败，使用本地策略
+                    if (!decision) {
+                        decision = this.localStrategy(player);
+                    }
+                    
+                    await this.executeDecision(player, decision);
+                    
+                } catch (err) {
+                    console.error('AI错误:', err);
+                    const decision = this.localStrategy(player);
+                    await this.executeDecision(player, decision);
                 }
-                
-                // 离线或API失败时使用本地策略
-                if (!decision) {
-                    decision = this.localStrategy(player);
-                }
-                
-                await this.executeDecision(player, decision);
                 
                 status.classList.remove('thinking');
-                aiText.textContent = 'AI就绪';
+                status.innerHTML = '<span>🤖</span><span>AI就绪</span>';
             }
 
+            // 构建AI提示词
             buildAIPrompt(player) {
                 const handStr = player.hand.map((c, i) => {
                     const name = c.suit === 'joker' ? c.rank : c.suit + c.rank;
@@ -1022,12 +895,14 @@
                     `${this.lastPlay.type}(${this.lastPlay.cards.map(c => c.suit === 'joker' ? c.rank : c.suit + c.rank).join(',')})` 
                     : '无（先手）';
 
+                // 队友和对手信息
                 const teammate = this.players.find(p => p.team === player.team && p.id !== player.id);
                 const opponents = this.players.filter(p => p.team !== player.team);
                 
-                return `你是惯蛋大师。当前打${this.currentLevel}，${player.name}（${player.team === 0 ? '我方' : '对方'}）决策。
+                return `你是惯蛋(掼蛋)大师。当前打${this.currentLevel}，${player.name}（${player.team === 0 ? '我方' : '对方'}）决策。
 
-手牌[${player.hand.length}张]: ${handStr}
+手牌[${player.hand.length}张，索引:牌名]: ${handStr}
+
 上家出牌: ${lastStr}
 队友: ${teammate?.name}剩${teammate?.hand.length}张
 对手: ${opponents.map(o => o.name + '剩' + o.hand.length + '张').join(', ')}
@@ -1039,8 +914,10 @@
 用JSON返回: {"action":"play/pass", "indices":[0,1], "type":"single/pair/straight/bomb", "reason":"理由"}`;
             }
 
+            // 解析AI响应
             parseAIResponse(text) {
                 try {
+                    // 清理并提取JSON
                     text = text.replace(/```json\n?/g, '').replace(/```\n?/g, '');
                     const match = text.match(/\{[\s\S]*?\}/);
                     if (match) {
@@ -1058,12 +935,15 @@
                 return null;
             }
 
+            // 本地策略（备用）
             localStrategy(player) {
                 const hand = player.hand;
                 
+                // 先手：出最小单张
                 if (!this.lastPlay) {
+                    // 找非级牌、非王的最小牌
                     const candidates = hand.filter((c, i) => {
-                        return !this.isLevel(c) && c.suit !== 'joker';
+                        return !this.isLevel(c) && c.suit !== 'joker' && i < hand.length;
                     });
                     
                     if (candidates.length > 0) {
@@ -1072,19 +952,27 @@
                         return { action: 'play', indices: [idx], type: 'single', reason: '本地策略：先手出小牌' };
                     }
                     
-                    return { action: 'play', indices: [0], type: 'single', reason: '本地策略：出级牌' };
+                    // 只有级牌或王，出最小级牌
+                    const minIdx = 0;
+                    return { action: 'play', indices: [minIdx], type: 'single', reason: '本地策略：出级牌' };
                 }
                 
+                // 压牌：找能压的最小牌
                 if (this.lastPlay.type === 'single') {
                     const targetPower = this.getPower(this.lastPlay.cards[0]);
                     
+                    // 找能压的最小牌
                     for (let i = 0; i < hand.length; i++) {
                         const power = this.getPower(hand[i]);
-                        if (power > targetPower && !this.isLevel(hand[i]) && hand[i].suit !== 'joker') {
-                            return { action: 'play', indices: [i], type: 'single', reason: '本地策略：用大牌压' };
+                        if (power > targetPower) {
+                            // 优先用普通牌，保留级牌和王
+                            if (!this.isLevel(hand[i]) && hand[i].suit !== 'joker') {
+                                return { action: 'play', indices: [i], type: 'single', reason: '本地策略：用大牌压' };
+                            }
                         }
                     }
                     
+                    // 必须用级牌或王
                     for (let i = 0; i < hand.length; i++) {
                         if (this.getPower(hand[i]) > targetPower) {
                             return { action: 'play', indices: [i], type: 'single', reason: '本地策略：用级牌/王压' };
@@ -1092,14 +980,16 @@
                     }
                 }
                 
+                // 找炸弹
                 const bomb = this.findBomb(hand);
                 if (bomb && this.lastPlay.type !== 'bomb') {
-                    return { action: 'play', indices: bomb.indices.slice(0, 4), type: 'bomb', reason: '本地策略：炸弹压制' };
+                    return { action: 'play', indices: bomb.indices, type: 'bomb', reason: '本地策略：炸弹压制' };
                 }
                 
                 return { action: 'pass', indices: [], type: 'pass', reason: '本地策略：无法压牌' };
             }
 
+            // 找炸弹
             findBomb(hand) {
                 const groups = {};
                 hand.forEach((c, i) => {
@@ -1109,12 +999,13 @@
                 
                 for (let [rank, indices] of Object.entries(groups)) {
                     if (indices.length >= 4) {
-                        return { rank, indices };
+                        return { rank, indices: indices.slice(0, 4) };
                     }
                 }
                 return null;
             }
 
+            // 执行AI决策
             async executeDecision(player, decision) {
                 if (decision.action === 'pass') {
                     this.showToast(`${player.name} 过牌 (${decision.reason})`);
@@ -1122,6 +1013,7 @@
                     return;
                 }
                 
+                // 验证indices合法
                 const validIndices = decision.indices.filter(i => i >= 0 && i < player.hand.length);
                 if (validIndices.length === 0) {
                     this.pass();
@@ -1134,6 +1026,7 @@
                 if (play && this.isValidPlay(play)) {
                     this.executePlay(player.id, play, decision.reason);
                 } else {
+                    //  fallback到单张
                     const single = { type: 'single', cards: [cards[0]], indices: [validIndices[0]], value: this.getPower(cards[0]) };
                     if (this.isValidPlay(single)) {
                         this.executePlay(player.id, single, '回退到单张');
@@ -1143,6 +1036,7 @@
                 }
             }
 
+            // 创建出牌对象
             createPlay(cards, indices) {
                 if (cards.length === 1) {
                     return { type: 'single', cards, indices, value: this.getPower(cards[0]) };
@@ -1151,8 +1045,9 @@
                     return { type: 'pair', cards, indices, value: this.getPower(cards[0]) };
                 }
                 if (cards.length >= 4 && cards.every(c => c.rank === cards[0].rank)) {
-                    return { type: 'bomb', cards: indices.slice(0, 4).map(i => cards[indices.indexOf(i)]), indices: indices.slice(0, 4), value: 100 + cards.length };
+                    return { type: 'bomb', cards, indices, value: 100 + cards.length };
                 }
+                // 顺子判断（简化）
                 if (cards.length >= 5) {
                     const sorted = [...cards].sort((a, b) => a.value - b.value);
                     const isStraight = sorted.every((c, i) => i === 0 || c.value === sorted[i-1].value + 1);
@@ -1163,29 +1058,40 @@
                 return null;
             }
 
+            // 验证出牌合法性
             isValidPlay(play) {
-                if (!this.lastPlay || this.lastPlayer === -1 || this.lastPlayer === this.currentPlayer) return true;
+                if (!this.lastPlay || this.lastPlayer === -1) return true;
+                if (this.lastPlayer === this.currentPlayer) return true;
+                
+                // 炸弹可以压任何非炸弹
                 if (play.type === 'bomb' && this.lastPlay.type !== 'bomb') return true;
+                
+                // 同类型比较大小
                 if (play.type !== this.lastPlay.type) return false;
                 return play.value > this.lastPlay.value;
             }
 
+            // 执行出牌
             executePlay(playerId, play, reason = '') {
                 const player = this.players[playerId];
                 
+                // 移除手牌
                 play.indices.sort((a, b) => b - a).forEach(idx => {
                     player.hand.splice(idx, 1);
                 });
                 
+                // 更新记牌器
                 play.cards.forEach(c => {
                     if (this.recorder[c.rank]) this.recorder[c.rank].out++;
                 });
                 
+                // 显示
                 this.showPlay(play, player.name, reason);
                 
                 this.lastPlay = play;
                 this.lastPlayer = playerId;
                 
+                // 检查获胜
                 if (player.hand.length === 0) {
                     this.handleWin(playerId);
                     return;
@@ -1194,6 +1100,7 @@
                 this.nextPlayer();
             }
 
+            // 显示出的牌
             showPlay(play, playerName, reason) {
                 const area = document.getElementById('last-play');
                 area.innerHTML = '';
@@ -1201,6 +1108,9 @@
                 play.cards.forEach((c, i) => {
                     setTimeout(() => {
                         const el = this.createCardElement(c, true);
+                        el.style.width = '40px';
+                        el.style.height = '56px';
+                        el.style.marginLeft = i > 0 ? '-12px' : '0';
                         el.classList.add('fly-in');
                         area.appendChild(el);
                     }, i * 80);
@@ -1212,11 +1122,14 @@
                 document.getElementById('play-msg').textContent = msg;
             }
 
+            // 创建牌元素
             createCardElement(card, small = false) {
                 const div = document.createElement('div');
                 div.className = 'card';
                 if (small) {
-                    div.style.cssText = 'width:40px;height:56px;margin-left:0;';
+                    div.style.width = '40px';
+                    div.style.height = '56px';
+                    div.style.marginLeft = '0';
                 }
                 
                 const isRed = card.suit === '♥' || card.suit === '♦' || (card.suit === 'joker' && card.rank === '大王');
@@ -1235,9 +1148,11 @@
                 return div;
             }
 
+            // 下一个玩家
             nextPlayer() {
                 this.currentPlayer = (this.currentPlayer + 1) % 4;
                 
+                // 检查一圈结束
                 if (this.currentPlayer === this.lastPlayer || (this.lastPlayer === -1 && this.currentPlayer === 0)) {
                     this.lastPlay = null;
                     document.getElementById('last-play').innerHTML = '';
@@ -1247,6 +1162,7 @@
                 setTimeout(() => this.nextTurn(), 500);
             }
 
+            // 玩家操作：渲染手牌
             renderHand() {
                 const area = document.getElementById('hand-area');
                 area.innerHTML = '';
@@ -1267,6 +1183,7 @@
                 area.scrollLeft = area.scrollWidth;
             }
 
+            // 切换选牌
             toggleCard(index) {
                 const pos = this.selected.indexOf(index);
                 if (pos > -1) {
@@ -1278,9 +1195,11 @@
                 this.renderHand();
                 this.validateSelection();
                 
+                // 清除AI高亮
                 document.querySelectorAll('.ai-pick').forEach(c => c.classList.remove('ai-pick'));
             }
 
+            // 验证选择
             validateSelection() {
                 const cards = this.selected.map(i => this.players[0].hand[i]);
                 const play = this.createPlay(cards, this.selected);
@@ -1301,6 +1220,7 @@
                 btn.disabled = false;
             }
 
+            // 玩家出牌
             play() {
                 const cards = this.selected.map(i => this.players[0].hand[i]);
                 const play = this.createPlay(cards, this.selected);
@@ -1311,12 +1231,14 @@
                 }
             }
 
+            // 过牌
             pass() {
                 this.selected = [];
                 this.showToast(`${this.players[this.currentPlayer].name} 过牌`);
                 this.nextPlayer();
             }
 
+            // 重置选择
             reset() {
                 this.selected = [];
                 this.renderHand();
@@ -1324,6 +1246,7 @@
                 document.querySelectorAll('.ai-pick').forEach(c => c.classList.remove('ai-pick'));
             }
 
+            // 向AI询问建议
             async askAi() {
                 if (this.currentPlayer !== 0) {
                     this.showToast('请等待到你的回合');
@@ -1331,49 +1254,32 @@
                 }
                 
                 const status = document.getElementById('ai-status');
-                const aiText = document.getElementById('ai-text');
                 status.classList.add('thinking');
-                aiText.textContent = 'AI思考中...';
                 
-                let decision = null;
+                const prompt = this.buildAIPrompt(this.players[0]);
                 
-                if (navigator.onLine) {
-                    try {
-                        const prompt = this.buildAIPrompt(this.players[0]);
-                        const controller = new AbortController();
-                        const timeout = setTimeout(() => controller.abort(), 5000);
-                        
-                        const response = await fetch(
-                            `https://text.pollinations.ai/${encodeURIComponent(prompt)}?seed=${Date.now()}&json=true`,
-                            { signal: controller.signal }
-                        );
-                        
-                        clearTimeout(timeout);
-                        
-                        if (response.ok) {
-                            const text = await response.text();
-                            decision = this.parseAIResponse(text);
-                        }
-                    } catch (err) {
-                        console.log('AI建议获取失败');
+                try {
+                    const response = await fetch(
+                        `https://text.pollinations.ai/${encodeURIComponent(prompt)}?seed=${Date.now()}&json=true`
+                    );
+                    
+                    const text = await response.text();
+                    const decision = this.parseAIResponse(text);
+                    
+                    if (decision && decision.action === 'play') {
+                        this.displayAiSuggestion(decision);
+                    } else {
+                        this.showToast('AI建议：过牌');
                     }
-                }
-                
-                if (!decision) {
-                    decision = this.localStrategy(this.players[0]);
-                    decision.reason = '离线模式：' + decision.reason;
-                }
-                
-                if (decision && decision.action === 'play') {
-                    this.displayAiSuggestion(decision);
-                } else {
-                    this.showToast('AI建议：过牌');
+                    
+                } catch (err) {
+                    this.showToast('AI服务繁忙，请重试');
                 }
                 
                 status.classList.remove('thinking');
-                aiText.textContent = 'AI就绪';
             }
 
+            // 显示AI建议
             displayAiSuggestion(decision) {
                 const panel = document.getElementById('ai-panel');
                 const content = document.getElementById('ai-content');
@@ -1399,6 +1305,7 @@
                 
                 panel.classList.add('show');
                 
+                // 高亮推荐牌
                 this.selected = [];
                 this.renderHand();
                 decision.indices.forEach(idx => {
@@ -1407,6 +1314,7 @@
                 });
             }
 
+            // 应用AI建议
             applyAi() {
                 const picks = document.querySelectorAll('.ai-pick');
                 this.selected = Array.from(picks).map(c => parseInt(c.dataset.index));
@@ -1426,6 +1334,7 @@
                 document.getElementById('ai-panel').classList.toggle('show');
             }
 
+            // 处理获胜
             handleWin(winnerId) {
                 const winner = this.players[winnerId];
                 const isOur = winner.team === 0;
@@ -1438,6 +1347,7 @@
                     this.showToast(`😔 ${winner.name} 获胜！对方+1分`);
                 }
                 
+                // 升级
                 if (this.ourScore > 0 && this.ourScore % 2 === 0) {
                     this.currentLevel = this.currentLevel === 14 ? 2 : this.currentLevel + 1;
                 }
@@ -1462,27 +1372,30 @@
                 document.getElementById('game-over').style.display = 'flex';
             }
 
+            // 更新UI
             updateUI() {
                 document.getElementById('level').textContent = this.currentLevel;
                 document.getElementById('our-score').textContent = this.ourScore;
                 document.getElementById('their-score').textContent = this.theirScore;
                 
+                // 更新各玩家牌数
                 document.getElementById('p1-count').textContent = this.players[1]?.hand.length || 0;
                 document.getElementById('p2-count').textContent = this.players[2]?.hand.length || 0;
                 document.getElementById('p3-count').textContent = this.players[3]?.hand.length || 0;
                 
+                // 高亮当前玩家
                 document.querySelectorAll('.avatar').forEach((el, i) => {
                     el.classList.toggle('active', i === this.currentPlayer);
                 });
                 
+                // 更新记牌器
                 this.updateRecorder();
             }
 
             updateRecorder() {
                 const grid = document.getElementById('rec-grid');
-                if (!grid) return;
-                
                 grid.innerHTML = '';
+                
                 const keys = ['2','3','4','5','6','7','8','9','10','J','Q','K','A','小王','大王'];
                 keys.forEach(k => {
                     const data = this.recorder[k];
@@ -1507,7 +1420,7 @@
             }
 
             showHelp() {
-                alert(`🃏 智能惯蛋 - 完整规则
+                alert(`🃏 智能惯蛋规则
 
 【牌型大小】
 大王 > 小王 > 级牌(当前打的数) > A > K > Q > J > 10 > 9 > 8 > 7 > 6 > 5 > 4 > 3 > 2
@@ -1516,72 +1429,39 @@
 【牌型】
 • 单张：任意一张
 • 对子：两张相同点数
+• 三张：三张相同点数
 • 顺子：五张连续单牌（如3-4-5-6-7）
 • 炸弹：四张或更多相同点数（炸弹最大，可压任何非炸弹）
 
 【操作】
 • 点击手牌选中，再次点击取消
-• 点击"🤖 问AI"获取智能推荐
+• 点击"🤖 AI建议"获取智能推荐
 • 绿色高亮为AI推荐牌，点击"应用"自动出牌
-• 支持离线模式，无需网络也能玩
+• 上家出完后，你可以"过牌"或压牌
 
-【AI系统】
-在线：使用 Pollinations.ai 免费大模型
-离线：自动切换本地智能策略`);
+【AI】
+使用 Pollinations.ai 免费大模型，无需登录，完全匿名`);
             }
 
-            showDeploy() {
-                const deployInfo = `
-🌐 免费部署方案
+            showAbout() {
+                alert(`🤖 关于AI系统
 
-【方案1：GitHub Pages】（推荐）
-1. 注册 github.com（免费）
-2. 创建新仓库，上传此HTML文件
-3. 进入 Settings → Pages → Source 选择 main分支
-4. 获得免费域名：https://你的用户名.github.io/仓库名/
-5. 全球CDN加速，永久免费
+【Pollinations.ai】
+• 完全免费，无需API Key
+• 无需注册登录
+• 响应速度快（通常<1秒）
+• 支持复杂策略推理
 
-【方案2：Netlify】
-1. 访问 netlify.com（免费注册）
-2. 拖拽HTML文件到部署区域
-3. 自动获得 https://xxx.netlify.app 域名
-4. 支持自定义域名，HTTPS自动配置
+【智能特性】
+• 分析手牌结构和局势
+• 考虑队友配合/对手拦截
+• 推荐具体出牌（不只是单张）
+• 提供策略理由
 
-【方案3：Vercel】
-1. 访问 vercel.com（用GitHub账号登录）
-2. 导入GitHub仓库或拖拽文件
-3. 自动获得 https://xxx.vercel.app 域名
-4. 全球边缘网络，速度极快
-
-【方案4：Surge.sh】（最简单）
-1. 安装Node.js，运行 npm install -g surge
-2. 在项目文件夹运行 surge
-3. 获得免费 https://xxx.surge.sh 域名
-4. 一键部署，秒级上线
-
-所有方案均：
-✓ 完全免费
-✓ 支持HTTPS
-✓ 全球访问
-✓ 无需服务器维护
-                `;
-                
-                // 复制到剪贴板功能
-                const textarea = document.createElement('textarea');
-                textarea.value = document.documentElement.outerHTML;
-                textarea.style.position = 'fixed';
-                textarea.style.opacity = '0';
-                document.body.appendChild(textarea);
-                textarea.select();
-                
-                try {
-                    document.execCommand('copy');
-                    this.showToast('✓ 游戏代码已复制到剪贴板！\n可粘贴到GitHub或免费托管服务');
-                } catch (err) {
-                    alert(deployInfo + '\n\n💡 提示：长按页面 → 全选 → 复制，然后粘贴到GitHub');
-                }
-                
-                document.body.removeChild(textarea);
+【隐私】
+• 无任何数据收集
+• 不存储游戏记录
+• 完全本地运行（除AI调用）`);
             }
 
             backToMenu() {
@@ -1603,14 +1483,6 @@
         }
 
         const game = new GuanDanGame();
-        
-        // 注册Service Worker实现离线功能（可选）
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('data:text/javascript,' + encodeURIComponent(`
-                self.addEventListener('install', e => self.skipWaiting());
-                self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => new Response('Offline'))));
-            `)).catch(() => {});
-        }
     </script>
 </body>
 </html>
